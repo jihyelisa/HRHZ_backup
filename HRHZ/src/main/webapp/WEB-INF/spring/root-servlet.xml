@@ -34,7 +34,5 @@
 	
 	<!-- spring -->
 	<context:component-scan base-package="spring.conf"/>
-	
-
 
 </beans>

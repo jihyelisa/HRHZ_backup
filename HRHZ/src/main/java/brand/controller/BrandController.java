@@ -20,14 +20,13 @@ public class BrandController {
 	BrandService brandService;
 	
 	@GetMapping(value = "brandDetail")
-	public String reviewForm(Model model) {
+	public String brandDetail(Model model) {
 		return "/views/brand/brandDetail";
 	}
 	 
 	@PostMapping(value = "/getBrandList")
-	@ResponseBody //DispatcherServlet으로 돌아가지 못하게 막고, 데이터 형태를 JSON으로 변경해 ajax로 보냄
-	public List<Map<String, Object>> list() {
-		System.out.println(brandService.getBrandList());
+	@ResponseBody
+	public List<Map<String, Object>> getBrandList() {
 		return brandService.getBrandList();
 	}
 }
