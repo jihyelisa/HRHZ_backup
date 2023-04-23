@@ -5,7 +5,8 @@
 <mapper namespace="purchaseSQL">
 
     <select id="getProductDetail" parameterType="String" resultType="map">
-	    SELECT p.name AS "productName", detail_type AS "detailType", price AS "price", 'like' AS "like",
+	    SELECT p.name AS "productName", detail_type AS "detailType",
+	    	   price AS "price", "LIKE" AS "like", p."COMMENT" AS "comment",
 		       pd.name AS "detailName",
 		       b.code AS "brandCode", b.name AS "brandName",
 		       bi.img_path AS "brandImgPath", img_name AS "brandImgName"
@@ -22,4 +23,19 @@
 		JOIN product_image ON code=product_code
 		WHERE product_code = #{productCode}
     </select>
+
+	<select id="getProductReviews" parameterType="String" resultType="map">
+		SELECT member_id AS "memberId", content AS "content",
+		       "LIKE" AS "like", reg_date AS "regDate",
+		       (SELECT COUNT(*) FROM (SELECT *
+		       						  FROM review
+		                              WHERE product_code = #{productCode})) AS "reviewCount"
+		FROM review
+		WHERE product_code = #{productCode}
+    </select>
+    
+    <insert id="reviewUpload" parameterType="review">
+    	INSERT INTO review VALUES(seq_review.nextval, #{productCode}, #{brandCode}, #{memberId},
+    							  #{content}, #{like}, SYSDATE, NULL)
+    </insert>
 </mapper>
