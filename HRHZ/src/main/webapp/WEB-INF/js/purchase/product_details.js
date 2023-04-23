@@ -1,6 +1,7 @@
 $(document).ready(function () {
-  // getProductImages
-
+  // ---------------------------------------------------
+  //                  getProductImages
+  // ---------------------------------------------------
   var imgs = $(".mainThumbnailList");
   var img_count = 0;
   var img_position = 1; //default position
@@ -20,6 +21,7 @@ $(document).ready(function () {
             items.imgName +
             "' alt='product thumbnail image'/>";
           $(".mainThumbnailList").append(thumbnailHTML);
+          $(".productThumbnailImageList").append(thumbnailHTML);
           img_count++;
         }
         if (items.thumbnailYn == "N") {
@@ -33,6 +35,62 @@ $(document).ready(function () {
       }); //each
 
       data[0];
+    },
+    error: function (err) {
+      console.log(err);
+    },
+  });
+
+  /*
+  SELECT 'name' AS "productName", detail_type AS "detailType", price AS "price", 'like' AS "like",
+      pd.name AS "detailName",
+      b.code AS "brandCode", b.name AS "brandName",
+      bi.img_path AS "brandImgPath", img_name AS "brandImgName"
+  */
+
+  // ---------------------------------------------------
+  //                  getProductDetail
+  // ---------------------------------------------------
+  $.ajax({
+    type: "post",
+    data: "productCode=" + $(".productCode").text(),
+    url: "/purchase/getProductDetail",
+    success: function (data) {
+      $.each(data, function (index, items) {
+        // add all option box HTML
+        let optionItem = $(
+          "<li class='selectedOptionItem'>" +
+            "<div class='optionBoxTop'>" +
+            "<div class='optionName'>" +
+            items.detailName +
+            "</div>" +
+            "<img class='deleteOptionBtn' src='../../images/purchase/delete_btn.png' alt='X icon' />" +
+            "</div>" +
+            "<div class='productOptionQuantity'>" +
+            "<div class='countWrap'>" +
+            "<img class='countDecrease' src='../../images/purchase/product_quantity_minus_round_btn.png' alt='minus icon' />" +
+            "<div class='count'>0</div>" +
+            "<img class='countIncrease' src='../../images/purchase/product_quantity_plus_round_btn.png' alt='plus icon' />" +
+            "</div>" +
+            "<span class='amountWrap'>" +
+            "<span class='amount'>0</span>" +
+            "<div class='originalAmount'>" +
+            items.price +
+            "</div>" +
+            "<span class='unit'>원</span>" +
+            "</span></div></li>"
+        );
+        $("ul.selectedProductOptionList").append(optionItem);
+
+        // option list
+        $(".dropdownBox").append(
+          "<p class='dropdownOption'>" + items.detailName + "</p>"
+        );
+      }); //each
+
+      // option title
+      $(".dropdownSelectLabel").text(data[0].detailType);
+      $(".dropdownOpenLabel").text(data[0].detailType);
     },
     error: function (err) {
       console.log(err);
@@ -53,11 +111,15 @@ $(document).ready(function () {
     imgChange();
   });
   // mini thumbnail click
-  $(".productThumbnailImageList > img").click(function () {
-    img_position = $(this).index() + 1;
-    console.log(img_position);
-    imgChange();
-  });
+  $("div.productThumbnail").on(
+    "click",
+    ".productThumbnailImageList > img",
+    function (event) {
+      img_position = $(this).index() + 1;
+      console.log(img_position);
+      imgChange();
+    }
+  );
 
   function imgChange() {
     var img_left = (1 - img_position) * 550 + "px";
@@ -83,7 +145,7 @@ $(document).ready(function () {
   }
 
   // ---------------------------------------------------
-  //                  Like heart
+  //                    Like heart
   // ---------------------------------------------------
   // like heart icon
   $(".productLikeHeart").on("click", function (event) {
@@ -96,13 +158,13 @@ $(document).ready(function () {
   });
 
   // ---------------------------------------------------
-  //                     option
+  //                      options
   // ---------------------------------------------------
-  // option select dropdown
-  $(".dropdownSelect").on("click", function (event) {
+  // option dropdown box
+  $(".productOptionAndPrice").on("click", ".dropdownSelect", function (event) {
     $(".dropdownBox").css("display", "flex");
   });
-  $(".dropdownBox p").on("click", function (event) {
+  $(".productOptionAndPrice").on("click", ".dropdownBox p", function (event) {
     $(".dropdownBox").css("display", "none");
   });
 
@@ -111,37 +173,6 @@ $(document).ready(function () {
     var regexp = /\B(?=(\d{3})+(?!\d))/g;
     return num.toString().replace(regexp, ",");
   }
-
-  // add all option box HTML
-  $(".dropdownBox p").each(function () {
-    let original_amount = 1000;
-
-    let optionItem = $(
-      "<li class='selectedOptionItem'>" +
-        "<div class='optionBoxTop'>" +
-        "<div class='optionName'>" +
-        $(this).text() +
-        "</div>" +
-        "<img class='deleteOptionBtn' src='../../images/purchase/delete_btn.png' alt='X icon' />" +
-        "</div>" +
-        "<div class='productOptionQuantity'>" +
-        "<div class='countWrap'>" +
-        "<img class='countDecrease' src='../../images/purchase/product_quantity_minus_round_btn.png' alt='minus icon' />" +
-        "<div class='count'>0</div>" +
-        "<img class='countIncrease' src='../../images/purchase/product_quantity_plus_round_btn.png' alt='plus icon' />" +
-        "</div>" +
-        "<span class='amountWrap'>" +
-        "<span class='amount'>0</span>" +
-        "<div class='originalAmount'> " +
-        original_amount +
-        "</div>" +
-        "<span class='unit'>원</span>" +
-        "</span></div></li>"
-    );
-
-    // append new option box
-    $("ul.selectedProductOptionList").append(optionItem);
-  });
 
   // total price calc function
   function totalUpdate() {
@@ -158,7 +189,7 @@ $(document).ready(function () {
   }
 
   // display selected option box
-  $(".dropdownOption").on("click", function (event) {
+  $(".productOptionAndPrice").on("click", ".dropdownOption", function (event) {
     // get selected option name
     var select_name = $(this).text();
 

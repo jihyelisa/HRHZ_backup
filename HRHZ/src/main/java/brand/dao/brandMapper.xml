@@ -6,10 +6,11 @@
 <mapper namespace="brandSQL">
 
     <select id="getBrandList" resultType="map">
-		SELECT code AS "code", name AS "name", 'like' AS "like",
+		SELECT code AS "code", "NAME" AS "name", "LIKE" AS "like",
 		img_path AS "imgPath", img_name AS "imgName"
-		FROM brand
+		FROM brand b
 		JOIN brand_image ON code=brand_code
+		ORDER BY "LIKE" DESC
     </select>
 
 </mapper>

@@ -17,9 +17,8 @@ public class PurchaseDAOMyBatis implements PurchaseDAO {
     private SqlSession sqlSession;
 
 	@Override
-	public List<Map<String, Object>> getProductDetails(String productCode) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Map<String, Object>> getProductDetail(String productCode) {
+		return sqlSession.selectList("purchaseSQL.getProductDetail", productCode);
 	}
 
 	@Override
@@ -27,6 +26,4 @@ public class PurchaseDAOMyBatis implements PurchaseDAO {
 		List<Map<String, Object>> list = sqlSession.selectList("purchaseSQL.getProductImages", productCode);
 		return list;
 	}
-	
-	
 }

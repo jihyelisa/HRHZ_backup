@@ -4,8 +4,8 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="purchaseSQL">
 
-    <select id="getProductDetails" parameterType="String" resultType="map">
-	    SELECT 'name' AS "productName", detail_type AS "detailType", price AS "price", 'like' AS "like",
+    <select id="getProductDetail" parameterType="String" resultType="map">
+	    SELECT p.name AS "productName", detail_type AS "detailType", price AS "price", 'like' AS "like",
 		       pd.name AS "detailName",
 		       b.code AS "brandCode", b.name AS "brandName",
 		       bi.img_path AS "brandImgPath", img_name AS "brandImgName"

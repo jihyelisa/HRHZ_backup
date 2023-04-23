@@ -32,10 +32,7 @@ pageEncoding="UTF-8"%>
             <div class="productThumbnail">
               <div class="swiperSlide">
                 <div class="mainThumbnailList">
-                  <!-- <img
-                    src="../../images/purchase/PSI_299191.jpeg"
-                    alt="product thumbnail image"
-                  /> -->
+                  <!-- ajax -->
                 </div>
 
                 <div class="swiperButtonPrev">
@@ -47,22 +44,11 @@ pageEncoding="UTF-8"%>
               </div>
 
               <div class="productThumbnailImageList">
-                <img
-                  src="../../images/purchase/PSI_299191.jpeg"
-                  alt="product thumbnail mini image"
-                />
-                <img
-                  src="../../images/purchase/PSI_299193.jpeg"
-                  alt="product thumbnail mini image"
-                />
-                <img
-                  src="../../images/purchase/PSI_529003.jpeg"
-                  alt="product thumbnail mini image"
-                />
+                <!-- ajax -->
               </div>
-              <!--productThumbnailImageList-->
             </div>
             <!--productThumbnail-->
+
             <div class="deliveryInfo">
               <div class="deliveryTypeInfo">
                 <div class="deliveryType">
@@ -253,10 +239,6 @@ pageEncoding="UTF-8"%>
                   </div>
                   <div class="dropdownBox">
                     <p class="dropdownOpenLabel">옵션 선택</p>
-                    <p class="dropdownOption">옵션1</p>
-                    <p class="dropdownOption">옵션2</p>
-                    <p class="dropdownOption">옵션3</p>
-                    <p class="dropdownOption">옵션4</p>
                   </div>
                 </div>
                 <ul class="selectedProductOptionList">

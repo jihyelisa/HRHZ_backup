@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import hrhz.dto.ProductImageDTO;
 import purchase.service.PurchaseService;
 
 @Controller
@@ -37,10 +36,15 @@ public class PurchaseController {
 		 return "/views/purchase/cart";
 	 }
 	 
+	 @PostMapping(value = "getProductDetail")
+	 @ResponseBody
+	 public List<Map<String, Object>> getProductDetail(@RequestParam String productCode) {
+		 return purchaseService.getProductDetail(productCode);
+	 }
+	 
 	 @PostMapping(value = "getProductImages")
 	 @ResponseBody
 	 public List<Map<String, Object>> getProductImages(@RequestParam String productCode) {
 		 return purchaseService.getProductImages(productCode);
 	 }
-	 
 }
