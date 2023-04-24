@@ -17,6 +17,16 @@ public class MemberController {
     public String signUp(){
         return "/views/member/signUp_1";
     }
+        
+    @GetMapping(value = "/signUp1")
+    public String signUp1() {
+    	return "/views/member/signUp_2";
+    }
+
+    @GetMapping(value = "/signUp2")
+    public String signUp2() {
+    	return "/views/member/signUp_3";
+    }
 
     //�씤利앸쾲�샇 �쟾�넚
     @PostMapping(value = "/signUp/sendSMS")

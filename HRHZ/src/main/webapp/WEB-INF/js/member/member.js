@@ -3,6 +3,20 @@ $('button.signupButton').click(function (){
     location.assign("/signUp");
 });
 
+// on change url signUp1 > signUp2
+$('button.nextButton').click(function(){
+	  if($('#authenticationNumber').val() === $('.checkNumber').val()){
+	location.assign("/signUp1");
+}
+});
+
+// on change url signUp2 > signUp3
+$('button.nextButton').click(function(){
+        location.assign("/signUp2");    
+});
+
+
+
 // sinUp page event
 $(function () {
     // authenticationBtn remove disabled
@@ -18,7 +32,7 @@ $(function () {
 
 // send authentication number
 $('button.certification').click(function (){
-    
+    console.log($('#phone').val());
     $.ajax({
         type: 'post',
         url: '/signUp/sendSMS',
@@ -44,10 +58,5 @@ $('#authenticationNumber').on('keyup', function () {
     }
 });
 
-//nextButton click
-$('.nextButton').click(function (){
-    if($('#authenticationNumber').val() === $('.checkNumber').val()){
-        alert('signUp_2.jsp 로 phone 들고 간다!!');
-    }
-});
+
 

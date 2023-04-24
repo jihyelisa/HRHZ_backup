@@ -88,8 +88,9 @@
           <!--//mypageOuterWrapper-->
         </div>
       </main>
-
+	
       <%@ include file="/WEB-INF/views/common/footer.jsp" %>
+      <%@ include file="/WEB-INF/views/common/loginForm.jsp" %>
     </div>
     
     <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.4.min.js"></script>
