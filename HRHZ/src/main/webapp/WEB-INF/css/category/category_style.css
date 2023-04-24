@@ -216,7 +216,7 @@ main {
     font-weight: 500;
     letter-spacing: -0.5px;
 }
-.recommendBrand > a {
+.recommendBrand > div {
     display: flex;
     gap: 10px;
     align-items: center;
@@ -234,6 +234,10 @@ main {
     font-weight: bold;
     letter-spacing: -0.5px;
     line-height: 24px;
+}
+.checkIcon {
+    width: 24px;
+    height: 24px;
 }
 .filterBtn {
     display: flex;

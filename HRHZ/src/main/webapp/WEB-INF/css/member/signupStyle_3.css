@@ -73,7 +73,7 @@
 }
 
 /* 활성화 비활성화 이미지 */
-.formContainer img {
+.signupTitle img {
 	width: 13px;
 	height: auto;
 	vertical-align: middle;
@@ -83,20 +83,21 @@
 /* 이메일 비밀번호 비밀번호 확인*/
 .inputContainer {
 	position: relative;
-	margin-bottom: 25px;
+	margin-bottom: 10px;
+	color: #000000;
 }
 
 .inputContainer label {
 	display: block;
 	font-size: 12px;
-	font-weight: bold;
+	font-weight: normal;
 	margin-bottom: 0px;
 	color: #b8b9b8;
 }
 
 .inputContainer input {
 	border: none;
-	width: 450px;
+	width: 510px;
 	height: 40px;
 	font-size: 13px;
 	padding-left: 5px;
@@ -127,6 +128,24 @@
 
 .inputContainer input:focus {
 	outline: none;
+}
+
+.emailError, .passwordErrorCheck, .passwordError{
+	color: red;
+	font-size: 11px;
+	font-weight: 400;
+	margin-top: 0px;
+	margin-bottom: 10px;
+}
+.emailValidIcon, .passwordValidIcon, .passwordValidIcon1{
+	width: 30px;
+	height: 30px;
+	display: none;
+	margin: 0 5px 0 0px;
+	padding-bottom: 0;
+}
+.email, .password, .passwordCheck{
+	color:#000000;
 }
 
 /* 다음 버튼 */

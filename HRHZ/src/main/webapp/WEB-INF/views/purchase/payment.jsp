@@ -374,9 +374,6 @@
                                     <button class="payment" color="black" type="button">결제하기</button>
                                 </div>
                             </div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
                         </form>
                     </div>
                 </div>

@@ -5,7 +5,6 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" href="/images/favicon48.ico">
     <title>회원가입 페이지_이용 약관 동의 </title>
 	<link rel="stylesheet" href="../../css/common/reset.css" />
 	<link rel="stylesheet" href="../../css/common/header_footer.css" />
@@ -21,14 +20,14 @@
     <div class="background">
         <div class="outerWrapper">
             <div class="formContainer">
-                <form class="form1" action="/signup" method="post">
+                <div class="form1">
                     <!-- 이용 약관 동의 -->
                     <div class="termsOfService">이용 약관 동의</span>
                         <span class="signupOrder">
                             <span class="signupOrderInactive">본인인증하기</span>
-                            <img src="./img/step-right-arrow-inactive.png" alt="inactiveImg">
+                            <img src="./images/member/step-right-arrow-inactive.png" alt="inactiveImg">
                             <span class="signupOrderActive">약관 동의</span>
-                            <img src="./img/step-right-arrow.png" alt="activeImg">
+                            <img src="./images/member/step-right-arrow.png" alt="activeImg">
                             <span class="signupOrderInactive">이메일 가입</span>
                         </span>
                         <br>
@@ -38,41 +37,43 @@
 
                     <!-- 이용 약관 동의 -->
                     <div class="agreeSection">
-                        <label class="checkboxContainer"> <input type="checkbox">
-                            <span class="checkmark"></span> <strong> 모두 동의 (선택 정보 포함) </strong>
+                        <label class="checkboxContainer">
+                        <input type="checkbox" id="allAgree" class="allAgree">
+                        <span class="checkmark"></span>
+                        <strong> 모두 동의 (선택 정보 포함) </strong>
                         </label>
                     </div>
                     <br>
                     <div class="underline"></div>
                     <br>
                     <div class="agreeSection">
-                        <label class="checkboxContainer"> <input type="checkbox">
+                        <label class="checkboxContainer"> <input type="checkbox" id="ageAgree" class="inputCheck reqiredCheck">
                             <span class="checkmark"></span> <span class="letter">[필수] 만 14세 이상입니다.</span>
                         </label>
                     </div>
                     <br>
                     <div class="agreeSection">
-                        <label class="checkboxContainer"> <input type="checkbox">
+                        <label class="checkboxContainer"> <input type="checkbox" id="privacyAgree" class="inputCheck requiredCheck">
                             <span class="checkmark"></span> <span class="letter">[필수] 개인정보 수집 및 이용 동의</span>
-                            <a href="#" class="link1">보기</a>
+                            <a href="https://amondz.notion.site/c07ca2d7092d4eb888c5808d2d813c3b" target="_blank" class="link1">보기</a>
                         </label>
                     </div>
                     <br>
                     <div class="agreeSection">
-                        <label class="checkboxContainer"> <input type="checkbox">
+                        <label class="checkboxContainer"> <input type="checkbox" id="serviceAgree" class="inputCheck requiredCheck">
                             <span class="checkmark"></span> <span class="letter">[필수] 서비스 이용약관 동의</span>
-                            <a href="#" class="link2">보기</a>
+                            <a href="https://amondz.notion.site/2022-10-25-a13d276cf10744528cb5454715566a35" target="_blank" class="link2">보기</a>
                         </label>
                     </div>
                     <br>
                     <div class="underline"></div>
                     <br>
                     <div class="agreeSection">
-                        <label class="checkboxContainer"> <input type="checkbox">
+                        <label class="checkboxContainer"> <input type="checkbox" id="allAgreeOptional" class="inputCheck">
                             <span class="checkmark"></span> <span class="letter">[선택] 할인 쿠폰과 혜택 소식 수신 모두 동의</span>
                         </label>
 
-                        <div class="icon-container">
+                        <div class="iconContainer">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="icon down">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
@@ -86,16 +87,16 @@
                     </div>
                     <br>
                     <div class="content hidden">
-                        <label class="checkboxContainer"> <input type="checkbox">
+                        <label class="checkboxContainer"> <input type="checkbox" id="emailAgree" class="inputCheck">
                             <span class="checkmark"></span> <span class="letter">이메일 수신</span>
                         </label>
-                        <label class="checkboxContainer"> <input type="checkbox">
+                        <label class="checkboxContainer"> <input type="checkbox" id="smsAgree" class="inputCheck">
                             <span class="checkmark"></span> <span class="letter">문자 수신</span>
                         </label>
                     </div>
 
-                    <button class="nextButton">다음</button>
-                </form>
+                    <button class="nextButton" disabled>다음</button>
+                </div>
             </div>
         </div>
     </div>
@@ -121,9 +122,80 @@
             content.classList.add('hidden');
         });
     </script>
-
+    
     <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.4.min.js"></script>
 	<script type="text/javascript" src="../../js/header_footer.js"></script>
     <script type="text/javascript" src="../../js/member/member.js"></script>
+    
+<script>
+$(document).ready(function () {
+
+	  // "모두 동의" 체크박스를 클릭하면 모든 체크박스가 체크됨
+	  $('#allAgree').click(function () {
+	    var checked = $(this).is(":checked");
+	    $('.inputCheck').prop('checked', checked);
+	    toggleSubmitButton();
+	  });
+
+	// 모든 체크박스가 체크되었을 때 "모두 동의" 체크박스도 체크됨
+	  $('.inputCheck').click(function () {
+	    if ($(this).is(":not(:checked)")) {
+	      $('#allAgree').prop('checked', false);
+	    } else {
+	      if ($('.inputCheck:not(:checked)').length == 0) {
+	        $('#allAgree').prop('checked', true);
+	      }
+	    }
+	    toggleSubmitButton();
+	  });
+	
+	// [필수] 3개랑 [선택] 누를 경우 모두 동의 체크박스 체크됨.
+	  	$("#ageAgree, #privacyAgree, #serviceAgree, #allAgreeOptional").click(function() {
+		    if ($("#ageAgree").prop("checked") && $("#privacyAgree").prop("checked") && $("#serviceAgree").prop("checked") && $("#allAgreeOptional").prop("checked")) {
+		      $("#allAgree").prop("checked", true);
+		    }
+		  });
+	
+	  // "[선택] 할인 쿠폰과 혜택 소식 수신 모두 동의" 체크박스를 클릭하면 하위 체크박스가 나타남
+		$('#allAgreeOptional').click(function () {
+  		$('.content').toggleClass('hidden');
+  		$('.iconContainer .icon').toggleClass('hidden');
+  		$('#emailAgree, #smsAgree').prop('checked', $(this).is(':checked')).toggleClass('inputCheck', $(this).is(':checked'));
+  		toggleSubmitButton();
+		});
+	  
+		// 이메일 수신 체크박스 또는 문자 수신 체크박스를 클릭하면 "할인 쿠폰과 혜택 소식 수신 모두 동의" 체크박스가 체크됨
+		$('#emailAgree, #smsAgree').click(function () {
+		  if ($('#emailAgree').is(":checked") && $('#smsAgree').is(":checked")) {
+		    $('#allAgreeOptional').prop('checked', true);
+		    $('#allAgree').prop('checked', true);
+		  } else {
+		    $('#allAgreeOptional').prop('checked', false);
+		    if($('.inputCheck:not(#allAgree)').filter(":not(:checked)").length == 0){
+		      $('#allAgree').prop('checked', true);
+		    }else{
+		      $('#allAgree').prop('checked', false);
+		    }
+		  }
+		  toggleSubmitButton();
+		});
+		
+	  // 필수 항목에 모두 동의해야 "다음" 버튼이 활성화됨
+	  function toggleSubmitButton() {
+	    var requiredCheckboxes = $('.requiredCheck');
+	    var optionalCheckbox = $('#allAgreeOptional');
+	    var submitButton = $('.nextButton');
+	    if (requiredCheckboxes.length == requiredCheckboxes.filter(":checked").length && ($('#allAgreeOptional').is(":checked") || $('.content').hasClass('hidden'))) {
+	      submitButton.prop('disabled', false);
+	      submitButton.css('background-color', 'black');
+	    } else {
+	      submitButton.prop('disabled', true);
+	      submitButton.css('background-color', '');
+	    }
+	  }
+	  
+	});
+
+</script>	
 </body>
 </html>

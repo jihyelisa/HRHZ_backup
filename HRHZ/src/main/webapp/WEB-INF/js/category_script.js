@@ -69,10 +69,10 @@ $(".filterMenu > p:nth-child(4)").click(function (event) {
 // brand filter search input
 function fontColor(thisClass) {
     if (thisClass.val() != "") {
-    	thisClass.css("color", "#000");
-    	thisClass.css("font-weight", "500");
+        thisClass.css("color", "#000");
+        thisClass.css("font-weight", "500");
     }
-};
+}
 $(".brandFilter > div > input").on("focus", function (event) {
     $(".brandFilterSearchDiv").css("border-bottom", "1px solid #000");
     fontColor($(this));
@@ -84,9 +84,19 @@ $(".brandFilter > div > input").on("blur", function (event) {
     $(".brandFilterSearchDiv").css("border-bottom", "1px solid #d9d9d9");
     fontColor($(this));
     if ($(this).val() == "") {
-    	$(this).css("color", "#d9d9d9");
+        $(this).css("color", "#d9d9d9");
         $(this).val("브랜드명을 입력해 주세요");
     }
+});
+
+// ---------------------------------------------------
+//                  filter select
+// ---------------------------------------------------
+var checkHTML = $(
+    "<img class='checkIcon' src='../../images/category/check_icon.png' alt='check icon'>"
+);
+$(".recommendBrand > span").on("click", function (event) {
+    $(this).append(checkHTML);
 });
 
 // ---------------------------------------------------
@@ -100,7 +110,3 @@ $(".heartIconViolet").on("click", function (event) {
     $(this).css("display", "none");
     $(this).parent().find(".heartIconWhite").css("display", "block");
 });
-
-
-
-
