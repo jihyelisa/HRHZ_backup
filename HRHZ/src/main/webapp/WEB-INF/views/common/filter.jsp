@@ -29,48 +29,47 @@ pageEncoding="UTF-8"%>
 
             <div class="recommendBrand">
                 <h3>추천 브랜드</h3>
-                <div>
+                <div class="filterDiv">
                     <img
                         class="brandImg"
                         src="../../images/common/test.jpg"
                         alt="brand image"
                     />
-                    <span>브랜드명</span>
+                    <p>브랜드명</p>
                 </div>
-                <div>
+                <div class="filterDiv">
                     <img
                         class="brandImg"
                         src="../../images/common/test.jpg"
                         alt="brand image"
                     />
-                    <span>브랜드명</span>
+                    <p>브랜드명</p>
                 </div>
-                <div>
+                <div class="filterDiv">
                     <img
                         class="brandImg"
                         src="../../images/common/test.jpg"
                         alt="brand image"
                     />
-                    <span>브랜드명</span>
+                    <p>브랜드명</p>
                 </div>
             </div>
         </div>
 
         <div class="colorFilter filterPage">
-            <p>실버</p>
-            <p>골드</p>
-            <p>화이트</p>
-            <p>블랙</p>
-            <p>멀티</p>
-            <p></p>
+            <div class="filterDiv"><p>실버</p></div>
+            <div class="filterDiv"><p>골드</p></div>
+            <div class="filterDiv"><p>화이트</p></div>
+            <div class="filterDiv"><p>블랙</p></div>
+            <div class="filterDiv"><p>멀티</p></div>
         </div>
 
         <div class="priceFilter filterPage">
             <div class="priceFilterChoice">
-                <p>1만원~3만원</p>
-                <p>3만원~5만원</p>
-                <p>5만원~10만원</p>
-                <p>10만원 이상</p>
+                <div class="filterDiv"><p>1만원~3만원</p></div>
+                <div class="filterDiv"><p>3만원~5만원</p></div>
+                <div class="filterDiv"><p>5만원~10만원</p></div>
+                <div class="filterDiv"><p>10만원 이상</p></div>
             </div>
 
             <div class="priceFilterInput">
@@ -80,6 +79,8 @@ pageEncoding="UTF-8"%>
                 <button>적용</button>
             </div>
         </div>
+
+        <div class="tagArea"></div>
 
         <div class="filterBtn">
             <button class="filterResetBtn">
