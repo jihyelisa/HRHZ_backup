@@ -3,13 +3,12 @@ package main.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,7 +28,8 @@ public class MainController {
 	}
 
 	@GetMapping(value="/category")
-	public String category() {
+	public String category(@RequestParam String pg, Model model) {
+		model.addAttribute("pg", pg);
 		return "/views/category/category";
 	}
 	
@@ -91,12 +91,10 @@ public class MainController {
 		return "/views/main/magazineABC";
 	}
 	
-
 	@GetMapping(value="/magazineMidnightMoment")
 	public String magazineMidnightMoment() {
 		return "/views/main/magazineMidnightMoment";
 	}
-	
 	
 	@GetMapping(value="/magazineSpringWind")
 	public String magazineSpringWind() {
@@ -115,12 +113,15 @@ public class MainController {
     	return mainService.getTop100Product();
     }
     
-
+    @PostMapping(value = "/getRecentReview")
+    @ResponseBody
+    public List<Map<String, Object>> getRecentReview(HttpSession session) throws Exception {
+    	return mainService.getRecentReview();
+    }
+    
     @PostMapping(value = "/likeCount")
     @ResponseBody
     public void likeCount(@RequestParam HashMap<String, String> dataMap) throws Exception {
     	mainService.likeCount(dataMap);
     }
-
-	
 }

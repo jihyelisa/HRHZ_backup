@@ -16,6 +16,7 @@
 		       	,	(SELECT name FROM brand WHERE  code = p.brand_code) as "brandName" 
 		       	, 	TO_CHAR(p.price, 'FM999,999,999,999') AS "price"
 		       	,	p.like_count AS "likeCount"
+		       	,	p.color AS "color"
 		        ,   ROW_NUMBER() OVER(PARTITION BY p.code ORDER BY PI.SEQ DESC) AS "RN"
 				FROM   product p
 		       	INNER JOIN (SELECT  a.product_code
@@ -48,6 +49,7 @@
 		       	,	(SELECT name FROM brand WHERE  code = p.brand_code) as "brandName"
 		       	, 	TO_CHAR(p.price, 'FM999,999,999,999') AS "price" 
 		       	,	p.like_count AS "likeCount"
+		       	,	p.color AS "color"
 		        ,   ROW_NUMBER() OVER(PARTITION BY p.code ORDER BY PI.SEQ DESC) AS "RN"
 				FROM   product p
 		       	INNER JOIN (SELECT  a.product_code
@@ -66,6 +68,23 @@
             1=1
         AND RN = 1
         AND ROWNUM  <![CDATA[<]]>  10
+    </select>
+    
+    <select id="getRecentReview"  resultType="java.util.HashMap">
+		SELECT *
+		FROM (
+		  SELECT r.seq AS "seq",
+		         r.content AS "content",
+		         ri.img_origin_name AS "imgName",
+		         p.name AS "productName",
+         		 p.code AS "productCode",
+		         ROW_NUMBER() OVER (PARTITION BY r.seq ORDER BY r.reg_date DESC) AS rn
+		  FROM review r
+		  JOIN review_image ri ON r.seq = ri.review_seq
+		  JOIN product p ON r.product_code = p.code
+		  WHERE r.like_count = 5 AND r.IMAGE_YN = 'Y'
+		)
+		WHERE rn = 1 AND ROWNUM <![CDATA[<]]> 4
     </select>
     
     <insert id="likeInsert" parameterType="java.util.HashMap">

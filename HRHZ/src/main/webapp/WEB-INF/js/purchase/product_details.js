@@ -54,6 +54,10 @@ $(document).ready(function () {
 
             // review modal hiddenInput
             $(".hiddenInputs input[name='brandCode']").val(data[0].brandCode);
+
+            console.log(img_position);
+            console.log(img_count);
+            imgChange();
         },
         error: function (err) {
             console.log(err);
