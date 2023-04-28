@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import hrhz.dto.ProductImageDTO;
 import hrhz.dto.ReviewDTO;
+import hrhz.dto.ReviewImageDTO;
 
 @Repository
 @Transactional
@@ -18,8 +19,8 @@ public class PurchaseDAOMyBatis implements PurchaseDAO {
     private SqlSession sqlSession;
 
 	@Override
-	public List<Map<String, Object>> getProductDetail(String productCode) {
-		return sqlSession.selectList("purchaseSQL.getProductDetail", productCode);
+	public List<Map<String, Object>> getProductDetail(Map<String, String> map) {
+		return sqlSession.selectList("purchaseSQL.getProductDetail", map);
 	}
 
 	@Override
@@ -34,13 +35,30 @@ public class PurchaseDAOMyBatis implements PurchaseDAO {
 
 	@Override
 	public void reviewUpload(ReviewDTO reviewDTO, List<String> fileNameList) {
-
-		sqlSession.insert("purchaseSQL.reviewUpload", reviewDTO);
+		int reviewSeq = sqlSession.selectOne("purchaseSQL.getReviewSeq");
 		
-		// review와 이미지 시퀀스가 따로 가야 하므로 새 테이블 만들어야 할 것 같음
-//		for(String fileName : fileNameList) {
-//			reviewDTO.setImgName(fileName);
-//			sqlSession.insert("purchaseSQL.reviewUpload", reviewDTO);
-//		}//for
+		// insert review
+		reviewDTO.setSeq(reviewSeq);
+		if (fileNameList != null) {
+			reviewDTO.setImageYN("Y");
+		} else {
+			reviewDTO.setImageYN("N");	
+		}
+		
+		sqlSession.insert("purchaseSQL.reviewUpload", reviewDTO);
+		System.out.println(fileNameList);
+		
+		if(fileNameList != null) {
+			// insert review images
+			ReviewImageDTO reviewImageDTO = new ReviewImageDTO();
+			reviewImageDTO.setReviewSeq(reviewSeq);
+			reviewImageDTO.setImgPath("/storage/review/");
+			reviewImageDTO.setRegId(reviewDTO.getMemberId());
+
+			for(String fileName : fileNameList) {
+				reviewImageDTO.setImgOriginName(fileName);
+				sqlSession.insert("purchaseSQL.reviewImageUpload", reviewImageDTO);
+			} //for
+		}
 	}
 }

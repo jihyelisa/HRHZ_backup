@@ -22,11 +22,9 @@ pageEncoding="UTF-8"%>
 
     <body>
         <%@ include file="/WEB-INF/views/common/header.jsp" %>
-        <!-- <div class="productCode">${productCode}</div> -->
-        <!-- <div class="memberId">${memberId}</div> -->
         <div class="sessionData">
-            <div class="productCode">P00000072</div>
-            <div class="memberId">moon</div>
+            <div class="productCode">${param.productCode}</div>
+            <div class="memberId">${sessionId}</div>
         </div>
 
         <div class="background">
@@ -219,8 +217,7 @@ pageEncoding="UTF-8"%>
                                 </div>
                                 <div class="productReviewMoreText">
                                     <a href="#productReviewSection"
-                                        ><span>reviewCount</span>개의 후기
-                                        보러가기</a
+                                        ><span>0</span>개의 후기 보러가기</a
                                     >
                                     <img
                                         src="../../images/purchase/arrow_right_btn.png"
@@ -232,15 +229,13 @@ pageEncoding="UTF-8"%>
                             <div class="productPrice">
                                 <span
                                     class="productPriceDiscountPercentUnitAmount"
-                                    >27%</span
+                                    >50%</span
                                 >
                                 <div class="productPriceSales">
                                     <span class="amount">price</span>
                                     <span class="unit">원</span>
                                 </div>
-                                <span class="productPriceOriginAmount"
-                                    >68,000</span
-                                >
+                                <span class="productPriceOriginAmount">0</span>
                             </div>
                             <div class="availableBenefit">
                                 <div class="greatestBenefitList"></div>
@@ -309,7 +304,7 @@ pageEncoding="UTF-8"%>
                                     <button class="purchase">구매하기</button>
                                 </div>
                                 <form
-                                    class="addCartForm"
+                                    class="buyNowForm"
                                     method="post"
                                     action="/purchase/payment"
                                 ></form>
@@ -358,9 +353,7 @@ pageEncoding="UTF-8"%>
                                 <span class="productDetailSectionTitle"
                                     >상품 구매후기</span
                                 >
-                                <span class="productReviewTotalCnt"
-                                    >(reviewCount)</span
-                                >
+                                <span class="productReviewTotalCnt">(0)</span>
                             </div>
                             <div class="reviewBtnArea">
                                 <div class="reviewBtnDescribe">
@@ -656,12 +649,7 @@ pageEncoding="UTF-8"%>
                 </div>
 
                 <!-- review modal -->
-                <form
-                    class="reviewModal"
-                    method="post"
-                    action="/purchase/reviewUpload"
-                >
-                    <!-- enctype="multipart/form-data" -->
+                <form class="reviewModal">
                     <div>
                         <h2>상품 후기 작성</h2>
                         <img
@@ -714,10 +702,13 @@ pageEncoding="UTF-8"%>
                             class="photoUploadInput"
                             name="img[]"
                             type="file"
-                            multiple="multiple"
+                            multiple
                             accept="image/*"
                         />
-                        <span>최대 3장 업로드 가능합니다.</span>
+                        <div class="imgPreview"></div>
+                        <!-- <span class="maximum3"
+                            >최대 3장 업로드 가능합니다.</span
+                        > -->
                     </div>
 
                     <span class="hiddenInputs">
@@ -727,7 +718,7 @@ pageEncoding="UTF-8"%>
                         <input class="starCount" name="like" value="5" />
                     </span>
 
-                    <button class="reviewWriteBtn" type="submit">등록</button>
+                    <button class="reviewWriteBtn" disabled>등록</button>
                 </form>
             </div>
         </section>

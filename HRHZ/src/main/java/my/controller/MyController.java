@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.Collection;
 
 
 @Controller
@@ -17,9 +16,6 @@ import java.util.Collection;
 public class MyController {
     @Autowired
     private MyService myService;
-
-//        HttpSession session = request.getSession();
-//        String id = (String) request.getAttribute("id"); // id session value
 
     @GetMapping(value = "reviewForm")
     public String reviewForm(Model model){
@@ -59,7 +55,8 @@ public class MyController {
 
     @GetMapping(value = "myPageManage")
     public String myPageManage(Model model, HttpServletRequest request){
-        String id = "a00001"; //hard coding
+        HttpSession session = request.getSession();
+        String id = (String) session.getAttribute("sessionId"); // id session value
 
         MemberDTO memberDTO = myService.getMemberInfo(id); //memberDTO 가져오기
         model.addAttribute("memberDTO",memberDTO);
@@ -74,8 +71,10 @@ public class MyController {
         return "/views/my/myPage";
     }
     @GetMapping(value = "myPageManage1")
-    public String myPageManage1(Model model){
-        String id = "a00001"; //hard coding
+    public String myPageManage1(Model model, HttpServletRequest request){
+        HttpSession session = request.getSession();
+        String id = (String) session.getAttribute("sessionId"); // id session value
+        System.out.println(id);
 
         MemberDTO memberDTO = myService.getMemberInfo(id); //memberDTO 가져오기
         model.addAttribute("memberDTO",memberDTO);
@@ -87,15 +86,57 @@ public class MyController {
     @PostMapping(value = "getMember")
     @ResponseBody
     public String getMember(@RequestParam String password, HttpServletRequest request){
-        String id = "a00001"; //hard coding
+        HttpSession session = request.getSession();
+        String id = (String) session.getAttribute("sessionId"); // id session value
         return myService.getMember(id, password);
     }
 
+
+    //---------------------------------------
+    // update pwd
     @PostMapping(value = "updateNewPwd")
     @ResponseBody
-    public void updateNewPwd(@RequestParam("checkPassword") String checkPassword) {
-        String id = "a00001"; //hard coding
+    public void updateNewPwd(@RequestParam("checkPassword") String checkPassword, HttpServletRequest request){
+        HttpSession session = request.getSession();
+        String id = (String) session.getAttribute("sessionId"); // id session value
+
         myService.updateNewPwd(id, checkPassword);
+    }
+
+    @GetMapping(value = "updatePwdModal")
+    public String updatePwdModal(){
+        return "/views/my/updatePwdForm";
+    }
+
+
+    //---------------------------------------
+    // delete member
+    @PostMapping(value = "deleteMember")
+    @ResponseBody
+    public void deleteMember(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        String id = (String) session.getAttribute("sessionId"); // id session value
+
+        myService.deleteMember(id);
+    }
+    @GetMapping(value = "deleteMemberModal")
+    public String deleteMemberModal(){
+        return "/views/my/deleteMemberForm";
+    }
+
+    //---------------------------------------
+    // update member info
+    @PostMapping(value = "updateMember")
+    @ResponseBody
+    public void updateMember(@ModelAttribute MemberDTO memberDTO, HttpServletRequest request){
+        HttpSession session = request.getSession();
+        String id = (String) session.getAttribute("sessionId"); // id session value
+
+        myService.updateMember(memberDTO);
+    }
+    @GetMapping(value = "updateMemberModal")
+    public String updateMemberModal(){
+        return "/views/my/updateMemberInfo";
     }
 
 }

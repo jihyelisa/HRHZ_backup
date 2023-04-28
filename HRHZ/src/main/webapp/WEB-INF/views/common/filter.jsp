@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
 <div class="filterBox">
+
     <span>인기순</span>
     <div class="sortToggle">
         <div><a href="">인기순</a></div>
@@ -57,19 +58,19 @@ pageEncoding="UTF-8"%>
         </div>
 
         <div class="colorFilter filterPage">
-            <div class="filterDiv"><p>실버</p></div>
-            <div class="filterDiv"><p>골드</p></div>
-            <div class="filterDiv"><p>화이트</p></div>
-            <div class="filterDiv"><p>블랙</p></div>
-            <div class="filterDiv"><p>멀티</p></div>
+            <div class="filterDiv"><span>S</span><p>실버</p></div>
+            <div class="filterDiv"><span>G</span><p>골드</p></div>
+            <div class="filterDiv"><span>W</span><p>화이트</p></div>
+            <div class="filterDiv"><span>B</span><p>블랙</p></div>
+            <div class="filterDiv"><span>M</span><p>멀티</p></div>
         </div>
 
         <div class="priceFilter filterPage">
             <div class="priceFilterChoice">
-                <div class="filterDiv"><p>1만원~3만원</p></div>
-                <div class="filterDiv"><p>3만원~5만원</p></div>
-                <div class="filterDiv"><p>5만원~10만원</p></div>
-                <div class="filterDiv"><p>10만원 이상</p></div>
+                <div class="filterDiv"><span>1</span><p>1만원~3만원</p></div>
+                <div class="filterDiv"><span>2</span><p>3만원~5만원</p></div>
+                <div class="filterDiv"><span>3</span><p>5만원~10만원</p></div>
+                <div class="filterDiv"><span>4</span><p>10만원 이상</p></div>
             </div>
 
             <div class="priceFilterInput">

@@ -4,10 +4,11 @@ $(document).ready(function () {
         .attr("src", "../images/category/check_icon.png")
         .attr("alt", "check icon")
         .hide();
-
+    articleContents();
     // add check img
     $(".filterDiv").append(checkHTML);
     $(".categoryToggle > p").append(checkHTML);
+    
 });
 
 // ---------------------------------------------------
@@ -123,8 +124,16 @@ function tagUpdate() {
     $(".tagSpan").remove();
     $(".checkedFilter").each(function () {
         let filterName = $(this).find("> p").text();
+        let filterCode = $(this).find("> span").val();
+
+        console.log($.type(filterCode));
+
         $(".tagArea").append(
-            "<span class='tagSpan'>" + filterName + " X</span>"
+            "<span class='tagSpan'><span>" +
+                filterCode +
+                "</span>" +
+                filterName +
+                " X</span>"
         );
     });
 }
@@ -139,30 +148,30 @@ $(".filterBox").on("click", ".filterDiv", function () {
 // uncheck
 $(".filterBox").on("click", ".checkedFilter", function (event) {
     $(this).find(".checkIcon").hide();
-    $(this).css("font-weight", "500");
+    $(this).css("font-weight", "400");
     $(this).removeClass("checkedFilter");
     tagUpdate();
 });
-
 // reset btn
 $(".filterBox").on("click", ".filterResetBtn", function (event) {
     $(".checkIcon").hide();
-    $(".filterDiv").css("font-weight", "500");
+    $(".filterDiv").css("font-weight", "400");
     $(".tagSpan").remove();
+    $(".checkedFilter").removeClass("checkedFilter");
 });
 
 // tag delete
 $(document).on("click", ".tagSpan", function () {
     let tagName = $(this).text();
-    console.log(tagName);
+    //console.log(tagName);
 
     $(".checkedFilter").each(function () {
         let filterName = $(this).find("> p").text() + " X";
-        console.log(filterName);
+        //console.log(filterName);
 
         if (filterName === tagName) {
             $(this).find(".checkIcon").hide();
-            $(this).css("font-weight", "500").removeClass("checkedFilter");
+            $(this).css("font-weight", "400").removeClass("checkedFilter");
         }
     });
     $(this).remove();
@@ -171,11 +180,222 @@ $(document).on("click", ".tagSpan", function () {
 // ---------------------------------------------------
 //                  Like heart
 // ---------------------------------------------------
-$(".heartIconWhite").on("click", function (event) {
+$(document).on("click", ".heartIconWhite", function () {
+    var memberId = $("#memberId").val();
+    var code = $(this).parents().eq(0).children("input").val();
+    var division = "I";
+
+    //console.log(code);
+
+    if (!memberId) {
+        $("section.sectionBackGround").css("display", "flex");
+        return;
+    }
+
+    likeCount(memberId, code, division);
+
     $(this).css("display", "none");
     $(this).parent().find(".heartIconViolet").css("display", "block");
 });
-$(".heartIconViolet").on("click", function (event) {
+
+$(document).on("click", ".heartIconViolet", function () {
+    var division = "D";
+    var memberId = $("#memberId").val();
+    var code = $(this).parents().eq(0).children("input").val();
+
+    //console.log(code);
+
+    if (!memberId) {
+        $("section.sectionBackGround").css("display", "flex");
+        return;
+    }
+
+    likeCount(memberId, code, division);
+
     $(this).css("display", "none");
     $(this).parent().find(".heartIconWhite").css("display", "block");
 });
+
+$(document).on("click", ".heartIcon", function (event) {
+    var heartIconColor = event.target.classList.item(1);
+    var code = $(this).parents().eq(0).children("input").val();
+
+    if (!$("#memberId").val()) {
+        $("section.sectionBackGround").css("display", "flex");
+        return;
+    }
+    $(this).css("display", "none");
+    $(this).prev().css("display", "block");
+});
+
+$(".modalCloseBtn, .cancleModalBtn").click(function () {
+    $("section.sectionBackGround").css("display", "none");
+});
+
+$(".confirmModalBtn").click(function () {
+    location.href = "/signIn";
+});
+
+// ---------------------------------------------------
+//                숫자 3자리 콤마 찍기
+// ---------------------------------------------------
+String.prototype.formatNumber = function () {
+    if (this == 0) return 0;
+
+    let regex = /(^[+-]?\d+)(\d)/;
+
+    let nstr = this + "";
+
+    while (regex.test(nstr)) nstr = nstr.replace(regex, "$1" + "," + "$2");
+
+    return nstr;
+};
+
+// ---------------------------------------------------
+//                 Best List
+// ---------------------------------------------------
+function articleContents(data) {
+    var optionItem;
+
+    $.ajax({
+        type: "post",
+        url: "/bestCategoryPorductList",
+        data: { selectList : data, pg: $("#pg").val() },
+        dataType: "json",
+
+        success: function (data) {
+            //console.log(data);
+            $(".articleContent").remove();
+            $.each(data.list, function (index, items) {
+                optionItem = $(
+                    "<div class='articleContent'>" +
+                        "<input type='hidden' name='code' value='" +
+                        items.productCode +
+                        "'/>" +
+                        "<a href='/purchase/productDetail?productCode=" +
+                        items.productCode +
+                        "'>" +
+                        "<div class='articleImg'>" +
+                        "<img src='storage/" +
+                        items.imgPath +
+                        "'/>" +
+                        "</div>" +
+                        "<div class='articleDesc'>" +
+                        "<span><strong>" +
+                        items.brandName +
+                        "</strong></span>" +
+                        "<span>" +
+                        items.productName +
+                        "</span>" +
+                        "<div class='atriclePrice'>" +
+                        "<span class='percentage'>" +
+                        "<span>" +
+                        "<strong>13</strong>" +
+                        "<strong>%</strong>" +
+                        "<span class='price'>" +
+                        "<span><strong>" +
+                        items.price +
+                        "</strong>" +
+                        "</span>원</span>" +
+                        "</div>" +
+                        "</div>" +
+                        "<div class ='likeNumber'>" +
+                        "좋아요" +
+                        "<span>" +
+                        items.likeCount.toLocaleString() +
+                        "</span>" +
+                        "</div>" +
+                        "</a>" +
+                        "<img class='heartIcon heartIconWhite' src='../images/category/heart.jpg'/>" +
+                        "<img class='heartIcon heartIconViolet' src='../images/category/heart_violet.jpg'/>" +
+                        "</div>"
+                );
+                $(".articleContents").append(optionItem);
+            });
+
+            //pagging
+            $(".pagingDiv").html(data.categoryPaging.pagingHTML);
+        },
+        error: function (err) {
+            console.log(err);
+        },
+    });
+}
+
+// ---------------------------------------------------
+// 					likeCount
+// ---------------------------------------------------
+function likeCount(id, code, division) {
+    var optionItem;
+
+    $.ajax({
+        type: "post",
+        url: "/categorylikeCount",
+        data: {
+            id: id,
+            code: code,
+            codeType: code.charAt(0),
+            division: division,
+        },
+        success: function (data) {
+            console.log(data);
+        },
+        error: function (err) {
+            console.log(err);
+        },
+    });
+}
+// ---------------------------------------------------
+//              colorSelectProductList
+// ---------------------------------------------------
+$(document).on("click", ".filterResultBtn", function () {
+    var color = $(".checkedFilter span").text();
+    var colorArr = color.split("");
+
+    articleContents(colorArr);
+    $(".filterToggle").css("display", "none");
+});
+
+$(document).on("click", ".categoryToggle", function () {
+	var select = $(this).prev().get(0).innerText;
+    var checkData= $(".categoryToggle p.checkedCategory").get();
+	var selectList = new Array();
+
+	$.each(checkData, function(index, item){
+	
+		
+	
+		selectList.push(checkData[index].innerText);
+			
+	});
+	
+	 articleContents(selectList) 
+	
+});
+
+
+
+function categoryPaging(pg) {
+    location.href = "/category?pg=" + pg;
+}
+
+
+function caseInSwitch(val) {
+  var answer = "";
+  switch (val){
+    case 1: 
+      answer = "alpha";
+      break; 
+    case 2:
+      answer = "beta";
+      break;
+    case 3:
+      answer = "gamma"; 
+      break;
+    case 4:
+      answer = "delta"; 
+      break; 
+  }
+  return answer;
+}
+
