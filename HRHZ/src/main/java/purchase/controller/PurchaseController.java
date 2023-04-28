@@ -1,3 +1,4 @@
+
 package purchase.controller;
 
 import java.io.File;
@@ -29,14 +30,15 @@ public class PurchaseController {
 	PurchaseService purchaseService;
 
 	 @GetMapping(value="productDetail")
-	 public String productDetail(Model model){
+	 public String productDetail(@RequestParam(required = false) String code, Model model){
+		 System.out.println(code);
 		 return "/views/purchase/productDetail";
-	 }	
+	 }
 
 	 @PostMapping(value="payment")
 	 public String payment(Model model){
 		 return "/views/purchase/payment";
-	 }	
+	 }
 	 
 	 @GetMapping(value = "cartForm")
 	 public String cartForm(Model model){
@@ -45,8 +47,8 @@ public class PurchaseController {
 	 
 	 @PostMapping(value = "getProductDetail")
 	 @ResponseBody
-	 public List<Map<String, Object>> getProductDetail(@RequestParam String productCode) {
-		 return purchaseService.getProductDetail(productCode);
+	 public List<Map<String, Object>> getProductDetail(@RequestParam Map<String, String> map) {
+		 return purchaseService.getProductDetail(map);
 	 }
 	 
 	 @PostMapping(value = "getProductImages")
@@ -58,12 +60,13 @@ public class PurchaseController {
 	 @PostMapping(value = "getProductReviews")
 	 @ResponseBody
 	 public List<Map<String, Object>> getProductReviews(@RequestParam String productCode) {
+		 System.out.println(purchaseService.getProductReviews(productCode));
 		 return purchaseService.getProductReviews(productCode);
 	 }
 	 
 	 @PostMapping(value = "reviewUpload", produces = "text/html; charset=UTF-8")
 	 @ResponseBody
-	 public void reviewUpload(@RequestParam("img[]") List<MultipartFile> list,
+	 public String reviewUpload(@RequestParam("img[]") List<MultipartFile> list,
 			    			  @ModelAttribute ReviewDTO reviewDTO,
 			 				  HttpSession session) {
 		 List<String> fileNameList = new ArrayList<String>();
@@ -72,7 +75,10 @@ public class PurchaseController {
 		 String fileName;
 		 File file;
 		 
-		 if(list != null) {
+		 System.out.println(list.get(0));
+		 System.out.println(list.get(0).getSize());
+		 
+		 if(list.get(0).getSize() > 0) {
 			 for(MultipartFile img : list) {
 				 fileName = img.getOriginalFilename();
 				 
@@ -93,6 +99,7 @@ public class PurchaseController {
 			 System.out.println(fileNameList);
 		 }
 		 purchaseService.reviewUpload(reviewDTO, fileNameList);
+		 return "/views/purchase/productDetail";
 	 }
 	 
 //	 @PostMapping(value = "reviewUpload", produces = "text/html; charset=UTF-8")

@@ -19,8 +19,8 @@ public class PurchaseDAOMyBatis implements PurchaseDAO {
     private SqlSession sqlSession;
 
 	@Override
-	public List<Map<String, Object>> getProductDetail(String productCode) {
-		return sqlSession.selectList("purchaseSQL.getProductDetail", productCode);
+	public List<Map<String, Object>> getProductDetail(Map<String, String> map) {
+		return sqlSession.selectList("purchaseSQL.getProductDetail", map);
 	}
 
 	@Override
@@ -39,6 +39,12 @@ public class PurchaseDAOMyBatis implements PurchaseDAO {
 		
 		// insert review
 		reviewDTO.setSeq(reviewSeq);
+		if (fileNameList != null) {
+			reviewDTO.setImageYN("Y");
+		} else {
+			reviewDTO.setImageYN("N");	
+		}
+		
 		sqlSession.insert("purchaseSQL.reviewUpload", reviewDTO);
 		System.out.println(fileNameList);
 		

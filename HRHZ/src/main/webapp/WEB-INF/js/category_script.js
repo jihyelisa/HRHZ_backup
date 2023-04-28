@@ -1,17 +1,24 @@
 $(document).ready(function () {
-    var checkHTML = $("<img>").addClass("checkIcon").attr("src", "../images/category/check_icon.png").attr("alt", "check icon").hide();
-	articleContents();
+    var checkHTML = $("<img>")
+        .addClass("checkIcon")
+        .attr("src", "../images/category/check_icon.png")
+        .attr("alt", "check icon")
+        .hide();
+    articleContents();
     // add check img
     $(".filterDiv").append(checkHTML);
     $(".categoryToggle > p").append(checkHTML);
-  
+    
 });
 
 // ---------------------------------------------------
 //                category nav
 // ---------------------------------------------------
 // Show the first category when the page loads
-$(".categoryWrap:not(:first)").find(".categoryToggle").slideUp().attr("src", "../images/category/expand_black_btn.png");
+$(".categoryWrap:not(:first)")
+    .find(".categoryToggle")
+    .slideUp()
+    .attr("src", "../images/category/expand_black_btn.png");
 
 $(".expandBtn").on("click", function () {
     $(".checkIcon").hide();
@@ -117,7 +124,17 @@ function tagUpdate() {
     $(".tagSpan").remove();
     $(".checkedFilter").each(function () {
         let filterName = $(this).find("> p").text();
-        $(".tagArea").append("<span class='tagSpan'>" + filterName + " X</span>");
+        let filterCode = $(this).find("> span").val();
+
+        console.log($.type(filterCode));
+
+        $(".tagArea").append(
+            "<span class='tagSpan'><span>" +
+                filterCode +
+                "</span>" +
+                filterName +
+                " X</span>"
+        );
     });
 }
 
@@ -135,7 +152,6 @@ $(".filterBox").on("click", ".checkedFilter", function (event) {
     $(this).removeClass("checkedFilter");
     tagUpdate();
 });
-
 // reset btn
 $(".filterBox").on("click", ".filterResetBtn", function (event) {
     $(".checkIcon").hide();
@@ -147,11 +163,11 @@ $(".filterBox").on("click", ".filterResetBtn", function (event) {
 // tag delete
 $(document).on("click", ".tagSpan", function () {
     let tagName = $(this).text();
-    console.log(tagName);
+    //console.log(tagName);
 
     $(".checkedFilter").each(function () {
         let filterName = $(this).find("> p").text() + " X";
-        console.log(filterName);
+        //console.log(filterName);
 
         if (filterName === tagName) {
             $(this).find(".checkIcon").hide();
@@ -169,7 +185,7 @@ $(document).on("click", ".heartIconWhite", function () {
     var code = $(this).parents().eq(0).children("input").val();
     var division = "I";
 
-    console.log(code);
+    //console.log(code);
 
     if (!memberId) {
         $("section.sectionBackGround").css("display", "flex");
@@ -187,7 +203,7 @@ $(document).on("click", ".heartIconViolet", function () {
     var memberId = $("#memberId").val();
     var code = $(this).parents().eq(0).children("input").val();
 
-    console.log(code);
+    //console.log(code);
 
     if (!memberId) {
         $("section.sectionBackGround").css("display", "flex");
@@ -235,30 +251,30 @@ String.prototype.formatNumber = function () {
     return nstr;
 };
 
-
 // ---------------------------------------------------
 //                 Best List
 // ---------------------------------------------------
-function articleContents() {
+function articleContents(data) {
     var optionItem;
 
     $.ajax({
         type: "post",
         url: "/bestCategoryPorductList",
-        data : "pg=" + $("#pg").val(),
-        dataType : 'json',
+        data: { selectList : data, pg: $("#pg").val() },
+        dataType: "json",
 
         success: function (data) {
-            console.log(data);
-
+            //console.log(data);
+            $(".articleContent").remove();
             $.each(data.list, function (index, items) {
-                
                 optionItem = $(
                     "<div class='articleContent'>" +
                         "<input type='hidden' name='code' value='" +
                         items.productCode +
                         "'/>" +
-                        "<a href='/purchase/productDetail'>" +
+                        "<a href='/purchase/productDetail?productCode=" +
+                        items.productCode +
+                        "'>" +
                         "<div class='articleImg'>" +
                         "<img src='storage/" +
                         items.imgPath +
@@ -294,11 +310,10 @@ function articleContents() {
                         "<img class='heartIcon heartIconViolet' src='../images/category/heart_violet.jpg'/>" +
                         "</div>"
                 );
-
                 $(".articleContents").append(optionItem);
             });
-            
-            //pagging 
+
+            //pagging
             $(".pagingDiv").html(data.categoryPaging.pagingHTML);
         },
         error: function (err) {
@@ -317,10 +332,10 @@ function likeCount(id, code, division) {
         type: "post",
         url: "/categorylikeCount",
         data: {
-            'id': id,
-            'code': code,
-            'codeType': code.charAt(0),
-            'division': division
+            id: id,
+            code: code,
+            codeType: code.charAt(0),
+            division: division,
         },
         success: function (data) {
             console.log(data);
@@ -334,79 +349,53 @@ function likeCount(id, code, division) {
 //              colorSelectProductList
 // ---------------------------------------------------
 $(document).on("click", ".filterResultBtn", function () {
-	var color = $(".checkedFilter span").text();
-	var colorArr = color.split("");
-	console.log(colorArr);
+    var color = $(".checkedFilter span").text();
+    var colorArr = color.split("");
+
+    articleContents(colorArr);
+    $(".filterToggle").css("display", "none");
+});
+
+$(document).on("click", ".categoryToggle", function () {
+	var select = $(this).prev().get(0).innerText;
+    var checkData= $(".categoryToggle p.checkedCategory").get();
+	var selectList = new Array();
+
+	$.each(checkData, function(index, item){
 	
-
-
-	$.ajax({
-		type : "post",
-		url:"/categoryColorList",
-		data: {'colorArr' : colorArr} ,
 		
-
-        success: function (data) {
-            console.log(data);
-
-            $.each(data.list, function (index, items) {
-                
-                optionItem = $(
-                    "<div class='articleContent'>" +
-                        "<input type='hidden' name='code' value='" +
-                        items.productCode +
-                        "'/>" +
-                        "<a href='/purchase/productDetail'>" +
-                        "<div class='articleImg'>" +
-                        "<img src='storage/" +
-                        items.imgPath +
-                        "'/>" +
-                        "</div>" +
-                        "<div class='articleDesc'>" +
-                        "<span><strong>" +
-                        items.brandName +
-                        "</strong></span>" +
-                        "<span>" +
-                        items.productName +
-                        "</span>" +
-                        "<div class='atriclePrice'>" +
-                        "<span class='percentage'>" +
-                        "<span>" +
-                        "<strong>13</strong>" +
-                        "<strong>%</strong>" +
-                        "<span class='price'>" +
-                        "<span><strong>" +
-                        items.price +
-                        "</strong>" +
-                        "</span>원</span>" +
-                        "</div>" +
-                        "</div>" +
-                        "<div class ='likeNumber'>" +
-                        "좋아요" +
-                        "<span>" +
-                        items.likeCount.toLocaleString() +
-                        "</span>" +
-                        "</div>" +
-                        "</a>" +
-                        "<img class='heartIcon heartIconWhite' src='../images/category/heart.jpg'/>" +
-                        "<img class='heartIcon heartIconViolet' src='../images/category/heart_violet.jpg'/>" +
-                        "</div>"
-                );
-
-                $(".articleContents").append(optionItem);
-            });
-            
-            //pagging 
-            $(".pagingDiv").html(data.categoryPaging.pagingHTML);
-        },
-        error: function (err) {
-            console.log(err);
-        },
-    });
-  
-  });
- 
-  
-
 	
+		selectList.push(checkData[index].innerText);
+			
+	});
+	
+	 articleContents(selectList) 
+	
+});
+
+
+
+function categoryPaging(pg) {
+    location.href = "/category?pg=" + pg;
+}
+
+
+function caseInSwitch(val) {
+  var answer = "";
+  switch (val){
+    case 1: 
+      answer = "alpha";
+      break; 
+    case 2:
+      answer = "beta";
+      break;
+    case 3:
+      answer = "gamma"; 
+      break;
+    case 4:
+      answer = "delta"; 
+      break; 
+  }
+  return answer;
+}
 

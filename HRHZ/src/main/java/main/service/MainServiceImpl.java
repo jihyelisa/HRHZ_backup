@@ -5,6 +5,7 @@ import main.dao.MainDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,13 +18,13 @@ public class MainServiceImpl implements MainService {
 	private MainDAO mainDAO;
 	
 	@Override
-	public List<Map<String, Object>> getBestProductList() throws Exception {
-		return mainDAO.getBestProductList();
+	public List<Map<String, Object>> getBestProductList(String memberId) throws Exception {
+		return mainDAO.getBestProductList(memberId);
 	}
 
 	@Override
-	public List<Map<String, Object>> getTop100Product() throws Exception {
-		return mainDAO.getTop100Product();
+	public List<Map<String, Object>> getTop100Product(String memberId) throws Exception {
+		return mainDAO.getTop100Product(memberId);
 	}
 
 	@Override
@@ -36,5 +37,10 @@ public class MainServiceImpl implements MainService {
 		mainDAO.likeCount(dataMap);
 		
 	}
+	
+
+	
 }
+
+
 

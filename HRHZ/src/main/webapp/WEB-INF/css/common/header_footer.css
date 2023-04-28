@@ -15,13 +15,14 @@ header {
     display: flex;
     position: relative;
     align-items: center;
-    padding: 20px 70px;
+    height: 80px;
+    padding: 0 64px;
 }
 .adminHeaderWrap {
     justify-content: space-between;
 }
 .amondzLogo {
-    width: 134px;
+	height: 30px;
     margin-right: 80px;
 }
 .mainMenu {

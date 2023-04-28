@@ -218,7 +218,6 @@ a {
 
 /* SNS 계정 버튼 */
 .socialIcon {
-    text-align: center;
     align-items: center;
 }
 .socialIconKakao,
@@ -233,13 +232,14 @@ a {
     background-size: cover;
     margin-right: 10px;
     cursor: pointer;
-    margin-bottom: 100px;
+    margin-bottom: 20px;
 }
 .socialIconKakao {
     background-image: url("./img/auth_social_kakao_round_btn.png");
 }
-.socialIconNaver {
-    background-image: url("./img/auth_social_naver_round_btn.png");
+.socialIconNaver img{
+    width: 45px;
+    height:45px;
 }
 .socialIconFacebook {
     background-image: url("./img/auth_social_facebook_round_btn.png");
