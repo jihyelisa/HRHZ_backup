@@ -15,15 +15,14 @@ public class BrandDAOMyBatis implements BrandDAO {
     private SqlSession sqlSession;
     
 	@Override
-	public List<Map<String, Object>> getBrandList() {
-		return sqlSession.selectList("brandSQL.getBrandList");
+	public List<Map<String, Object>> getBrandList(String memberId) {
+		return sqlSession.selectList("brandSQL.getBrandList", memberId);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Map<String, Object>> getBrandDetail(Map<String, Object> map) {
-		sqlSession.selectList("brandSQL.getBrandDetail", map);
-		return null;
+		return sqlSession.selectList("brandSQL.getBrandDetail", map);
 	}
 
 	@Override

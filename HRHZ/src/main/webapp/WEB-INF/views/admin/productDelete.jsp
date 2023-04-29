@@ -6,7 +6,7 @@
                 <div class="productFormTitle">상품 삭제 </div>
                 <span class="titleUnderline"></span>
                 <div class="brandInfoTitle">상품 브랜드</div>
-                <button class="brandSearch">브랜드 조회</button>
+                <button class="brandSearch" data-toggle="modal" data-target="#brandSearch">브랜드 조회</button>
                 <span class="subTitleUnderline"></span>
                 <div class="brandInfo">
                 <img src="../../images/member/black.jpg" alt="images">
@@ -19,7 +19,7 @@
             <div class="producttitle">
                 <span class="titleUnderline"></span>
                 <div class="brandInfoTitle">상품 정보</div>
-                <button class="productSearch">상품 조회</button>
+                <button class="productSearch" data-toggle="modal" data-target="#productSearch">상품 조회</button>
                 <span class="subTitleUnderline"></span>
             </div>
             
@@ -100,126 +100,15 @@
                     <span class="underline productDetailLine1"></span>
                 </div>
 
-                <button type="submit" class="productDelete">상품 정보 삭제</button>
-                <section class="sectionBackGround">
-                    <div class="modalBody">
-                        <img class="modalCloseBtn" src="../../images/main/modal_close_btn.png" alt="closing icon" />
-                        <div class="confirmText">
-                            <div class="msg">정말로 삭제하시겠습니까?</div>
-                        </div>
-                        <div class="modalFooter">
-                            <button class="yesModalBtn" color="white">예</button>
-                            <button class="noModalBtn" color="black">아니요</button>
-                        </div>
-                    </div>
-                </section>
+                <button type="submit" class="productDelete" data-toggle="modal" data-target="#productDelete">상품 정보 삭제</button>
             </form>
         </div>
     </section>
-
-    <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script>
-    // ---------------------------------------------------
-    //                      option0
-    // ---------------------------------------------------
-    // option dropdown box
-    $(".dropdownCoverSelector").on(
-        "click",
-        ".dropdownSelect",
-        function (event) {
-            $(".dropdownBox").css("display", "flex");
-        }
-    );
-    $(".dropdownCoverSelector").on("click", ".dropdownBox p", function (event) {
-        $(".dropdownBox").css("display", "none");
-    });
     
-    //display selected option box
-    $(".dropdownCoverSelector").on("click", ".dropdownOption", function (event) {
-    // get selected option name
-    var select_name = $(this).text();
-
-    // display selected option name
-    $(this).parents(".dropdownCoverSelector").find(".optionName").text(select_name);
-
-    // hide dropdown box
-    $(this).parents(".dropdownBox").css("display", "none");
-
-    // hide "옵션 선택" option name
-    $(this).parents(".dropdownCoverSelector").find(".dropdownOpenLabel").hide();
-});
-    // ---------------------------------------------------
-    //                      option1
-    // ---------------------------------------------------
-    // option dropdown box
-    $(".dropdownCoverSelector1").on(
-        "click",
-        ".dropdownSelect1",
-        function (event) {
-            $(".dropdownBox1").css("display", "flex");
-        }
-    );
-    $(".dropdownCoverSelector1").on("click", ".dropdownBox1 p", function (event) {
-        $(".dropdownBox1").css("display", "none");
-    });
+    <%@ include file="/WEB-INF/views/admin/deleteModal.jsp" %>
+	<%@ include file="/WEB-INF/views/admin/searchBrandModal.jsp" %>
+	<%@ include file="/WEB-INF/views/admin/searchProductModal.jsp" %>
     
-    //display selected option box
-    $(".dropdownCoverSelector1").on("click", ".dropdownOption1", function (event) {
-    // get selected option name
-    var select_name = $(this).text();
-
-    // display selected option name
-    $(this).parents(".dropdownCoverSelector1").find(".optionName1").text(select_name);
-
-    // hide dropdown box
-    $(this).parents(".dropdownBox1").css("display", "none");
-
-    // hide "옵션 선택" option name
-    $(this).parents(".dropdownCoverSelector1").find(".dropdownOpenLabel1").hide();
-});
-
-    // ---------------------------------------------------
-    //                      option2
-    // ---------------------------------------------------
-    // option dropdown box
-    $(".dropdownCoverSelector2").on(
-        "click",
-        ".dropdownSelect2",
-        function (event) {
-            $(".dropdownBox2").css("display", "flex");
-        }
-    );
-    $(".dropdownCoverSelector2").on("click", ".dropdownBox2 p", function (event) {
-        $(".dropdownBox2").css("display", "none");
-    });
-    
-    //display selected option box
-    $(".dropdownCoverSelector2").on("click", ".dropdownOption2", function (event) {
-    // get selected option name
-    var select_name = $(this).text();
-
-    // display selected option name
-    $(this).parents(".dropdownCoverSelector2").find(".optionName2").text(select_name);
-
-    // hide dropdown box
-    $(this).parents(".dropdownBox2").css("display", "none");
-
-    // hide "옵션 선택" option name
-    $(this).parents(".dropdownCoverSelector2").find(".dropdownOpenLabel2").hide();
-});
-    </script>
-    <script>
-        $(document).ready(function() {
-         $(".productDelete").click(function() {
-        $(".sectionBackGround").css("display", "block");
-         });
         
-         $(".modalCloseBtn").click(function(){
-            $(".sectionBackGround").css("display", "none");
-         });
-
-         $(".noModalBtn").click(function(){
-            $(".sectionBackGround").css("display", "none");
-         });
-        }); 
-    </script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="text/javascript" src="../../js/admin/admin.js">

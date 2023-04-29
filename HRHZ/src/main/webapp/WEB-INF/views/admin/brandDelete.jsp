@@ -6,11 +6,11 @@
                 <div class="formTitle">브랜드 삭제</div>
                 <span class="titleUnderline"></span>
                 <div class="brandInfoTitle">브랜드 정보</div>
-                <button class="brandSearch1">브랜드 조회</button>
+                <button class="brandSearch">브랜드 조회</button>
                 <span class="subTitleUnderline"></span>
             </div>
             <form action="">
-                <div class="branddeleteform">
+                <div class="brandDeleteForm">
                     <div class="inputContainer">
                         <label for="brandName">명칭</label>
                         <input type="text" class="brandName" required>
@@ -37,5 +37,13 @@
             </form>
         
         </div>
-    </section>
+    </section>        
+    
+   	<%@ include file="/WEB-INF/views/admin/deleteModal.jsp" %>
+	<%@ include file="/WEB-INF/views/admin/searchBrandModal.jsp" %>
+    
+    
+    <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.4.min.js"></script>
+	<script src="text/javascript" src="../../js/admin/admin.js"></script>
+	
     

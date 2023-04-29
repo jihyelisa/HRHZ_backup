@@ -2,7 +2,6 @@
 //			send authentication number
 // ---------------------------------------------------
 $('button.certification').on('click', function (){
-    
     $.ajax({
         type: 'post',
         url: '/signUp/sendSMS',
@@ -115,7 +114,7 @@ function goPost(){
     obj.setAttribute('type', 'hidden');
     obj.setAttribute('name', 'phone');
     obj.setAttribute('value', $('#phone').val());
-    
+
     form.setAttribute('method', 'post');
     form.setAttribute('action', '/signUp2');
 

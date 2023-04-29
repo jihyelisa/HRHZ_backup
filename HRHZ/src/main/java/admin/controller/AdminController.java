@@ -76,5 +76,5 @@ public class AdminController {
 		  model.addAttribute("display", "productImage.jsp");
 		  return "/views/admin/adminPage";
 	  }
-	  
+	   
 }

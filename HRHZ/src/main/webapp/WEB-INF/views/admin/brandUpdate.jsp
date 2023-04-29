@@ -74,5 +74,11 @@
                 <button type="submit" class="adminBrandUpdate">브랜드 정보 수정</button>
             </form>
         </div>
-        
     </section>
+    
+    <%@ include file="/WEB-INF/views/admin/searchBrandModal.jsp" %>
+	
+    
+    <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.4.min.js"></script>
+	<script src="text/javascript" src="../../js/admin/admin.js"></script>
+	

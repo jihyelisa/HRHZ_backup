@@ -216,3 +216,184 @@ $('.userRemove button').on("click", function (){
 
 });
 
+$(document).ready(function(){
+    //---------------------------------
+    // brandSearchModal
+    //---------------------------------
+    $(".brandSearch").click(function(){
+        $(".sectionBackGroundBrand").css("display", "block");
+    });
+    $(".modalCloseBtn").click(function(){
+        $(".sectionBackGroundBrand").css("display", "none");
+    });
+
+    //-----------------------------------
+    // productSearchModal
+    //-----------------------------------
+    $(".productSearch").click(function() {
+        $(".sectionBackGroundProduct").css("display", "block");
+    }); 
+    $(".modalCloseBtn").click(function(){
+        $(".sectionBackGroundProduct").css("display", "none");
+    });
+
+    //-----------------------------------
+    // deleteModal
+    //-----------------------------------
+    $(".productDelete").click(function() {
+        $(".sectionBackGroundDelete").css("display", "block");
+    }); 
+    $(".modalCloseBtn").click(function(){
+        $(".sectionBackGroundDelete").css("display", "none");
+    });
+    $(".noModalBtn").click(function(){
+        $(".sectionBackGroundDelete").css("display", "none");
+    });
+
+    $(".adminBrandDelete").click(function() {
+        $(".sectionBackGroundDelete").css("display", "block");
+    }); 
+    $(".modalCloseBtn").click(function(){
+        $(".sectionBackGroundDelete").css("display", "none");
+    });
+    $(".noModalBtn").click(function(){
+        $(".sectionBackGroundDelete").css("display", "none");
+    });
+
+    //-----------------------------------------
+    // Option Dropbox
+    //-----------------------------------------
+    // ---------------------------------------------------
+    //                      option0
+    // ---------------------------------------------------
+    // option dropdown box
+    $(".dropdownCoverSelector").on(
+        "click",
+        ".dropdownSelect",
+        function (event) {
+            $(".dropdownBox").css("display", "flex");
+        }
+    );
+    $(".dropdownCoverSelector").on("click", ".dropdownBox p", function (event) {
+        $(".dropdownBox").css("display", "none");
+    });
+    
+    //display selected option box
+    $(".dropdownCoverSelector").on("click", ".dropdownOption", function (event) {
+    // get selected option name
+    var select_name = $(this).text();
+
+    // display selected option name
+    $(this).parents(".dropdownCoverSelector").find(".optionName").text(select_name);
+
+    // hide dropdown box
+    $(this).parents(".dropdownBox").css("display", "none");
+
+    // hide option name
+    $(this).parents(".dropdownCoverSelector").find(".dropdownOpenLabel").hide();
+});
+    // ---------------------------------------------------
+    //                      option1
+    // ---------------------------------------------------
+    // option dropdown box
+    $(".dropdownCoverSelector1").on(
+        "click",
+        ".dropdownSelect1",
+        function (event) {
+            $(".dropdownBox1").css("display", "flex");
+        }
+    );
+    $(".dropdownCoverSelector1").on("click", ".dropdownBox1 p", function (event) {
+        $(".dropdownBox1").css("display", "none");
+    });
+    
+    //display selected option box
+    $(".dropdownCoverSelector1").on("click", ".dropdownOption1", function (event) {
+    // get selected option name
+    var select_name = $(this).text();
+
+    // display selected option name
+    $(this).parents(".dropdownCoverSelector1").find(".optionName1").text(select_name);
+
+    // hide dropdown box
+    $(this).parents(".dropdownBox1").css("display", "none");
+
+    // hide option name
+    $(this).parents(".dropdownCoverSelector1").find(".dropdownOpenLabel1").hide();
+});
+
+    // ---------------------------------------------------
+    //                      option2
+    // ---------------------------------------------------
+    // option dropdown box
+    $(".dropdownCoverSelector2").on(
+        "click",
+        ".dropdownSelect2",
+        function (event) {
+            $(".dropdownBox2").css("display", "flex");
+        }
+    );
+    $(".dropdownCoverSelector2").on("click", ".dropdownBox2 p", function (event) {
+        $(".dropdownBox2").css("display", "none");
+    });
+    
+    //display selected option box
+    $(".dropdownCoverSelector2").on("click", ".dropdownOption2", function (event) {
+    // get selected option name
+    var select_name = $(this).text();
+
+    // display selected option name
+    $(this).parents(".dropdownCoverSelector2").find(".optionName2").text(select_name);
+
+    // hide dropdown box
+    $(this).parents(".dropdownBox2").css("display", "none");
+
+    // hide option name
+    $(this).parents(".dropdownCoverSelector2").find(".dropdownOpenLabel2").hide();
+});
+
+    //--------------------------------------------
+    //productInput
+    //--------------------------------------------
+    $("#productInput").focus(function () {
+        $(this).attr("placeholder", "");
+    }).blur(function () {
+        $(this).attr("placeholder", "상품명을 입력해주세요");
+    });
+
+    $('#productInput').click(function() {
+        $('.brandFilterSearchDiv2').css('border-bottom', '1px solid #000000');
+      }).blur(function() {
+        $('.brandFilterSearchDiv2').css('border-bottom', '1px solid #ededed');
+      });
+
+      //-------------------------------------------
+      //radio button
+      //-------------------------------------------
+      $('input[name="radio"]').change(function() {
+        $('input[name="radio"]').each(function() {
+          if ($(this).is(':checked')) {
+            $(this).siblings('.check').show();
+            $(this).siblings('.uncheck').hide();
+          } else {
+            $(this).siblings('.check').hide();
+            $(this).siblings('.uncheck').show();
+          }
+        });
+    });
+        //----------------------------------------
+        //brandInput
+        //----------------------------------------
+        $("#brandInput").focus(function () {
+            $(this).attr("placeholder", "");
+        }).blur(function () {
+            $(this).attr("placeholder", "브랜드명을 입력해주세요");
+        });
+    
+        $('#brandInput').click(function() {
+            $('.brandFilterSearchDiv').css('border-bottom', '1px solid #000000');
+          }).blur(function() {
+            $('.brandFilterSearchDiv').css('border-bottom', '1px solid #ededed');
+          });
+   
+});

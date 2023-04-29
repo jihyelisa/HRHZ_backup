@@ -32,7 +32,6 @@
                 <span class="titleUnderline"></span>
                 <div class="thumbnailTitle">상품 대표 썸네일</div>
                 <button class="thumbnailPhotoInsert">사진 첨부</button>
-                <h>최대 3개까지만 가능합니다.</h>
                 <span class="subTitleUnderline"></span>
             </div>
 
@@ -61,4 +60,11 @@
             </form>
         </div>
     </section>
-
+    
+    <%@ include file="/WEB-INF/views/admin/searchBrandModal.jsp" %>
+	<%@ include file="/WEB-INF/views/admin/searchProductModal.jsp" %>
+    
+    
+	<script type="text/javascript" src="http://code.jquery.com/jquery-3.6.4.min.js"></script>
+	<script src="text/javascript" src="../../js/admin/admin.js"></script>
+       

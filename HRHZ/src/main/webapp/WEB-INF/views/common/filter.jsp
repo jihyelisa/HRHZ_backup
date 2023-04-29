@@ -2,12 +2,14 @@
 pageEncoding="UTF-8"%>
 <div class="filterBox">
 
-    <span>인기순</span>
+    <span class="selectedSort">인기순</span>
     <div class="sortToggle">
-        <div><a href="">인기순</a></div>
-        <div><a href="">신상품순</a></div>
-        <div><a href="">낮은가격순</a></div>
-        <div><a href="">높은가격순</a></div>
+    	
+	        <div><span>1</span>인기순</div>
+	        <div><span>2</span>신상품</div>
+	        <div><span>3</span>낮은가격순</div>
+	        <div><span>4</span>높은가격순</div>
+	     
     </div>
     <span>필터</span>
     <div class="filterToggle">
@@ -67,17 +69,17 @@ pageEncoding="UTF-8"%>
 
         <div class="priceFilter filterPage">
             <div class="priceFilterChoice">
-                <div class="filterDiv"><span>1</span><p>1만원~3만원</p></div>
-                <div class="filterDiv"><span>2</span><p>3만원~5만원</p></div>
-                <div class="filterDiv"><span>3</span><p>5만원~10만원</p></div>
-                <div class="filterDiv"><span>4</span><p>10만원 이상</p></div>
+                <div class="filterDiv"><h4>1</h4><p>1만원~3만원</p></div>
+                <div class="filterDiv"><h4>2</h4><p>3만원~5만원</p></div>
+                <div class="filterDiv"><h4>3</h4><p>5만원~10만원</p></div>
+                <div class="filterDiv"><h4>4</h4><p>10만원 이상</p></div>
             </div>
 
             <div class="priceFilterInput">
-                <input type="text" value="2,000" /><span>원 - </span>
-                <input type="text" value="9,999,999" /><span>원</span>
+                <input type="text" value="" /><span>원 - </span>
+                <input type="text" value="" /><span>원</span>
 
-                <button>적용</button>
+                <button class="addBtn">적용</button>
             </div>
         </div>
 

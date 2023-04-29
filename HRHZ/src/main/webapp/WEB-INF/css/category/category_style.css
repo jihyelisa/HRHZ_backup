@@ -122,6 +122,8 @@ main {
 }
 
 /* sort toggle */
+
+
 .sortToggle {
     display: flex;
     flex-direction: column;
@@ -131,6 +133,9 @@ main {
     border: 1px solid #ededed;
     background-color: #fff;
     z-index: 80;
+}
+.sortToggle span{
+	display:none;
 }
 .sortToggle div {
     width: 180px;
@@ -327,7 +332,7 @@ main {
     flex-direction: column;
     gap: 16px;
 }
-.priceFilterChoice span {
+.priceFilterChoice h4 {
     display: none;
 }
 .priceFilterChoice > div {
@@ -420,7 +425,6 @@ main {
     width: 14px;
 }
 .heartIconViolet {
-    display: none;
     height: 13px;
     width: 14px;
 }
@@ -435,7 +439,7 @@ main {
 }
 .pagingDiv {
     text-align: center;
-    text-size: 17px;
+    font-size: 17px;
     cursor: pointer;
 }
 
