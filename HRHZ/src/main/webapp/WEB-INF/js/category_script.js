@@ -4,11 +4,18 @@ $(document).ready(function () {
         .attr("src", "../images/category/check_icon.png")
         .attr("alt", "check icon")
         .hide();
-    articleContents();
+        
+        
+   var dataList = 
+   {
+   	 "pg" : 1
+   }
+      
+    articleContents(dataList);
+    
     // add check img
     $(".filterDiv").append(checkHTML);
     $(".categoryToggle > p").append(checkHTML);
-    
 });
 
 // ---------------------------------------------------
@@ -48,9 +55,14 @@ $(document).on("click", ".checkedCategory", function () {
 // ---------------------------------------------------
 $(".sortToggle").toggle(0);
 $(function () {
-    $(".filterBox > span:first-child").on("click", function (event) {
+    $(".selectedSort").on("click", function (event) {
         $(".sortToggle").toggle(0);
     });
+    
+    $(document).on("click", ".sortToggle > div", function() {
+    	$(".selectedSort").text($(this).text());
+        $(".sortToggle").toggle(0);		
+   	});
 });
 
 // ---------------------------------------------------
@@ -64,8 +76,8 @@ $(function () {
 
         // input value 초기화
         $(".brandFilter > div > input").val("브랜드명을 입력해 주세요");
-        $(".priceFilterInput > input:first").val("2,000");
-        $(".priceFilterInput > input:last").val("9,999,999");
+        $(".priceFilterInput > input:first").val("");
+        $(".priceFilterInput > input:last").val("");
     });
 });
 
@@ -125,9 +137,7 @@ function tagUpdate() {
     $(".checkedFilter").each(function () {
         let filterName = $(this).find("> p").text();
         let filterCode = $(this).find("> span").val();
-
-        console.log($.type(filterCode));
-
+        
         $(".tagArea").append(
             "<span class='tagSpan'><span>" +
                 filterCode +
@@ -144,6 +154,10 @@ $(".filterBox").on("click", ".filterDiv", function () {
     $(this).css("font-weight", "700");
     $(this).addClass("checkedFilter");
     tagUpdate();
+});
+$(document).on("click", ".addBtn", function () {
+    $(".priceFilterInput").addClass("checkedFilter");
+    inputUpdate();
 });
 // uncheck
 $(".filterBox").on("click", ".checkedFilter", function (event) {
@@ -185,15 +199,11 @@ $(document).on("click", ".heartIconWhite", function () {
     var code = $(this).parents().eq(0).children("input").val();
     var division = "I";
 
-    //console.log(code);
-
     if (!memberId) {
         $("section.sectionBackGround").css("display", "flex");
         return;
     }
-
     likeCount(memberId, code, division);
-
     $(this).css("display", "none");
     $(this).parent().find(".heartIconViolet").css("display", "block");
 });
@@ -203,15 +213,11 @@ $(document).on("click", ".heartIconViolet", function () {
     var memberId = $("#memberId").val();
     var code = $(this).parents().eq(0).children("input").val();
 
-    //console.log(code);
-
     if (!memberId) {
         $("section.sectionBackGround").css("display", "flex");
         return;
     }
-
     likeCount(memberId, code, division);
-
     $(this).css("display", "none");
     $(this).parent().find(".heartIconWhite").css("display", "block");
 });
@@ -254,13 +260,14 @@ String.prototype.formatNumber = function () {
 // ---------------------------------------------------
 //                 Best List
 // ---------------------------------------------------
-function articleContents(data) {
+function articleContents(dataList) {
+
     var optionItem;
 
     $.ajax({
         type: "post",
         url: "/bestCategoryPorductList",
-        data: { selectList : data, pg: $("#pg").val() },
+        data: dataList,
         dataType: "json",
 
         success: function (data) {
@@ -345,57 +352,81 @@ function likeCount(id, code, division) {
         },
     });
 }
+
+
 // ---------------------------------------------------
-//              colorSelectProductList
+//              color&price SelectProductList
 // ---------------------------------------------------
 $(document).on("click", ".filterResultBtn", function () {
+
     var color = $(".checkedFilter span").text();
     var colorArr = color.split("");
-
-    articleContents(colorArr);
+    var price = $(".checkedFilter h4").text();   
+    var inputPrice1 = $(".priceFilterInput").children("input").eq(0).val();
+   	var inputPrice2 = $(".priceFilterInput").children("input").eq(1).val();
+   	var sortValue = $(".selectedSort").text();
+   	
+   	console.log(sortValue);
+   
+   var dataList = 
+   { "colorArr" : colorArr,
+    "price" : price,
+   	"inputPrice1" : inputPrice1,
+   	"inputPrice2" : inputPrice2,
+   	 "pg" : 1
+   	 
+   }
+   
+    articleContents(dataList);
     $(".filterToggle").css("display", "none");
 });
 
-$(document).on("click", ".categoryToggle", function () {
-	var select = $(this).prev().get(0).innerText;
-    var checkData= $(".categoryToggle p.checkedCategory").get();
-	var selectList = new Array();
 
-	$.each(checkData, function(index, item){
-	
-		
-	
-		selectList.push(checkData[index].innerText);
-			
-	});
-	
-	 articleContents(selectList) 
-	
+// ---------------------------------------------------
+//             sortProductList
+// ---------------------------------------------------
+/*
+$(document).on("click", ".sortToggle div", function() {
+    	var sortValue = $(this).find("> span").text();
+    	console.log(sortValue);
+    
+    var dataSort = 
+    { "sortValue" : sortValue,
+       
+   }
+        articleContents(dataSort);
+        
+   	});
+
+*/
+// ---------------------------------------------------
+//              categoryNavSelectList
+// ---------------------------------------------------
+
+$(document).on("click", ".categoryToggle", function () {
+   var parentCode = $(this).prev().get(0).innerText;
+    var checkData= $(".categoryToggle p.checkedCategory").get();
+   var checkList = new Array();
+
+   $.each(checkData, function(index, item){
+   
+      checkList.push(checkData[index].innerText);
+         
+   });
+   
+   var dataList = {
+      "parentCode" : parentCode,
+      "checkList" : checkList,
+       "pg" : 1
+   };
+   
+    articleContents(dataList); 
 });
 
-
+// ---------------------------------------------------
+//              paging
+// ---------------------------------------------------
 
 function categoryPaging(pg) {
     location.href = "/category?pg=" + pg;
 }
-
-
-function caseInSwitch(val) {
-  var answer = "";
-  switch (val){
-    case 1: 
-      answer = "alpha";
-      break; 
-    case 2:
-      answer = "beta";
-      break;
-    case 3:
-      answer = "gamma"; 
-      break;
-    case 4:
-      answer = "delta"; 
-      break; 
-  }
-  return answer;
-}
-

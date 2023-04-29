@@ -156,7 +156,7 @@
 	margin-left: 65px;
 	height: 1px;
 	background-color: #EDEDED;
-	left: 20px;
+	left: 40px;
 	width: 300px;
 }
 
@@ -209,13 +209,13 @@
 .stockAndPrice{
 	display: flex;
 }
-.productdetailLine{
+.productDetailLine{
 	position: absolute;
     bottom: 0;
     margin-left: 50px;
     height: 1px;
     background-color: #ededed;
-    left: 30px;
+    left: 45px;
     width: 450px;
 }
 /* .productdetailtitle{
@@ -256,7 +256,7 @@
     margin-left: 50px;
     height: 1px;
     background-color: #ededed;
-    left: 30px;
+    left: 45px;
     width: 550px;
 }
 
@@ -375,7 +375,7 @@
 	margin-left: 65px;
 	height: 1px;
 	background-color: #ededed;
-	left: 20px;
+	left: 35px;
 }
 .title > h{
     font-size: 10px;

@@ -1,6 +1,5 @@
 package brand.controller;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,12 +30,12 @@ public class BrandController {
 	 
 	@PostMapping(value = "/getBrandList")
 	@ResponseBody //DispatcherServlet으로 돌아가지 못하게 막고, 데이터 형태를 JSON으로 변경해 ajax로 보냄
-	public List<Map<String, Object>> list() {
-		return brandService.getBrandList();
+	public List<Map<String, Object>> getBrandList(String memberId) {
+		return brandService.getBrandList(memberId);
 	}
 	 
 	@PostMapping(value = "/getBrandDetail")
-	@ResponseBody //DispatcherServlet으로 돌아가지 못하게 막고, 데이터 형태를 JSON으로 변경해 ajax로 보냄
+	@ResponseBody
 	public Map<String, Object> getBrandDetail(HttpSession session,  
 												    // @RequestParam(value ="colorArr[]", required = false) List<String> colorArr, 
 												    @RequestParam Map<String, Object> map) {

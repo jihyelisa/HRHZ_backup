@@ -62,7 +62,7 @@ public class MyController {
         model.addAttribute("memberDTO",memberDTO);
 
         // api distinguish
-        if(id.charAt(0) == 'a'){
+        if(id.charAt(0) == 'A'){
             model.addAttribute("display", "myPageManage0.jsp");
         } else {
             // api 가입 경로

@@ -34,8 +34,8 @@ public class MemberDAOMyBatis implements MemberDAO {
 	}
 
 	@Override
-	public String naverloginCheck(NaverDTO naver) {
-		return sqlSession.selectOne("memberSQL.naverloginCheck", naver);
+	public String snsLoginCheck(String email) {
+		return sqlSession.selectOne("memberSQL.snsLoginCheck", email);
 		
 	}
 }

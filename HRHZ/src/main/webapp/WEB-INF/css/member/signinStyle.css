@@ -8,21 +8,22 @@
     background-color: #fafafa;
 }
 .outerWrapper {
-    background-color: #ffffff;
-    margin: 0 160px;
-    border: none;
-    box-shadow: 0px 0px 5px #f7f7f7;
-    min-height: calc(100vh - 218px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.container {
+    max-width: 1200px;
+    min-height: calc(80vh - 100px);
     margin: 0 auto;
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    padding: 100px 0;
+    font-family: NotoSansCJKkr;
+    color: rgb(0, 0, 0);
+    background-color: rgb(255, 255, 255);
+    box-shadow: rgba(125, 125, 125, 0.05) 0 0 15px 0;
+}
+.innerWrapper{
+    max-width: 964px;
+    margin: 0 auto;
+}
+.signInInfo {
+    width: 360px;
+    margin: 0px auto;
 }
 
 /* 로그인 제목 */
@@ -217,13 +218,16 @@ a {
 }
 
 /* SNS 계정 버튼 */
-.socialIcon {
-    align-items: center;
+.socialIconWrap {
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 15px;
 }
 .socialIconKakao,
 .socialIconNaver,
-.socialIconFacebook,
-.socialIconApple {
+.socialIconGoogle {
     display: inline-block;
     width: 45px;
     height: 45px;
@@ -234,16 +238,23 @@ a {
     cursor: pointer;
     margin-bottom: 20px;
 }
+
 .socialIconKakao {
-    background-image: url("./img/auth_social_kakao_round_btn.png");
+    background-image: url("../../images/member/auth_social_kakao_round_btn.png");
 }
 .socialIconNaver img{
-    width: 45px;
-    height:45px;
+        width: 45px;
+        height:45px;
 }
-.socialIconFacebook {
-    background-image: url("./img/auth_social_facebook_round_btn.png");
+socialIconGoogle{
+    border-radius: 50%;
+    overflow: auto;
 }
-.socialIconApple {
-    background-image: url("./img/auth_social_apple_round_btn.png");
+.socialIconGoogle img{
+    content: "";
+    width: 100%;
+    height: 100%;
+    background-image: url("../../images/member/google_btn.png");
 }
+
+
