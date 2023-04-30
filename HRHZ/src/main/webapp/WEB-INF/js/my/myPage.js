@@ -179,11 +179,7 @@ $('.userNewPwdWrap .btnWrap .submitBtn').on('click',function (){
                     success: function (data) {
                         // Open modal in AJAX callback
                         $.get("/myPage/updatePwdModal", function (html) {
-                            $(html).appendTo('body').modal({
-                                escapeClose: false,
-                                clickClose: false,
-                                showClose: false
-                            });
+                            $(html).appendTo('body')
                         });
                     },
                     err: function (err) { console.log(err) }
@@ -328,16 +324,19 @@ $('.userInfoForm .btnWrap .submitBtn').on("click", function () {
         data: json,
         success: function () {
             $.get("/myPage/updateMemberModal", function (html) {
-                $(html).appendTo('body').modal({
-                    escapeClose: false,
-                    clickClose: false,
-                    showClose: false
-                });
+                $(html).appendTo('body')
             });
         },
         error: function () {}
     });
 });
+
+// --------------------------------------------------
+//          close modal
+// --------------------------------------------------
+$(document).on("click", ".modalCloseBtn, .cancelModalBtn",function (){
+    $('.modalBoxWrap').hide().remove();
+})
 
 
 
@@ -347,11 +346,7 @@ $('.userRemove button').on("click", function (e){
     e.preventDefault();
     this.blur();
     $.get("/myPage/deleteMemberModal", function (html) {
-        $(html).appendTo('body').modal({
-            escapeClose: false,
-            clickClose: false,
-            showClose: false,
-        });
+        $(html).appendTo('body')
     });
 });
 

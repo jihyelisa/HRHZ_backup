@@ -969,3 +969,47 @@ div.modalBackground {
     background-color: #ddd;
     cursor: default;
 }
+
+.cartModalBackGround {
+    display: none;
+    position: fixed;
+    inset: 0px;
+    font-family: NotoSansCJKkr;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 100;
+}
+
+.cartModalBackGround .modalBody {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(255, 255, 255);
+    border-radius: 2px;
+    z-index: 102;
+    width: 330px;
+}
+
+
+.cartCancelModalBtn,
+.cartConfirmModalBtn {
+    border-radius: 2px;
+    outline: none;
+    text-align: center;
+    cursor: pointer;
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    border: 1px solid rgb(225, 225, 225);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: -0.3px;
+    line-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cartConfirmModalBtn {
+    background-color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+}

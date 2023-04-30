@@ -428,19 +428,31 @@
     height: 40px;
     line-height: 40px;
 }
+.submitBtn:disabled{
+    background-color: rgb(221, 221, 221);
+}
 * {
     font-family: "Noto Sans KR", sans-serif;
 }
-section.sectionBackGround {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.3);
+
+.modalBackGround {
     display: none;
-    justify-content: center;
-    align-items: center;
+    position: fixed;
+    inset: 0px;
+    font-family: NotoSansCJKkr;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 100;
+}
+
+.modalBackGround .modalBox {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(255, 255, 255);
+    border-radius: 2px;
+    z-index: 102;
+    width: 330px;
 }
 
 .modalBox {
@@ -531,4 +543,25 @@ section.sectionBackGround {
     line-height: 40px;
 }
 
+.cartDeleteArea {
+    text-align: center;
+    margin-top: 75px;
+}
+.cartEmptyContent {
+    font-size: 14px;
+    color: #9b9b9b;
+    margin-bottom: 15px;
+}
 
+.cartEmptysubmitBnt {
+    border-radius:2px;
+    width: 140px;
+    font-weight: 500;
+    font-size: 13px;
+    text-align: center;
+    height: 40px;
+    line-height: 40px;
+    padding-bottom: 12px;
+    background-color : black;
+    color:white;
+}

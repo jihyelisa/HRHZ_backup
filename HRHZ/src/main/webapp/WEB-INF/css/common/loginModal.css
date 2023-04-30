@@ -1,7 +1,7 @@
 .modalBackGround {
-    display: none;
+    display: block;
     position: fixed;
-    inset: 0px;
+    inset: 0;
     font-family: NotoSansCJKkr;
     background-color: rgba(0, 0, 0, 0.3);
     z-index: 100;
@@ -37,7 +37,7 @@
     line-height: 24px;
     font-size: 16px;
     white-space: pre;
-    font-weight: 500;
+    font-weight: 600;
 }
 
 .confirmText .subMsg {
@@ -52,12 +52,13 @@
     display: flex;
     justify-content: space-between;
 }
+
 .modalFooter button {
     width: 130px;
     height: 40px;
     cursor: pointer;
 }
-.cancleModalBtn,
+.cancelModalBtn,
 .confirmModalBtn {
     border-radius: 2px;
     outline: none;

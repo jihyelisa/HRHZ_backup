@@ -26,6 +26,11 @@ public class MainController {
 		return "index";
 	}
 
+	@GetMapping(value = "/loginModal")
+	public String loginModal() {
+		return "/views/common/loginModal";
+	}
+
 	@GetMapping(value="/category")
 	public String category(@RequestParam String pg, Model model) {
 		model.addAttribute("pg", pg);

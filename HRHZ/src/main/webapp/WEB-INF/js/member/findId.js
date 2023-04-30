@@ -49,4 +49,13 @@ $(document).ready(function () {
 					$('.authenticationValidIcon').show();
 				}
 			});
+			$('.nextButton').on('click', function (){
+				location.assign("/findId2");
+			});
+			$('.nextButton2').on('click', function (){
+				location.assign("/signIn1");
+			});
+			$('.forgetPwd').on('click', function(){
+				location.assign("/findPwd1");
+			});
 		});

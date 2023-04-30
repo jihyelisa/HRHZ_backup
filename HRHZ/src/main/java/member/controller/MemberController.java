@@ -366,5 +366,29 @@ public class MemberController {
 		}
 		return email;
 	}
+	@GetMapping(value="/findId1")
+	public String findId1() {
+		return "/views/member/findId1";
+	}
+	
+	@GetMapping(value="/findId2")
+	public String findId2() {
+		return "/views/member/findId2";
+	}
+	
+	@GetMapping(value="/findPwd1")
+	public String findPwd1() {
+		return "/views/member/findPwd1";
+	}
+	
+	@GetMapping(value="/findPwd2")
+	public String findPwd2() {
+		return "/views/member/findPwd2";
+	}
+	
+	@GetMapping(value="/signIn1")
+	public String signIn1() {
+		return "/views/member/signIn";
+	}
 }
 

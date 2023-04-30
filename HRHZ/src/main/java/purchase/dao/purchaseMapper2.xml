@@ -26,8 +26,6 @@
                       GROUP BY a.product_code, a.img_origin_name
                      ) pi
                 on p.code = pi.product_code
-            where
-                p.code=#{productCode}
             )
             join (select
                         *

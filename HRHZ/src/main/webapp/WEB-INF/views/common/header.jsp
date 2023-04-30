@@ -47,8 +47,9 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                             <a class="loginBtn" href="/signOut">로그아웃</a>
                         </c:otherwise>
                     </c:choose>
-                    <a class="myBtn" href="/myPage">마이</a>
-                    <a class="cartBtn" href="/purchase/cartForm">
+                    <a class="myBtn" id="myPageForm">마이</a>
+<%--                    <a class="cartBtn" href="/purchase/cartForm">--%>
+                    <a class="cartBtn">
                         <img
                             src="../images/common/header_cart_btn.svg"
                             alt="cart icon"

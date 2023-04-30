@@ -60,11 +60,5 @@
             </form>
         </div>
     </section>
-    
-    <%@ include file="/WEB-INF/views/admin/searchBrandModal.jsp" %>
-	<%@ include file="/WEB-INF/views/admin/searchProductModal.jsp" %>
-    
-    
-	<script type="text/javascript" src="http://code.jquery.com/jquery-3.6.4.min.js"></script>
-	<script src="text/javascript" src="../../js/admin/admin.js"></script>
+
        

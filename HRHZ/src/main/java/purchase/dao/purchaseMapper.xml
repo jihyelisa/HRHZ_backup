@@ -106,4 +106,36 @@
     							  #{imgOriginName}, #{imgPath}, #{regId}, NULL, SYSDATE, NULL)
     </insert>
     
+    <select id="cartCount" parameterType="java.util.Map" resultType="int">
+    	SELECT
+    		count(*) as cnt
+    	FROM cart
+    	WHERE member_id = #{memberId}
+    	AND code = #{optionCode}
+    </select>
+    
+    <insert id="cartInsert" parameterType="java.util.Map">
+		INSERT INTO cart
+			(SELECT
+				pd.code
+			,   pd.product_code
+			,   pd.brand_code
+			,   #{memberId}
+			,   #{productCount}
+			, 	(p.price * #{productCount}) 
+			FROM product_detail pd
+			INNER JOIN product p 
+			ON pd.product_code = p.code
+			where 
+				pd.code = #{optionCode})
+    </insert>
+    
+    
+    <delete id="cartDelete" parameterType="java.util.Map">
+		DELETE from cart 
+		WHERE
+			code = #{deleteCode}
+		AND  member_id = #{memberId}
+    </delete>
+    
 </mapper>

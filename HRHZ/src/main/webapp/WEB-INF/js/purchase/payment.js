@@ -15,48 +15,18 @@ $(".dropDownListPlain li").on("click", function (event) {
 //-----------------------------------
 // product
 $(function () {
-    // var list = [];
-    // var list2 = [];
-    // var listData1 = { optionCode: "D00000179", productCount: 1 };
-    // var listData2 = { optionCode: "D00000180", productCount: 0 };
-    // var listData3 = { optionCode: "D00000181", productCount: 1 };
-    // var listData4 = { optionCode: "D00000182", productCount: 0 };
-    // var listData5 = { optionCode: "D00000183", productCount: 0 };
-    // var listData6 = { optionCode: "D00000184", productCount: 0 };
-    // list.push(listData1);
-    // list.push(listData2);
-    // list.push(listData3);
-    // list.push(listData4);
-    // list.push(listData5);
-    // list.push(listData6);
-    //
-    // var listData21 = { optionCode: "D00000023", productCount: 2 };
-    // var listData22 = { optionCode: "D00000024", productCount: 0 };
-    // var listData23 = { optionCode: "D00000025", productCount: 0 };
-    // var listData24 = { optionCode: "D00000026", productCount: 0 };
-    // var listData25 = { optionCode: "D00000027", productCount: 0 };
-    // var listData26 = { optionCode: "D00000028", productCount: 0 };
-    // list2.push(listData21);
-    // list2.push(listData22);
-    // list2.push(listData23);
-    // list2.push(listData24);
-    // list2.push(listData25);
-    // list2.push(listData26);
-    // var jsonList = JSON.stringify({ P00000072: list, P00000020: list2 });
-    // let jsonList = $('div.jsonList').text();
-
     // key
-    let productList = $('.productCode').val();
+    // let productList = $('.productCode').val();
 
     // String > list type conversion
     // value
-    var jsonSting = $('.jsonList').val();
-    var jsonObj = $.parseJSON(jsonSting);
+    let jsonSting = $('.jsonList').val();
+    let jsonObj = $.parseJSON(jsonSting);
 
-    let obj = {};
-    obj[productList] = jsonObj;
+    // let obj = {};
+    // obj[productList] = jsonObj;
 
-    let jsonStr = JSON.stringify(obj);
+    let jsonStr = JSON.stringify(jsonObj);
 
     $.ajax({
         contentType: "application/json",
@@ -218,31 +188,28 @@ $(function () {
     });
 
     // ---------------------------------------------------------------
-    // member info change modal
+    //          member info change modal
     // ---------------------------------------------------------------
-    $('.payOrderInfo .payOrderEditBtn').on("click", function (){
+    $('.payOrderInfo .memberInfoChange').on("click", function (){
         $.ajax({
             type: 'get',
             url: "/purchase/memberInfoChangeModal",
             data: {name: name, phone: phone, email: email},
             success: function (html) {
-                $(html).appendTo('body').modal({
-                    escapeClose: false,
-                    clickClose: false,
-                    showClose: false
-                });
+                $(html).appendTo('body')
             }
         });
     });
 
     //name
-    $(document).on("focus", ".infoChangeModal .buyerName input", function (){
+    $(document).on("focus", ".infoChangeModal .buyerName input, .buyerEmail input, .newBuyerPhone input", function (){
         $(this).css("border-bottom-color", "#000");
     });
-    $(document).on("blur", ".infoChangeModal .buyerName input", function () {
+    $(document).on("blur", ".infoChangeModal .buyerName input, .buyerEmail input, .newBuyerPhone input", function () {
         $(this).css("border-bottom-color", "rgb(225, 225, 225)");
     });
 
+    // delete icon
     const deleteIconImg = "<img class='clearInputBtn' src='../../images/purchase/clear_input_btn.png'>";
     $(document).on("input", ".infoChangeModal .buyerName input", function (){
        name = $(this).val();
@@ -260,12 +227,6 @@ $(function () {
     });
 
     //email
-    $(document).on("focus", ".buyerEmail input", function (){
-        $(this).css("border-bottom-color", "#000");
-    });
-    $(document).on("blur", ".buyerEmail input", function () {
-        $(this).css("border-bottom-color", "rgb(225, 225, 225)");
-    });
     $(document).on("input", ".buyerEmail input", function (){
         email = $(this).val();
 
@@ -302,14 +263,62 @@ $(function () {
             $('.phoneSelectType .newBuyerPhone').css("display", "block");
     });
 
+    //phone
+    $(document).on("input", ".newBuyerPhone input", function (){
+        let newPhone = $(this).val();
+        const regExp = /^01([0|1|6|7|8|9]?)?([0-9]{3,4})?([0-9]{4})$/;
+        const errMsg = "<p class='infoErrorMsg'>휴대폰 번호가 올바르지 않습니다.</p>";
+        if($(this).val()){
+            if (!$(this).parent().find('.clearInputBtn').length)
+                $(this).parent().append(deleteIconImg);
+        } else
+            $(this).parent().find('.clearInputBtn').remove();
+
+        if (newPhone.length === 11) {
+            if (!regExp.test(newPhone)) {
+                $('.infoChangeBtn').attr("disabled", true);
+                if (!$(this).parent().find('.infoErrorMsg').length)
+                    $(this).parent().append(errMsg);
+            } else { //success
+                $(this).parent().find('.infoErrorMsg').remove();
+                phone = newPhone.replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3");
+
+                if ($('.buyerName input').val() && $('.buyerEmail input').val())
+                    $('.ifoChangeBtn').attr("disabled", false);
+            }
+        } else {
+            $('.infoChangeBtn').attr("disabled", true);
+            if (!$(this).parent().find('.infoErrorMsg').length)
+                $(this).parent().append(errMsg);
+        }
+
+    });
+
+    // clear input btn
+    $(document).on("click", ".clearInputBtn", function (){
+        $(this).parent().find("input").val("");
+        $(this).parent().find('.clearInputBtn').remove();
+        if ($('.buyerName input').val() === "" || $('.buyerEmail input').val() === "")
+            $('.infoChangeBtn').attr("disabled", true);
+    });
+
     // member info change
     $(document).on('click', '.modalFooter .infoChangeBtn', function() {
-        if($('.newBuyerPhone input').val() !== "") phone = $('.newBuyerPhone input').val();
+        // if($('.newBuyerPhone input').val() !== "") phone = $('.newBuyerPhone input').val();
 
+        $('.modalBoxWrap').hide().remove();
         $('.buyerInfo .buyerName').empty().removeClass('empty').text(name);
         $('.buyerInfo .buyerCellPhone').text(phone);
         $('div.buyerEmail').empty().removeClass('empty').text(email);
     });
+
+    // --------------------------------------------------
+    //          close modal
+    // --------------------------------------------------
+    $(document).on("click", ".modalCloseBtn, .cancelModalBtn",function (){
+        $('.modalBoxWrap').hide().remove();
+    })
+
     // remove modal tag when close the modal
     $(document).on('click', '.modalCloseBtn, .modalFooter .infoChangeBtn', function() {
         $(this).closest('.modal').remove();

@@ -144,4 +144,13 @@ function naverLogout() {
 	
 	*/
 
+$("#findIdLink").click(function() {
+	event.preventDefault();
+	location.assign("/findId1");
+});
+
+$("#findPwdLink").click(function() {
+	event.preventDefault();
+	location.assign("/findPwd1");
+});
 

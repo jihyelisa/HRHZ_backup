@@ -144,7 +144,7 @@ pageEncoding="UTF-8"%>
                     </section>
                 </section>
             </div>
-            <%@ include file="/WEB-INF/views/common/loginModal.jsp" %>
+            <!-- <%@ include file="/WEB-INF/views/common/loginModal.jsp" %> -->
         </main>
         <%@ include file="/WEB-INF/views/common/footer.jsp" %>
         <script

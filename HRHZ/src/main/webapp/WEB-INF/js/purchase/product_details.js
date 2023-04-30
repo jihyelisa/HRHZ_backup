@@ -2,8 +2,8 @@ $(document).ready(function () {
     // remove GET parameters after uploading review
     //  history.replaceState({}, null, location.pathname);
 
-    var productCode = $(".productCode").text();
-    var memberId = $(".memberId").text();
+    var productCode = $('.productCode').text();
+    var memberId = $('.memberId').val();
 
     // ---------------------------------------------------
     //                   smooth scroll
@@ -491,47 +491,86 @@ $(document).ready(function () {
     //                  add cart button
     // ---------------------------------------------------
     $(".addCartBtn").on("click", function (event) {
-        location.href = "/purchase/cartForm";
-    });
+        if(memberId) {
+            let optionList = [];
+            let option = "";
+            let optionCountSum = 0;
 
+            if (memberId.length < 1) {
+                $("section.modalBackGround").css("display", "flex");
+                return;
+            }
+
+            // listing quantity of all options
+            $(".selectedOptionItem").each(function () {
+                let detailCode = $(this).find('input[name="detailCode"]').val();
+                let optionCount = parseInt($(this).find(".count").text());
+
+                if (optionCount > 0) {
+                    option = {optionCode: detailCode, productCount: optionCount};
+                    optionList.push(option);
+                }
+
+                optionCountSum += optionCount;
+
+            });
+            console.log(optionList);
+            console.log(optionCountSum);
+
+            if (optionCountSum == 0) {
+
+                alert("선택된 옵션이 없습니다.");
+                return;
+
+            } else {
+                cartData(optionList);
+            }
+        } else {
+            $.get("/loginModal", function (html){
+                $(html).appendTo('body');
+            })
+        }
+      
+    });
     // ---------------------------------------------------
     //                   buy now button
     // ---------------------------------------------------
     $(".purchase").on("click", function (event) {
-        $(".buyNowForm").empty();
-        let optionList = [];
-        let option = "";
-        let optionCountSum = 0;
+        if(memberId){
+            $(".buyNowForm").empty();
+            let optionList = [];
+            let option = "";
+            let optionCountSum = 0;
 
-        // listing quantity of all options
-        $(".selectedOptionItem").each(function () {
-            let detailCode = $(this).find('input[name="detailCode"]').val();
-            let optionCount = parseInt($(this).find(".count").text());
-            option = {optionCode: detailCode , productCount:optionCount};
+            // listing quantity of all options
+            $(".selectedOptionItem").each(function () {
+                let detailCode = $(this).find('input[name="detailCode"]').val();
+                let optionCount = parseInt($(this).find(".count").text());
+                option = {optionCode: detailCode , productCount:optionCount};
 
-            optionList.push(option);
-            console.log(optionList);
-            optionCountSum += optionCount;
-        });
-        let productCode = $('.productCode').text();
-        let jsonList = JSON.stringify(optionList);
-        console.log(jsonList);
-        // put data into addCartForm
-        const productCodeInput = $("<input>")
-            .attr("name", "productCode")
-            .val(productCode)
-            .attr("hidden",true);
-        const jsonInput = $("<input>")
-            .attr("name", "jsonList")
-            .val(jsonList)
-            .attr("hidden",true);
-        $(".buyNowForm").attr("action", "/purchase/payment").append(productCodeInput).append(jsonInput);
+                optionList.push(option);
+                optionCountSum += optionCount;
+            });
 
-        if (optionCountSum == 0) {
-            alert("선택된 옵션이 없습니다.");
-        } else {
-            // send productCode & quantity list
-            $(".buyNowForm").submit();
+            let jsonList = JSON.stringify(optionList);
+
+            // put data into addCartForm
+            const jsonInput = $("<input>")
+                .attr("name", "jsonList")
+                .val(jsonList)
+                .attr("hidden",true);
+            $(".buyNowForm").attr("action", "/purchase/payment").append(jsonInput);
+
+            if (optionCountSum == 0) {
+                alert("선택된 옵션이 없습니다.");
+            } else {
+                // send productCode & quantity list
+                $(".buyNowForm").submit();
+            }
+        }else {
+            $.get("/loginModal", function (html){
+                $(html).appendTo('body');
+            })
         }
     });
 
@@ -690,5 +729,42 @@ $(document).ready(function () {
         // 등록버튼 초기화
         $(".reviewWriteBtn").css("background-color", "#ddd");
     });
+    
+    
+    
+   function cartData(optionList) {
+    
+	    $.ajax({
+	        type: "post",
+	        url: "/purchase/cartInsert",
+	        data: {
+	            id : memberId,
+	            optionList : JSON.stringify(optionList)
+	        },
+	        success: function (data) {
+	         	$("section.cartModalBackGround").css("display", "flex");
+	        },
+	        err: function (err) {
+	            console.log(err);
+	        },
+	    });
+	}
+	
+
+
+    $(".cartCancleModalBtn").on("click", function (event) {
+        $("section.cartModalBackGround").css("display", "none");
+    });
+	
+   
+    $(".cartConfirmModalBtn").on("click", function (event) {
+
+        location.href="/purchase/cartForm";
+    });
+    
 });
 
+
+
+
+    

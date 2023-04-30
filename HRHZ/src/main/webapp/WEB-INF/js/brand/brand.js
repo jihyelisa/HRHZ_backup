@@ -1,6 +1,7 @@
 // getBrandList
-var memberId = $(".memberId").text();
+var memberId = $(".memberId").val();
 // console.log(memberId);
+
 
 $(document).ready(function () {
     $.ajax({

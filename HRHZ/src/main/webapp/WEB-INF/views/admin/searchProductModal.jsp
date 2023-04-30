@@ -1,14 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-	<link rel="stylesheet" href="../../css/common/reset.css">
-    <link rel="stylesheet" href="../../css/admin/adminModal.css">
-</head>
-<body>
+
 <section class="sectionBackGroundProduct">
         <div class="modalBody2">
             <div class="brandFilter2">
@@ -139,8 +131,3 @@
             </div>
         </div>
     </section>
-    <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.4.min.js"></script>
-	<script src="text/javascript" src="../../js/admin/admin.js"></script>
-	
-</body>
-</html>

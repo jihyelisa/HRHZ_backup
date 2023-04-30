@@ -23,28 +23,23 @@ public class PurchaseController2 {
 
     @PostMapping("/getPaymentInfo")
     @ResponseBody
-    public List<PaymentDTO> getPaymentInfo(@RequestBody Map<String, List<Map<String, Object>>> data) {
+    public List<PaymentDTO> getPaymentInfo(@RequestBody List<Map<String, Object>> data) {
         List<PaymentDTO> paymentDTOList = new ArrayList<>(); // PaymentDTO 객체들을 담을 리스트 생성
         List<Integer> productCountList = new ArrayList<>();
+        for (Map<String, Object> product : data) {
 
-        for (String productCode : data.keySet()) {
-            List<Map<String, Object>> productList = data.get(productCode);
-            for (Map<String, Object> product : productList) {
+            String optionCode = (String) product.get("optionCode"); // product detail code
+            int productCount = (int) product.get("productCount");
 
-                String optionCode = (String) product.get("optionCode"); // product detail code
-                int productCount = (int) product.get("productCount");
+            if (productCount > 0) {
+                PaymentDTO paymentDTO = new PaymentDTO(); // PaymentDTO 객체 생성
 
-                if (productCount > 0) {
-                    PaymentDTO paymentDTO = new PaymentDTO(); // PaymentDTO 객체 생성
+                paymentDTO.setOptionCode(optionCode);
 
-                    paymentDTO.setProductCode(productCode);
-                    paymentDTO.setOptionCode(optionCode);
-
-                    paymentDTOList.add(paymentDTO); // 리스트에 PaymentDTO 객체 추가
-                    productCountList.add(productCount);
-                }
-
+                paymentDTOList.add(paymentDTO); // 리스트에 PaymentDTO 객체 추가
+                productCountList.add(productCount);
             }
+
         }
         // 서비스 파일에 PaymentDTO 리스트 전달
         List<PaymentDTO> list = purchaseService2.getPaymentInfo(paymentDTOList);
@@ -73,8 +68,7 @@ public class PurchaseController2 {
     @ResponseBody
     public MemberDTO getMember(HttpServletRequest request) {
         HttpSession session = request.getSession();
-//        String id = (String)  session.getAttribute("sessionId");
-        String id = "G000007";
+        String id = (String)  session.getAttribute("sessionId");
         System.out.println(id);
 
         return purchaseService2.getMember(id);

@@ -103,11 +103,8 @@ public class MemberServiceImpl implements MemberService {
 
         bodyJson.put("type","SMS");							// Madantory, 硫붿떆吏� Type (SMS | LMS | MMS), (�냼臾몄옄 媛��뒫)
         bodyJson.put("from",myPhone);					// Mandatory, 諛쒖떊踰덊샇, �궗�쟾 �벑濡앸맂 諛쒖떊踰덊샇留� �궗�슜 媛��뒫
-        bodyJson.put("content","AMONDZ �씤利앸쾲�샇 : "+ numStr);	// Mandatory(�븘�닔), 湲곕낯 硫붿떆吏� �궡�슜, SMS: 理쒕� 80byte, LMS, MMS: 理쒕� 2000byte
+        bodyJson.put("content","HRHZ authentication Number : "+ numStr);	// Mandatory(�븘�닔), 湲곕낯 硫붿떆吏� �궡�슜, SMS: 理쒕� 80byte, LMS, MMS: 理쒕� 2000byte
         bodyJson.put("messages", toArr);					// Mandatory(�븘�닔), �븘�옒 �빆紐⑸뱾 李몄“ (messages.XXX), 理쒕� 1,000媛�
-
-        System.out.println("�솗�씤�솗�씤�솗�씤2");
-        System.out.println("myPhone");
 
         //String body = bodyJson.toJSONString();
         String body = bodyJson.toString();

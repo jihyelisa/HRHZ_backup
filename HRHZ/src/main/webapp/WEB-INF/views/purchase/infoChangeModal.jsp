@@ -4,9 +4,7 @@
     <div class="modalBox infoChangeModal">
         <div class="modalHeader">
             <span class="modalHeaderTitle">주문자 정보</span>
-            <a href="#close-modal" rel="modal:close" class="close-modal ">
-                <img class="modalCloseBtn" src="../../images/my/modal_close_btn.png">
-            </a>
+            <img class="modalCloseBtn" src="../../images/my/modal_close_btn.png">
         </div>
         <div class="modalBody">
             <form novalidate="">
@@ -54,9 +52,7 @@
             </form>
         </div>
         <div class="modalFooter">
-            <a href="#close-modal" rel="modal:close" class="close-modal ">
-                <button class="goShopBtn infoChangeBtn" disabled="">변경</button>
-            <a>
+            <button class="goShopBtn infoChangeBtn" disabled="">변경</button>
         </div>
     </div>
 </div>

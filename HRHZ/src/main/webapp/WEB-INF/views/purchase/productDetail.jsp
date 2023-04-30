@@ -9,6 +9,7 @@ pageEncoding="UTF-8"%>
         <title>productDetail</title>
         <link rel="stylesheet" href="../../css/common/reset.css" />
         <link rel="stylesheet" href="../../css/common/header_footer.css" />
+        <link rel="stylesheet" href="../../css/common/loginModal.css" />
         <link rel="stylesheet" href="../../css/purchase/product_details.css" />
         <link
             href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap"
@@ -24,7 +25,7 @@ pageEncoding="UTF-8"%>
         <%@ include file="/WEB-INF/views/common/header.jsp" %>
         <div class="sessionData">
             <div class="productCode">${param.productCode}</div>
-            <div class="memberId">${sessionId}</div>
+            <input hidden="hidden" class="memberId" value="${sessionId}" />
         </div>
 
         <div class="background">
@@ -306,7 +307,6 @@ pageEncoding="UTF-8"%>
                                 <form
                                     class="buyNowForm"
                                     method="post"
-<%--                                    action="/purchase/payment"--%>
                                 ></form>
                             </div>
                         </div>
@@ -722,7 +722,8 @@ pageEncoding="UTF-8"%>
                 </form>
             </div>
         </section>
-
+        
+ 		<%@ include file="productDetailCartModal.jsp" %>
         <%@ include file="/WEB-INF/views/common/footer.jsp" %>
 
         <script
@@ -734,5 +735,6 @@ pageEncoding="UTF-8"%>
             type="text/javascript"
             src="../../js/purchase/product_details.js"
         ></script>
+        <script type="text/javascript" src="../../js/loginModal.js"></script>
     </body>
 </html>

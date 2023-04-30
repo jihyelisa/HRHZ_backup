@@ -10,4 +10,6 @@ public interface PurchaseService {
 	public List<Map<String, Object>> getProductImages(String productCode);
 	public List<Map<String, Object>> getProductReviews(String productCode);
 	public void reviewUpload(ReviewDTO reviewDTO, List<String> fileNameList);
+	public String cartInsert(Map<String, Object> param);
+	public void cartDelete(Map<String, Object> param);
 }

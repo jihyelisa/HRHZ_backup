@@ -71,6 +71,8 @@ header {
 }
 .authMenu a {
     cursor: pointer;
+    text-decoration: none;
+    color: rgb(155, 155, 155);
 }
 .cartBtn {
     width: 24px;

@@ -8,6 +8,7 @@ pageEncoding="UTF-8"%>
         <title>HRHZ</title>
         <link rel="stylesheet" href="../../css/common/reset.css" />
         <link rel="stylesheet" href="../../css/common/header_footer.css" />
+        <link rel="stylesheet" href="../../css/common/loginModal.css" />
         <link rel="stylesheet" href="../../css/category/category_style.css" />
         <link
             href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap"
@@ -19,7 +20,10 @@ pageEncoding="UTF-8"%>
         />
     </head>
     <body>
-        <input type="hidden" id="memberId" value="${sessionId}" />
+
+<%--        <input type="hidden" id="memberId" value="test" />--%>
+        <input type="hidden" class="memberId" value="${sessionId}">
+
         <input type="hidden" id="pg" value="${pg}" />
 
         <%@ include file="/WEB-INF/views/common/header.jsp" %>
@@ -47,8 +51,8 @@ pageEncoding="UTF-8"%>
             type="text/javascript"
             src="http://code.jquery.com/jquery-3.6.4.min.js"
         ></script>
-
         <script type="text/javascript" src="../../js/header_footer.js"></script>
+        <script type="text/javascript" src="../../js/loginModal.js"></script>
         <script
             type="text/javascript"
             src="../../js/category_script.js"

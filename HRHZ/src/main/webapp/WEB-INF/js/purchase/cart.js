@@ -1,10 +1,8 @@
 var deleteCheck;
-var memberId = $(".memberId").text();
+var memberId = $(".memberId").val();
 
 // product dynamic allocation in cart
 $(function (){
-
-
     cartSearch();
 });
 
@@ -21,48 +19,61 @@ $('.cancelBtn').on('click', function() {
 //           payment button
 // ---------------------------------------------------
 $('.submitBtn').on('click', function() {
-	let optionCountList = [];
-    let optionCountSum = 0;
+	$(".buyNowForm").empty();
+	let optionList = [];
+	let option = "";
+	let optionCountSum = 0;
 
-    // listing quantity of all options
-    $(".selectedOptionItem").each(function () {
-        let optionCount = parseInt(
-            $(this).find(".count").text().replace(",", "")
-        );
-        optionCountList.push(optionCount);
-        optionCountSum += optionCount;
-    });
+	// listing quantity of all options
+	$('.tableBody').each(function () {
+		if($(this).find('.productCheckBox input').is(':checked')){
+			let detailCode = $(this).find('.productInfoBox .detailOption').text();
+			let optionCount = parseInt($(this).find(".productCount span").text());
+			option = {optionCode: detailCode , productCount:optionCount};
 
-    // put data into addCartForm
-    const productCodeInput = $("<input>")
-        .attr("name", "productCode")
-        .val($(".productCode").text());
-    const optionCountInput = $("<input>")
-        .attr("name", "optionCountList")
-        .val(JSON.stringify(optionCountList));
-    $(".buyNowForm").append(productCodeInput).append(optionCountInput);
+			optionList.push(option);
+			optionCountSum += optionCount;
+		}
+	});
+	let jsonList = JSON.stringify(optionList);
 
-    if (optionCountSum == 0) {
-        alert("선택된 옵션이 없습니다.");
-    } else {
-        // send productCode & quantity list
-        $(".buyNowForm").submit();
-    }
-	
+	console.log(jsonList);
+	// put data into addCartForm
+	const jsonInput = $("<input>")
+		.attr("name", "jsonList")
+		.val(jsonList)
+		.attr("hidden",true);
+	$(".buyNowForm").attr("action", "/purchase/payment").append(jsonInput);
+
+
+
+	if (optionCountSum == 0) {
+		alert("선택된 옵션이 없습니다.");
+	} else {
+		// send productCode & quantity list
+		$(".buyNowForm").submit();
+	}
 });
+
+
 
 // ---------------------------------------------------
 //           allCheck  button
 // ---------------------------------------------------
 $('.cartListCheckBox').on('click', function() {
-	
+
 	if ($(this).children("input").is(":checked")) {
 		$('.tableBody td.tdCheck01 input').prop("checked", true);
 		$('.deleteSectionBtn').css("display", "block");
+		$('.cartBntWrap .submitBtn').prop("disabled", false);
 	} else {
 		$('.tableBody td.tdCheck01 input').prop("checked", false);
 		$('.deleteSectionBtn').css("display", "none");
+		$('.cartBntWrap .submitBtn').prop("disabled", true);
 	}
+
+	 tableFooterCalculate();
+	 orderCalculate();
 
 });
 
@@ -71,12 +82,13 @@ $('.cartListCheckBox').on('click', function() {
 // ---------------------------------------------------
 $(document).on("click", ".productCheckBox", function () {
 
+
 	if ($(this).children("input").prop("checked")) {
 		$(this).children("input").prop("checked", false);
 	} else {
 		$(this).children("input").prop("checked", true);
 	}
-				
+
 });
 
 // ------------------------------------------------------
@@ -153,9 +165,9 @@ $(document).on("click", ".countUpBtn", function () {
 // ------------------------------------------------------
 $(document).on("click", ".deleteSectionBtn", function () {
 
-	deleteCheck = { "check" :"MULTI"};
+	deleteCheck = { "check" : "MULTI"};
 
- 	$("section.sectionBackGround").css("display", "flex");
+ 	$("section.modalBackGround").css("display", "flex");
 		
 });
 
@@ -166,7 +178,7 @@ $(document).on("click", ".deleteBtn", function () {
 
 	deleteCheck = { "check" :"ONE", "thisData" : $(this) };
 	
-	$("section.sectionBackGround").css("display", "flex");
+	$("section.modalBackGround").css("display", "flex");
 	
 });
 
@@ -174,9 +186,9 @@ $(document).on("click", ".deleteBtn", function () {
 // ------------------------------------------------------
 //    			delete Modal cancle button
 // ------------------------------------------------------
-$('.cancleModalBtn').on('click', function() {
+$('.cancleModalBtn, .modalCloseBtn').on('click', function() {
 
-	$("section.sectionBackGround").css("display", "none");	
+	$("section.modalBackGround").css("display", "none");	
 
 });
 
@@ -185,14 +197,23 @@ $('.cancleModalBtn').on('click', function() {
 // ------------------------------------------------------
 $('.confirmModalBtn').on('click', function() {
 	modalDelete(deleteCheck);
-	$("section.sectionBackGround").css("display", "none");
+	$("section.modalBackGround").css("display", "none");
+
+});
+
+$('.modalCloseBtn').on('click', function() {
+	modalDelete(deleteCheck);
+	$("section.modalBackGround").css("display", "none");
+
+});
+
+$('.cartEmptysubmitBnt').on('click', function() {
+	location.href="/";
 
 });
 
 
 function cartSearch() {
-
-console.log(memberId);
 
   $.ajax({
         type: "post",
@@ -281,17 +302,17 @@ console.log(memberId);
                                 "</div>" +
                                 "</td>" +
                                 "<td class='productSumWrap'>" +
-                                "<div class='productSumPrice'>" +
-                                "<span class='amount'>" +
-                                    sum.toLocaleString() +
-                                "</span>" +
-                                "<span class='unit'>원</span>" +
-                                "</div>" +
-                                "</td>" +
-                                "<td class='prodcutDelete'>" +
-                                "<div class= 'productDeleteBtn'>" +
-                                "<img class='deleteBtn' src='../images/purchase/modal_close_btn.png' />" +
-                                "</div>" +
+									"<div class='productSumPrice'>" +
+										"<span class='amount'>" +
+											sum.toLocaleString() +
+										"</span>" +
+										"<span class='unit'>원</span>" +
+									"</div>" +
+								"</td>" +
+								"<td class='prodcutDelete'>" +
+									"<div class= 'productDeleteBtn'>" +
+										"<img class='deleteBtn' src='../images/purchase/modal_close_btn.png' />" +
+									"</div>" +
                                 "</td>" +
                                 "<div class='prodcutDelete'>" +
                                 "</div>" +
@@ -355,6 +376,7 @@ function modalDelete(deleteCheck) {
 	let thisTableRow = 0;	
 	let $inputCount = 0;
 	let cartTableRow = 0;
+	let deleteDetailCode;
 	
 	if (deleteCheck.check === "MULTI") {
 	
@@ -366,14 +388,19 @@ function modalDelete(deleteCheck) {
 	  			$.each($inputCount, function (index, items) {
 	  			 	
 	  			 	if ($(items).prop("checked") ) {
+						deleteDetailCode = $(items).parents('tr.tableBody').find('div.detailOption').text();
+						cartDeleteTable(deleteDetailCode);
 						$(items).parents('tr.tableBody').remove();
 	        		}
 	        
 	  			});
 	  			
 	  		} else {
+
 	  		
 				if ($(items).find('tr.tableBody input').prop("checked") ) {
+					deleteDetailCode = $(items).find('div.detailOption').text();
+					cartDeleteTable(deleteDetailCode);
 					$(items).find('tbody tr.tableBody').remove();
 	        	}  		
 	  		}
@@ -382,7 +409,10 @@ function modalDelete(deleteCheck) {
 	    });
 	
 	} else {
-	
+
+
+		deleteDetailCode = $(items).find('div.detailOption').text();
+		cartDeleteTable(deleteDetailCode);
 		deleteCheck.thisData.parents('tr.tableBody').remove();
 	
 	} 
@@ -465,7 +495,6 @@ function tableFooterCalculate() {
 	  			}
 	  		}
 	  		
-	  		console.log(productPriceTotal);
 	  		
 	  		$(items).find('tfoot .amount').first().text(productPriceTotal.toLocaleString());
 	  		$(items).find('tfoot .totalPriceAmount').text(productPriceTotal.toLocaleString());
@@ -514,7 +543,25 @@ function deleteInfo() {
 
    if ($('.cartList tr.tableBody').length === 0 ) {
    		location.href="/purchase/cartForm?display=cartDeleteInfo";
-   
    }
-
 }
+
+function cartDeleteTable(deleteCode) {
+
+	$.ajax({
+        type: "post",
+        url: "/purchase/cartDelete",
+        data: {
+            deleteCode : deleteCode,
+			memberId : memberId
+
+        },
+        success: function (data) {
+            console.log(data);
+        },
+        err: function (err) {
+            console.log(err);
+        },
+    });
+}
+

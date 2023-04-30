@@ -33,4 +33,17 @@ public class PurchasesServiceImpl implements PurchaseService {
 	public void reviewUpload(ReviewDTO reviewDTO, List<String> fileNameList) {
 		purchaseDAO.reviewUpload(reviewDTO, fileNameList);
 	}
+
+	@Override
+	public String cartInsert(Map<String, Object> param) {
+		System.out.println(param);
+		return purchaseDAO.cartInsert(param);
+	}
+
+	@Override
+	public void cartDelete(Map<String, Object> param) {
+		
+		purchaseDAO.cartDelete(param);
+		
+	}
 }

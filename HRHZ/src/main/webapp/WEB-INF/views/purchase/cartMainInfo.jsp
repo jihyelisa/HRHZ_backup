@@ -41,6 +41,11 @@
       </div>
   </div>
 </div>
+<form
+    class="buyNowForm"
+    method="post"
+    style="display:none;"
+></form>
 <div class="cartBntWrap">
   <button class="cancelBtn" color="white">쇼핑 계속하기</button>
   <button class="submitBtn" color="black">구매하기</button>

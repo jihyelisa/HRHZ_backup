@@ -16,8 +16,7 @@
     
         <%@ include file="/WEB-INF/views/common/header.jsp" %>
         <div class="hiddenData">
-            <%-- <div class="memberId">${sessionId}</div> --%>
-            <div class="memberId">A000006</div>
+             <input hidden="hidden" class="memberId" value="${sessionId}" />
         </div>
         <main>
             <section class="mainSection">

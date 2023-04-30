@@ -25,7 +25,7 @@ pageEncoding="UTF-8"%>
 
         <main>
             <section class="mainSection">
-                <input type="hidden" class="productCode" value='${param.productCode}' />
+<%--                <input type="hidden" class="productCode" value='${param.productCode}' />--%>
                 <input type="hidden" class="jsonList" value='${param.jsonList}'>
                 <div class="paymentMain1">
                     <div class="paymentMain2">
@@ -44,7 +44,7 @@ pageEncoding="UTF-8"%>
                                             <div class="payOrderTitle">
                                                 주문자 정보
                                             </div>
-                                            <div class="payOrderEditBtn">
+                                            <div class="payOrderEditBtn memberInfoChange">
                                                 <span>변경하기</span>
                                                 <img
                                                     alt
@@ -525,8 +525,6 @@ pageEncoding="UTF-8"%>
             type="text/javascript"
             src="http://code.jquery.com/jquery-3.6.4.min.js"
         ></script>
-        <!-- jQuery Modal -->
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
 
         <script
             type="text/javascript"

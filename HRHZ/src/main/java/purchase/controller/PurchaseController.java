@@ -20,6 +20,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import hrhz.dto.ReviewDTO;
 import purchase.service.PurchaseService;
 
@@ -105,6 +110,42 @@ public class PurchaseController {
 		 purchaseService.reviewUpload(reviewDTO, fileNameList);
 		 return "/views/purchase/productDetail";
 	 }
+	 
+	 
+	 @PostMapping(value = "cartInsert")
+	 @ResponseBody
+	 public String cartInsert(@RequestParam Map<String, Object> param) throws JsonParseException, JsonMappingException, IOException {
+		  String id =  param.get("id").toString();
+		  String optionList = param.get("optionList").toString();
+	
+		  
+		  
+		  ObjectMapper mapper = new ObjectMapper();
+	      List<Map<String, Object>> paramList = mapper.readValue(optionList, new TypeReference<ArrayList<Map<String, Object>>>(){});
+	      
+		  param.put("id", id);
+		  param.put("optionList", paramList);
+		  
+		  System.out.println(param);
+		  
+		  String result = purchaseService.cartInsert(param);
+		  
+		  return result;
+	 
+	 }
+	 
+	 
+	 @PostMapping(value = "cartDelete")
+	 @ResponseBody
+	 public void cartDelete(@RequestParam Map<String, Object> param) throws JsonParseException, JsonMappingException, IOException {
+	      
+		 
+		 
+		 	purchaseService.cartDelete(param);
+		  
+	 
+	 }
+	 
 	 
 //	 @PostMapping(value = "reviewUpload", produces = "text/html; charset=UTF-8")
 //	 public String reviewUpload(@ModelAttribute ReviewDTO reviewDTO) {

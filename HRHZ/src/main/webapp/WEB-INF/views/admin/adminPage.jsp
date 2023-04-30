@@ -15,6 +15,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         <link rel="stylesheet" href="../../css/common/reset.css" />
         <link rel="stylesheet" href="../../css/common/header_footer.css" />
         <link rel="stylesheet" href="../../css/admin/admin.css" />
+        <link rel="stylesheet" href="../../css/admin/adminModal.css" />
         <link rel="stylesheet" href="../../css/admin/adminProductDisplay.css" />
         <link rel="stylesheet" href="../../css/admin/adminBrandDisplay.css" />
         <link
@@ -68,10 +69,13 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                     </div>
                     <!--//adminOuterWrapper-->
                 </div>
-                <%@ include file="/WEB-INF/views/common/loginModal.jsp" %>
             </main>
             <%@ include file="/WEB-INF/views/common/footer.jsp" %>
         </div>
+        <%@ include file="/WEB-INF/views/admin/deleteModal.jsp" %>
+        <%@ include file="/WEB-INF/views/admin/searchBrandModal.jsp" %>
+        <%@ include file="/WEB-INF/views/admin/searchProductModal.jsp" %>
+
 
         <script
             type="text/javascript"
@@ -79,5 +83,6 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         ></script>
         <script type="text/javascript" src="../../js/header_footer.js"></script>
         <script type="text/javascript" src="../../js/admin/admin.js"></script>
+        <script type="text/javascript" src="../../js/admin/admin2.js"></script>
     </body>
 </html>

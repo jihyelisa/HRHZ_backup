@@ -164,9 +164,6 @@ function likeCount(id, code, division) {
             codeType: code.charAt(0),
             division: division,
         },
-        success: function (data) {
-            console.log(data);
-        },
         err: function (err) {
             console.log(err);
         },

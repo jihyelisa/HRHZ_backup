@@ -107,23 +107,7 @@
 		            1=1
 		        AND k.RN = 1
 		        
-		         <if test='sortValue != null and sortValue != null'>
-	                  <choose>
-				       	 		<when test='sortValue == "인기순"'>
-				       	 		ORDER  BY k.likeCount DESC
-				       	 		</when>
-				       	 		<when test='sortValue ==" 낮은가격순"'>
-				       	 		ORDER  BY k.price  
-				       	 		</when>
-				       	 		<when test='sortValue =="높은가격순"'>
-				       	 		ORDER  BY k.price DESC  
-				       	 		</when>
-				       	 		<when test='sortValue =="신상품"'>
-				       	 		ORDER  BY k.REG_DATE DESC  
-				       	 		</when>
-				       	 		
-				       	</choose>
-				  	  </if>	
+		        
 		         
 		        ) cg
 		        WHERE 
@@ -133,7 +117,23 @@
 		       
         AND seq <![CDATA[>=]]> #{startNum} AND seq <![CDATA[<=]]> #{endNum}
         
-         	 	
+         <if test='sortValue != null and sortValue != null'>
+	                  <choose>
+				       	 		<when test='sortValue == "인기순"'>
+				       	 		ORDER  BY cg.likeCount DESC
+				       	 		</when>
+				       	 		<when test='sortValue ==" 낮은가격순"'>
+				       	 		ORDER  BY cg.price  
+				       	 		</when>
+				       	 		<when test='sortValue =="높은가격순"'>
+				       	 		ORDER  BY cg.price DESC  
+				       	 		</when>
+				       	 		<when test='sortValue =="신상품"'>
+				       	 		ORDER  BY cg.REG_DATE DESC  
+				       	 		</when>
+				       	 		
+				       	</choose>
+				  	  </if>	 	 	
 					
         
         

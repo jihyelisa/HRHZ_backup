@@ -457,7 +457,7 @@ $(document).on("click", ".categoryToggle", function () {
 });
 
 // ---------------------------------------------------
-//              sortToggle 눌렀을 때도 click 이벤트 걸어줘야되어유 ㅜ ㅜ ㅜ
+//              sortToggleList
 // ---------------------------------------------------
 $(document).on("click", ".sortToggle div", function () {
     var sortValue = $("span.selectedSort").text();

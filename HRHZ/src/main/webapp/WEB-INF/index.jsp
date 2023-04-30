@@ -36,7 +36,7 @@ pageEncoding="UTF-8"%>
         ></script>
     </head>
     <body>
-        <input type="hidden" id="memberId" value="${sessionId}" />
+        <input type="hidden" class="memberId" id="memberId" value="${sessionId}" />
         <%@ include file="/WEB-INF/views/common/header.jsp" %>
         <main>
             <div
@@ -198,12 +198,13 @@ pageEncoding="UTF-8"%>
                     </a> -->
                 </div>
             </article>
-            <%@ include file="/WEB-INF/views/common/loginModal.jsp" %>
+<%--            <%@ include file="/WEB-INF/views/common/loginModal.jsp" %>--%>
         </main>
 
         <%@ include file="/WEB-INF/views/common/footer.jsp" %>
 
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript" src="js/header_footer.js"></script>
+        <script type="text/javascript" src="js/loginModal.js"></script>
     </body>
 </html>

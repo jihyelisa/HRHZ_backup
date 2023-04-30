@@ -13,7 +13,7 @@ pageEncoding="UTF-8"%>
         </div>
 
         <div class="modalFooter">
-            <button class="cancleModalBtn" color="white">
+            <button class="cancelModalBtn" color="white">
                 <span>취소</span>
             </button>
             <button class="confirmModalBtn" color="black">

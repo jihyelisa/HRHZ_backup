@@ -7,6 +7,7 @@ pageEncoding="UTF-8"%>
         <link rel="icon" href="/images/favicon48.ico" />
         <title>Insert title here</title>
         <link rel="stylesheet" href="../../css/common/reset.css" />
+        <link rel="stylesheet" href="../../css/common/loginModal.css" />
         <link rel="stylesheet" href="../../css/common/header_footer.css" />
         <link rel="stylesheet" href="../../css/member/signInStyle.css" />
         <link
@@ -62,8 +63,8 @@ pageEncoding="UTF-8"%>
 
                             <!-- 아이디 찾기, 비밀번호 찾기 -->
                             <span class="finder"
-                                ><a href="#">아이디 찾기</a> |
-                                <a href="#">비밀번호 찾기</a></span
+                                ><a href="#" id="findIdLink">아이디 찾기</a> |
+                                <a href="#" id="findPwdLink">비밀번호 찾기</a></span
                             >
 
                             <!--  로그인 버튼 -->
@@ -191,7 +192,7 @@ pageEncoding="UTF-8"%>
             src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js"
             charset="utf-8"
         ></script>
-
+        <script type="text/javascript" src="../../js/loginModal.js"></script>
         <script type="text/javascript" src="../../js/header_footer.js"></script>
         <script type="text/javascript" src="../../js/member/signIn.js"></script>
     </body>

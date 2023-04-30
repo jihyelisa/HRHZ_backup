@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="ko">
+<html>
     <head>
         <title></title>
-        <meta charset="UTF-8" />
+        <meta charset="UTF-8" >
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/images/favicon48.ico" />
         <link rel="stylesheet" href="../../css/common/reset.css" />
@@ -22,10 +22,10 @@ pageEncoding="UTF-8"%>
     </head>
     <body>
         <%@ include file="/WEB-INF/views/common/header.jsp" %>
-        <!-- brand main -->
+
         <main>
             <div class="hiddenData">
-                <div class="memberId">${sessionId}</div>
+                <input hidden="hidden" class="memberId" value="${sessionId}" />
             </div>
             <section class="adHeader">
                 <article class="adFirstAticle">
@@ -217,7 +217,6 @@ pageEncoding="UTF-8"%>
                     </div>
                 </article>
             </section>
-            <%@ include file="/WEB-INF/views/common/loginModal.jsp" %>
         </main>
         <%@ include file="/WEB-INF/views/common/footer.jsp" %>
         <script
@@ -225,6 +224,7 @@ pageEncoding="UTF-8"%>
             src="http://code.jquery.com/jquery-3.6.4.min.js"
         ></script>
         <script type="text/javascript" src="../../js/header_footer.js"></script>
+        <script type="text/javascript" src="../../js/loginModal.js"></script>
         <script type="text/javascript" src="../../js/brand/brand.js"></script>
     </body>
 </html>
