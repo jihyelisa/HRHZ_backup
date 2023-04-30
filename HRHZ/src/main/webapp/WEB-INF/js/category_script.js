@@ -4,22 +4,19 @@ $(document).ready(function () {
         .attr("src", "../images/category/check_icon.png")
         .attr("alt", "check icon")
         .hide();
-        
-        
-   var dataList = 
-   {
-   	 "pg" : 1
-   }
-      
-    articleContents(dataList);
-    
+
     // add check img
     $(".filterDiv").append(checkHTML);
     $(".categoryToggle > p").append(checkHTML);
+
+    var dataList = {
+        pg: 1,
+    };
+    articleContents(dataList);
 });
 
 // ---------------------------------------------------
-//                category nav
+//                   category nav
 // ---------------------------------------------------
 // Show the first category when the page loads
 $(".categoryWrap:not(:first)")
@@ -28,26 +25,63 @@ $(".categoryWrap:not(:first)")
     .attr("src", "../images/category/expand_black_btn.png");
 
 $(".expandBtn").on("click", function () {
-    $(".checkIcon").hide();
+    $(this).parents(".leftSection").find(".checkIcon").hide();
     $(".categoryToggle > p").removeClass("checkedCategory");
     $(".categoryToggle").slideUp(); // close all toggles
     // open selected toggle
     $(this).parents(".categoryWrap").find(".categoryToggle").slideDown();
 
-    // change icon
+    // change expand icon
     $(".expandBtn").attr("src", "../images/category/expand_black_btn.png");
     $(this).attr("src", "../images/common/filter_reset_btn.png");
+
+    // change title to selected category
+    $(".currentCategory").text($(this).siblings("span").text());
+
+    // load contents
+    var parentCode = $(this).siblings("span").text();
+    console.log(parentCode);
+
+    var dataList = {
+        parentCode: parentCode,
+        pg: 1,
+        sortValue: $("span.selectedSort").text(),
+    };
+    articleContents(dataList);
 });
+
+// function navFunction(categoryClass) {
+//     var parentCode = categoryClass
+//         .siblings(".categoryTitle")
+//         .find("span")
+//         .text();
+
+//     var checkData = categoryClass.find("p.checkedCategory").get();
+//     var checkList = new Array();
+//     $.each(checkData, function (index, item) {
+//         checkList.push(checkData[index].innerText);
+//     });
+
+//     var dataList = {
+//         parentCode: parentCode,
+//         checkList: checkList,
+//         pg: 1,
+//         sortValue: $("span.selectedSort").text(),
+//     };
+//     articleContents(dataList);
+// }
 
 // show check
 $(document).on("click", ".categoryToggle > p", function () {
     $(this).find(".checkIcon").show();
     $(this).addClass("checkedCategory");
+    navFunction($(this).parents(".categoryToggle"));
 });
 // hide check
 $(document).on("click", ".checkedCategory", function () {
     $(this).find(".checkIcon").hide();
     $(this).removeClass("checkedCategory");
+    navFunction($(this).parents(".categoryToggle"));
 });
 
 // ---------------------------------------------------
@@ -58,11 +92,11 @@ $(function () {
     $(".selectedSort").on("click", function (event) {
         $(".sortToggle").toggle(0);
     });
-    
-    $(document).on("click", ".sortToggle > div", function() {
-    	$(".selectedSort").text($(this).text());
-        $(".sortToggle").toggle(0);		
-   	});
+
+    $(document).on("click", ".sortToggle > div", function () {
+        $(".selectedSort").text($(this).text());
+        $(".sortToggle").toggle(0);
+    });
 });
 
 // ---------------------------------------------------
@@ -86,48 +120,48 @@ $(".filterMenu > p").click(function (event) {
     $(".filterMenu > p").css("color", "#d9d9d9");
     $(this).css("color", "#000");
 });
+// $(".filterMenu > p:nth-child(1)").click(function (event) {
+//     $(".filterPage").css("display", "none");
+//     $(".brandFilter").css("display", "block");
+// });
 $(".filterMenu > p:nth-child(1)").click(function (event) {
-    $(".filterPage").css("display", "none");
-    $(".brandFilter").css("display", "block");
-});
-$(".filterMenu > p:nth-child(2)").click(function (event) {
     $(".filterPage").css("display", "none");
     $(".colorFilter").css("display", "grid");
 });
-$(".filterMenu > p:nth-child(3)").click(function (event) {
+$(".filterMenu > p:nth-child(2)").click(function (event) {
     $(".filterPage").css("display", "none");
     $(".priceFilter").css("display", "flex");
 });
 
 // 닫기
-$(".filterMenu > p:nth-child(4)").click(function (event) {
+$(".filterMenu > p:nth-child(3)").click(function (event) {
     $(".filterToggle").toggle(0);
     $(".brandFilter > div > input").css("color", "#d9d9d9");
     $(".filterMenu > p:nth-child(1)").click();
 });
 
-// brand filter search input
-function fontColor(thisClass) {
-    if (thisClass.val() != "") {
-        thisClass.css("color", "#000");
-        thisClass.css("font-weight", "500");
-    }
-}
-$(".brandFilter > div > input").on("focus", function (event) {
-    $(".brandFilterSearchDiv").css("border-bottom", "1px solid #000");
-    fontColor($(this));
-    if ($(this).val() == "브랜드명을 입력해 주세요") {
-        $(this).val("");
-    }
-});
-$(".brandFilter > div > input").on("blur", function (event) {
-    $(".brandFilterSearchDiv").css("border-bottom", "1px solid #d9d9d9");
-    fontColor($(this));
-    if ($(this).val() == "") {
-        $(this).css("color", "#d9d9d9");
-        $(this).val("브랜드명을 입력해 주세요");
-    }
-});
+// // brand filter search input
+// function fontColor(thisClass) {
+//     if (thisClass.val() != "") {
+//         thisClass.css("color", "#000");
+//         thisClass.css("font-weight", "500");
+//     }
+// }
+// $(".brandFilter > div > input").on("focus", function (event) {
+//     $(".brandFilterSearchDiv").css("border-bottom", "1px solid #000");
+//     fontColor($(this));
+//     if ($(this).val() == "브랜드명을 입력해 주세요") {
+//         $(this).val("");
+//     }
+// });
+// $(".brandFilter > div > input").on("blur", function (event) {
+//     $(".brandFilterSearchDiv").css("border-bottom", "1px solid #d9d9d9");
+//     fontColor($(this));
+//     if ($(this).val() == "") {
+//         $(this).css("color", "#d9d9d9");
+//         $(this).val("브랜드명을 입력해 주세요");
+//     }
+// });
 
 // ---------------------------------------------------
 //                   filter select
@@ -137,7 +171,7 @@ function tagUpdate() {
     $(".checkedFilter").each(function () {
         let filterName = $(this).find("> p").text();
         let filterCode = $(this).find("> span").val();
-        
+
         $(".tagArea").append(
             "<span class='tagSpan'><span>" +
                 filterCode +
@@ -147,17 +181,32 @@ function tagUpdate() {
         );
     });
 }
+function priceUncheck() {
+    $(".priceFilter .filterDiv").find(".checkIcon").hide();
+    $(".priceFilter .filterDiv").css("font-weight", "400");
+    $(".priceFilter .filterDiv").removeClass("checkedFilter");
+}
 
 // check
-$(".filterBox").on("click", ".filterDiv", function () {
+$(".filterBox").on("click", ".colorFilter .filterDiv", function () {
     $(this).find(".checkIcon").show();
     $(this).css("font-weight", "700");
     $(this).addClass("checkedFilter");
     tagUpdate();
 });
+$(".filterBox").on("click", ".priceFilter .filterDiv", function () {
+    priceUncheck();
+    $(this).find(".checkIcon").show();
+    $(this).css("font-weight", "700");
+    $(this).addClass("checkedFilter");
+    tagUpdate();
+});
+// price input
 $(document).on("click", ".addBtn", function () {
-    $(".priceFilterInput").addClass("checkedFilter");
-    inputUpdate();
+    // $(".priceFilterInput").addClass("checkedFilter");
+    // inputUpdate();
+    priceUncheck();
+    tagUpdate();
 });
 // uncheck
 $(".filterBox").on("click", ".checkedFilter", function (event) {
@@ -192,6 +241,98 @@ $(document).on("click", ".tagSpan", function () {
 });
 
 // ---------------------------------------------------
+//                숫자 3자리 콤마 찍기
+// ---------------------------------------------------
+String.prototype.formatNumber = function () {
+    if (this == 0) return 0;
+    let regex = /(^[+-]?\d+)(\d)/;
+    let nstr = this + "";
+    while (regex.test(nstr)) nstr = nstr.replace(regex, "$1" + "," + "$2");
+    return nstr;
+};
+
+// ---------------------------------------------------
+//                 Best List
+// ---------------------------------------------------
+function articleContents(dataList) {
+    var optionItem;
+
+    $.ajax({
+        type: "post",
+        url: "/bestCategoryPorductList",
+        data: dataList,
+        dataType: "json",
+
+        success: function (data) {
+            //console.log(data);
+            $(".articleContent").remove();
+            $.each(data.list, function (index, items) {
+                contentHTML =
+                    "<div class='articleContent'>" +
+                    "<input type='hidden' name='code' value='" +
+                    items.productCode +
+                    "'/>" +
+                    "<a href='/purchase/productDetail?productCode=" +
+                    items.productCode +
+                    "'>" +
+                    "<div class='articleImg'>" +
+                    "<img src='storage/" +
+                    items.imgPath +
+                    "'/>" +
+                    "</div>" +
+                    "<div class='articleDesc'>" +
+                    "<span><strong>" +
+                    items.brandName +
+                    "</strong></span>" +
+                    "<span>" +
+                    items.productName +
+                    "</span>" +
+                    "<div class='atriclePrice'>" +
+                    "<span class='percentage'>" +
+                    "<span>" +
+                    "<strong>13</strong>" +
+                    "<strong>%</strong>" +
+                    "<span class='price'>" +
+                    "<span><strong>" +
+                    items.price +
+                    "</strong>" +
+                    "</span>원</span>" +
+                    "</div>" +
+                    "</div>" +
+                    "<div class ='likeNumber'>" +
+                    "좋아요" +
+                    "<span>" +
+                    items.likeCount.toLocaleString() +
+                    "</span>" +
+                    "</div>" +
+                    "</a>";
+
+                if (items.likeYN == "Y") {
+                    heartHTML =
+                        "<img class='heartIcon heartIconWhite' src='../images/category/heart.jpg' style='display:none'/>" +
+                        "<img class='heartIcon heartIconViolet' src='../images/category/heart_violet.jpg'/>" +
+                        "</div>";
+                } else {
+                    heartHTML =
+                        "<img class='heartIcon heartIconWhite' src='../images/category/heart.jpg'/>" +
+                        "<img class='heartIcon heartIconViolet' src='../images/category/heart_violet.jpg' style='display:none'/>" +
+                        "</div>";
+                }
+
+                $(".articleContents").append(contentHTML + heartHTML);
+                console.log(items.likeYN);
+            });
+
+            //pagging
+            $(".pagingDiv").html(data.categoryPaging.pagingHTML);
+        },
+        error: function (err) {
+            console.log(err);
+        },
+    });
+}
+
+// ---------------------------------------------------
 //                  Like heart
 // ---------------------------------------------------
 $(document).on("click", ".heartIconWhite", function () {
@@ -200,7 +341,7 @@ $(document).on("click", ".heartIconWhite", function () {
     var division = "I";
 
     if (!memberId) {
-        $("section.sectionBackGround").css("display", "flex");
+        $("section.modalBackGround").css("display", "flex");
         return;
     }
     likeCount(memberId, code, division);
@@ -214,7 +355,7 @@ $(document).on("click", ".heartIconViolet", function () {
     var code = $(this).parents().eq(0).children("input").val();
 
     if (!memberId) {
-        $("section.sectionBackGround").css("display", "flex");
+        $("section.modalBackGround").css("display", "flex");
         return;
     }
     likeCount(memberId, code, division);
@@ -222,119 +363,14 @@ $(document).on("click", ".heartIconViolet", function () {
     $(this).parent().find(".heartIconWhite").css("display", "block");
 });
 
-$(document).on("click", ".heartIcon", function (event) {
-    var heartIconColor = event.target.classList.item(1);
-    var code = $(this).parents().eq(0).children("input").val();
-
-    if (!$("#memberId").val()) {
-        $("section.sectionBackGround").css("display", "flex");
-        return;
-    }
-    $(this).css("display", "none");
-    $(this).prev().css("display", "block");
-});
-
 $(".modalCloseBtn, .cancleModalBtn").click(function () {
-    $("section.sectionBackGround").css("display", "none");
+    $("section.modalBackGround").css("display", "none");
 });
-
 $(".confirmModalBtn").click(function () {
     location.href = "/signIn";
 });
 
-// ---------------------------------------------------
-//                숫자 3자리 콤마 찍기
-// ---------------------------------------------------
-String.prototype.formatNumber = function () {
-    if (this == 0) return 0;
-
-    let regex = /(^[+-]?\d+)(\d)/;
-
-    let nstr = this + "";
-
-    while (regex.test(nstr)) nstr = nstr.replace(regex, "$1" + "," + "$2");
-
-    return nstr;
-};
-
-// ---------------------------------------------------
-//                 Best List
-// ---------------------------------------------------
-function articleContents(dataList) {
-
-    var optionItem;
-
-    $.ajax({
-        type: "post",
-        url: "/bestCategoryPorductList",
-        data: dataList,
-        dataType: "json",
-
-        success: function (data) {
-            //console.log(data);
-            $(".articleContent").remove();
-            $.each(data.list, function (index, items) {
-                optionItem = $(
-                    "<div class='articleContent'>" +
-                        "<input type='hidden' name='code' value='" +
-                        items.productCode +
-                        "'/>" +
-                        "<a href='/purchase/productDetail?productCode=" +
-                        items.productCode +
-                        "'>" +
-                        "<div class='articleImg'>" +
-                        "<img src='storage/" +
-                        items.imgPath +
-                        "'/>" +
-                        "</div>" +
-                        "<div class='articleDesc'>" +
-                        "<span><strong>" +
-                        items.brandName +
-                        "</strong></span>" +
-                        "<span>" +
-                        items.productName +
-                        "</span>" +
-                        "<div class='atriclePrice'>" +
-                        "<span class='percentage'>" +
-                        "<span>" +
-                        "<strong>13</strong>" +
-                        "<strong>%</strong>" +
-                        "<span class='price'>" +
-                        "<span><strong>" +
-                        items.price +
-                        "</strong>" +
-                        "</span>원</span>" +
-                        "</div>" +
-                        "</div>" +
-                        "<div class ='likeNumber'>" +
-                        "좋아요" +
-                        "<span>" +
-                        items.likeCount.toLocaleString() +
-                        "</span>" +
-                        "</div>" +
-                        "</a>" +
-                        "<img class='heartIcon heartIconWhite' src='../images/category/heart.jpg'/>" +
-                        "<img class='heartIcon heartIconViolet' src='../images/category/heart_violet.jpg'/>" +
-                        "</div>"
-                );
-                $(".articleContents").append(optionItem);
-            });
-
-            //pagging
-            $(".pagingDiv").html(data.categoryPaging.pagingHTML);
-        },
-        error: function (err) {
-            console.log(err);
-        },
-    });
-}
-
-// ---------------------------------------------------
-// 					likeCount
-// ---------------------------------------------------
 function likeCount(id, code, division) {
-    var optionItem;
-
     $.ajax({
         type: "post",
         url: "/categorylikeCount",
@@ -353,34 +389,32 @@ function likeCount(id, code, division) {
     });
 }
 
-
 // ---------------------------------------------------
 //              color&price SelectProductList
 // ---------------------------------------------------
 $(document).on("click", ".filterResultBtn", function () {
-
     var color = $(".checkedFilter span").text();
     var colorArr = color.split("");
-    var price = $(".checkedFilter h4").text();   
+    var price = $(".checkedFilter h4").text();
     var inputPrice1 = $(".priceFilterInput").children("input").eq(0).val();
-   	var inputPrice2 = $(".priceFilterInput").children("input").eq(1).val();
-   	var sortValue = $(".selectedSort").text();
-   	
-   	console.log(sortValue);
-   
-   var dataList = 
-   { "colorArr" : colorArr,
-    "price" : price,
-   	"inputPrice1" : inputPrice1,
-   	"inputPrice2" : inputPrice2,
-   	 "pg" : 1
-   	 
-   }
-   
+    var inputPrice2 = $(".priceFilterInput").children("input").eq(1).val();
+
+    console.log($("span.selectedSort").text());
+
+    var dataList = {
+        colorArr: colorArr,
+        price: price,
+        inputPrice1: inputPrice1,
+        inputPrice2: inputPrice2,
+        pg: 1,
+        // "sortValue" :$(".sortToggle span").text()
+
+        sortValue: $("span.selectedSort").text(),
+    };
+
     articleContents(dataList);
     $(".filterToggle").css("display", "none");
 });
-
 
 // ---------------------------------------------------
 //             sortProductList
@@ -399,34 +433,46 @@ $(document).on("click", ".sortToggle div", function() {
    	});
 
 */
+
 // ---------------------------------------------------
 //              categoryNavSelectList
 // ---------------------------------------------------
-
 $(document).on("click", ".categoryToggle", function () {
-   var parentCode = $(this).prev().get(0).innerText;
-    var checkData= $(".categoryToggle p.checkedCategory").get();
-   var checkList = new Array();
+    var parentCode = $(this).prev().get(0).innerText;
+    var checkData = $(".categoryToggle p.checkedCategory").get();
+    var checkList = new Array();
 
-   $.each(checkData, function(index, item){
-   
-      checkList.push(checkData[index].innerText);
-         
-   });
-   
-   var dataList = {
-      "parentCode" : parentCode,
-      "checkList" : checkList,
-       "pg" : 1
-   };
-   
-    articleContents(dataList); 
+    $.each(checkData, function (index, item) {
+        checkList.push(checkData[index].innerText);
+    });
+
+    var dataList = {
+        parentCode: parentCode,
+        checkList: checkList,
+        pg: 1,
+        sortValue: $("span.selectedSort").text(),
+    };
+
+    articleContents(dataList);
+});
+
+// ---------------------------------------------------
+//              sortToggle 눌렀을 때도 click 이벤트 걸어줘야되어유 ㅜ ㅜ ㅜ
+// ---------------------------------------------------
+$(document).on("click", ".sortToggle div", function () {
+    var sortValue = $("span.selectedSort").text();
+
+    var dataList = {
+        pg: 1,
+        sortValue: sortValue,
+    };
+
+    articleContents(dataList);
 });
 
 // ---------------------------------------------------
 //              paging
 // ---------------------------------------------------
-
 function categoryPaging(pg) {
     location.href = "/category?pg=" + pg;
 }

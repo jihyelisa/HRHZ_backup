@@ -39,16 +39,15 @@ public class MemberServiceImpl implements MemberService {
     //-------------------------------------
     //NAVER login api
     @Value("${sms.accessKey}")
-    private String accessKey;   // 네이버 클라우드 플랫폼 회원에게 발급되는 개인 인증키
+    private String accessKey;
     @Value("${sms.secretKey}")
-    private String secretKey;    // 2차 인증을 위해 서비스마다 할당되는 service secret key
+    private String secretKey;
     @Value("${sms.serviceId}")
-    private String serviceId;   // 프로젝트에 할당된 SMS 서비스 ID
+    private String serviceId; 
     @Value("${sms.myPhone}")
     private String myPhone;
     @Value("${aes256.key}")
-	private String key;    //key는 16자 이상
-
+	private String key;    
 
     private String makeSignature(String url, String timestamp, String method) {
         String space = " ";                    // one space
@@ -85,29 +84,29 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public void certifiedPhoneNumber(String phone, String numStr) {
-        String hostNameUrl = "https://sens.apigw.ntruss.com";     		// 호스트 URL
-        String requestUrl= "/sms/v2/services/";                   		// 요청 URL
+        String hostNameUrl = "https://sens.apigw.ntruss.com";     		// �샇�뒪�듃 URL
+        String requestUrl= "/sms/v2/services/";                   		// �슂泥� URL
         String requestUrlType = "/messages";
-        String method = "POST";											// 요청 method
+        String method = "POST";											// �슂泥� method
         String timestamp = Long.toString(System.currentTimeMillis()); 	// current timestamp (epoch)
         requestUrl += serviceId + requestUrlType;
         String apiUrl = hostNameUrl + requestUrl;
         System.out.println(apiUrl);
 
-        // JSON 을 활용한 body data 생성
+        // JSON �쓣 �솢�슜�븳 body data �깮�꽦
         JSONObject bodyJson = new JSONObject();
         JSONObject toJson = new JSONObject();
         JSONArray toArr = new JSONArray();
 
-        toJson.put("to",phone);						// Mandatory(필수), messages.to	수신번호, -를 제외한 숫자만 입력 가능
+        toJson.put("to",phone);						// Mandatory(�븘�닔), messages.to	�닔�떊踰덊샇, -瑜� �젣�쇅�븳 �닽�옄留� �엯�젰 媛��뒫
         toArr.add(toJson);
 
-        bodyJson.put("type","SMS");							// Madantory, 메시지 Type (SMS | LMS | MMS), (소문자 가능)
-        bodyJson.put("from",myPhone);					// Mandatory, 발신번호, 사전 등록된 발신번호만 사용 가능
-        bodyJson.put("content","AMONDZ 인증번호 : "+ numStr);	// Mandatory(필수), 기본 메시지 내용, SMS: 최대 80byte, LMS, MMS: 최대 2000byte
-        bodyJson.put("messages", toArr);					// Mandatory(필수), 아래 항목들 참조 (messages.XXX), 최대 1,000개
+        bodyJson.put("type","SMS");							// Madantory, 硫붿떆吏� Type (SMS | LMS | MMS), (�냼臾몄옄 媛��뒫)
+        bodyJson.put("from",myPhone);					// Mandatory, 諛쒖떊踰덊샇, �궗�쟾 �벑濡앸맂 諛쒖떊踰덊샇留� �궗�슜 媛��뒫
+        bodyJson.put("content","AMONDZ �씤利앸쾲�샇 : "+ numStr);	// Mandatory(�븘�닔), 湲곕낯 硫붿떆吏� �궡�슜, SMS: 理쒕� 80byte, LMS, MMS: 理쒕� 2000byte
+        bodyJson.put("messages", toArr);					// Mandatory(�븘�닔), �븘�옒 �빆紐⑸뱾 李몄“ (messages.XXX), 理쒕� 1,000媛�
 
-        System.out.println("확인확인확인2");
+        System.out.println("�솗�씤�솗�씤�솗�씤2");
         System.out.println("myPhone");
 
         //String body = bodyJson.toJSONString();
@@ -137,9 +136,9 @@ public class MemberServiceImpl implements MemberService {
             int responseCode = con.getResponseCode();
             BufferedReader br;
             System.out.println("responseCode" +" " + responseCode);
-            if(responseCode == 202) { // 정상 호출
+            if(responseCode == 202) { // �젙�긽 �샇異�
                 br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-            } else { // 에러 발생
+            } else { // �뿉�윭 諛쒖깮
                 br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
             }
 
@@ -190,10 +189,13 @@ public class MemberServiceImpl implements MemberService {
     	//password encode
     	try {
     		aes256.setAlg(key);
+    		
 			dataMap.put("password", aes256.encrypt(password));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+    	
+    	
     	
 		return memberDAO.loginCheck(dataMap);
 	}

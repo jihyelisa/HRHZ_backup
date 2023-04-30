@@ -6,21 +6,30 @@
 
 	<select id ="getCategoryBestProductList" parameterType="java.util.Map" resultType="java.util.Map">
 		SELECT 
-			*
+			cg.seq  as "seq"
+			, cg.productCode as "productCode"
+			, cg.productName as "productName"
+			, cg.brandCode as "brandCode"
+			, cg.imgPath as "imgPath"
+			, cg.brandName as "brandName"
+			, cg.price as "price"
+			, cg.likeCount as "likeCount"
+			, cg.color as "color"
 			FROM  (SELECT 
 			   rownum as seq,
 			    k.*
 			            
 			        FROM (SELECT 
-			                   p.code AS "productCode"
-			                ,   p.name AS "productName"
-			              ,   P.brand_code as "brandCode"
-			              ,   (P.brand_code || '/' ||  pi.img_origin_name)as "imgPath"
-			                ,   (SELECT name FROM brand WHERE  code = p.brand_code) as "brandName" 
-			                ,    TO_CHAR(p.price, 'FM999,999,999,999') AS "price"
-			                ,   p.like_count AS "likeCount"
-			                , p.color as "color"
-			              ,   ROW_NUMBER() OVER(PARTITION BY p.code ORDER BY PI.SEQ DESC) AS "RN"
+			                   p.code AS productCode
+			                ,   p.name AS productName
+			              ,   P.brand_code as brandCode
+			              ,   (P.brand_code || '/' ||  pi.img_origin_name)as imgPath
+			                ,   (SELECT name FROM brand WHERE  code = p.brand_code) as brandName
+			                ,    TO_CHAR(p.price, 'FM999,999,999,999') AS price
+			                ,   p.like_count AS likeCount
+			                , p.color as color
+			              ,   ROW_NUMBER() OVER(PARTITION BY p.code ORDER BY PI.SEQ DESC) AS RN
+			              , piv.reg_date
 			            FROM   product p
 			                INNER JOIN (SELECT  a.product_code
 			                                 ,  a.img_origin_name
@@ -28,10 +37,18 @@
 			                            FROM   product_image a
 			                            WHERE  a.thumbanil_yn = 'Y'
 			                            GROUP  BY a.product_code, a.img_origin_name
-			                          ) pi
-			              ON p.code = pi.product_code
-			            WHERE  
-			               1 = 1
+			                          ) pi ON p.code = pi.product_code
+			                          
+			                 LEFT OUTER JOIN (
+								                SELECT 
+								                    i.product_code, 
+								                    MAX(REG_DATE) as REG_DATE
+								                FROM 
+								                    product_inventory i
+								                GROUP BY 
+								                    i.product_code
+								            ) piv ON p.code = piv.product_code
+			            
 			             <if test='colorArr != null'>
 			                AND p.color IN 
 			                <foreach item="item" index="index" collection="colorArr" open="(" separator="," close=")">
@@ -83,43 +100,80 @@
                         </otherwise>
                      </choose>
                   </if>
-			       	 	ORDER  BY p.like_count DESC
-			                
+                  
+			        
 			             ) k
 		      WHERE 
 		            1=1
 		        AND k.RN = 1
-		        )
+		        
+		         <if test='sortValue != null and sortValue != null'>
+	                  <choose>
+				       	 		<when test='sortValue == "인기순"'>
+				       	 		ORDER  BY k.likeCount DESC
+				       	 		</when>
+				       	 		<when test='sortValue ==" 낮은가격순"'>
+				       	 		ORDER  BY k.price  
+				       	 		</when>
+				       	 		<when test='sortValue =="높은가격순"'>
+				       	 		ORDER  BY k.price DESC  
+				       	 		</when>
+				       	 		<when test='sortValue =="신상품"'>
+				       	 		ORDER  BY k.REG_DATE DESC  
+				       	 		</when>
+				       	 		
+				       	</choose>
+				  	  </if>	
+		         
+		        ) cg
 		        WHERE 
 		        1=1
+		        
+		        
+		       
         AND seq <![CDATA[>=]]> #{startNum} AND seq <![CDATA[<=]]> #{endNum}
+        
+         	 	
+					
+        
         
     </select>
     
     <!-- totalA -->
     <select id="getTotalA" parameterType="java.util.Map"  resultType="int">
-    	select count(*)             
-        FROM (SELECT 
-                   p.code AS "productCode"
-                ,   p.name AS "productName"
-              ,   P.brand_code as "brandCode"
-              ,   (P.brand_code || '/' ||  pi.img_origin_name)as "imgPath"
-                ,   (SELECT name FROM brand WHERE  code = p.brand_code) as "brandName" 
-                ,    TO_CHAR(p.price, 'FM999,999,999,999') AS "price"
-                ,   p.like_count AS "likeCount"
-                , p.color as "color"
-              ,   ROW_NUMBER() OVER(PARTITION BY p.code ORDER BY PI.SEQ DESC) AS "RN"
-            FROM   product p
-                INNER JOIN (SELECT  a.product_code
-                                 ,  a.img_origin_name
-                                , MIN(a.seq) AS SEQ
-                            FROM   product_image a
-                            WHERE  a.thumbanil_yn = 'Y'
-                            GROUP  BY a.product_code, a.img_origin_name
-                          ) pi
-              ON p.code = pi.product_code
-            WHERE  
-               1 = 1
+    	SELECT COUNT(*)
+			
+			FROM (SELECT 
+			   rownum as seq,
+			    k.*
+			        FROM (SELECT     p.code AS productCode
+			                ,   p.name AS productName
+			              ,   P.brand_code as brandCode
+			              ,   (P.brand_code || '/' ||  pi.img_origin_name)as imgPath
+			                ,   (SELECT name FROM brand WHERE  code = p.brand_code) as brandName
+			                ,    TO_CHAR(p.price, 'FM999,999,999,999') AS price
+			                ,   p.like_count AS likeCount
+			                , p.color as color
+			              ,   ROW_NUMBER() OVER(PARTITION BY p.code ORDER BY PI.SEQ DESC) AS RN
+			              , piv.reg_date
+			            FROM   product p
+			                INNER JOIN (SELECT  a.product_code
+			                                 ,  a.img_origin_name
+			                                , MIN(a.seq) AS SEQ
+			                            FROM   product_image a
+			                            WHERE  a.thumbanil_yn = 'Y'
+			                            GROUP  BY a.product_code, a.img_origin_name
+			                          ) pi ON p.code = pi.product_code
+			                          
+			                 LEFT OUTER JOIN (
+								                SELECT 
+								                    i.product_code, 
+								                    MAX(REG_DATE) as REG_DATE
+								                FROM 
+								                    product_inventory i
+								                GROUP BY 
+								                    i.product_code
+								            ) piv ON p.code = piv.product_code
               <if test='colorArr != null'>
                 AND color IN 
             <foreach item="item" index="index" collection="colorArr" open="(" separator="," close=")">
@@ -146,8 +200,6 @@
 			 <if test='inputPrice1 != null and inputPrice1 != "" and inputPrice2 != null and inputPrice2 != ""'>
 						    AND p.price between #{inputPrice1} and #{inputPrice2}
 			</if>
-			       	 	
-			 
 			 <if test='parentCode != null and parentCode != null'>
                           <choose>
                         <when test='parentCode != "BEST"'>
@@ -171,12 +223,31 @@
                         </otherwise>
                      </choose>
                   </if>
-                ORDER  BY p.like_count DESC
-             ) k
-      WHERE 
-            1=1
-        AND k.RN = 1
-       
+			             ) k
+		      WHERE 
+		            1=1
+		        AND k.RN = 1
+		        
+		         <if test='sortValue != null and sortValue != null'>
+	                  <choose>
+				       	 		<when test='sortValue == "인기순"'>
+				       	 		ORDER  BY k.likeCount DESC
+				       	 		</when>
+				       	 		<when test='sortValue ==" 낮은가격순"'>
+				       	 		ORDER  BY k.price  
+				       	 		</when>
+				       	 		<when test='sortValue =="높은가격순"'>
+				       	 		ORDER  BY k.price DESC  
+				       	 		</when>
+				       	 		<when test='sortValue =="신상품"'>
+				       	 		ORDER  BY k.REG_DATE DESC  
+				       	 		</when>
+				       	 		
+				       	</choose>
+				  	  </if>	
+		        ) cg
+		       
+		       
     </select>
     
     

@@ -22,6 +22,7 @@
 				(Select code_name from code where code = detail_type ) AS "detailType",
 		       price AS "price", p.like_count AS "like", p."COMMENT" AS "comment",
 		       pd.name AS "detailName",
+			   pd.code AS "detailCode",
 		       b.code AS "brandCode", b.name AS "brandName",
 		       bi.img_path AS "brandImgPath", img_name AS "brandImgName"
 		       <choose>

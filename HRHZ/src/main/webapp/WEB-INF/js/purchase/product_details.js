@@ -1,6 +1,6 @@
 $(document).ready(function () {
     // remove GET parameters after uploading review
-  //  history.replaceState({}, null, location.pathname);
+    //  history.replaceState({}, null, location.pathname);
 
     var productCode = $(".productCode").text();
     var memberId = $(".memberId").text();
@@ -91,6 +91,10 @@ $(document).ready(function () {
             }
 
             // text load
+            $(".storeInfoLink").attr(
+                "href",
+                "/brand/brandDetail?brandCode=" + data[0].brandCode + "&pg=1"
+            );
             $(".storeInfo > img").attr(
                 "src",
                 data[0].brandImgPath + "/" + data[0].brandImgName
@@ -111,10 +115,14 @@ $(document).ready(function () {
             $(".dropdownOpenLabel").text(data[0].detailType);
 
             $.each(data, function (index, items) {
+                console.log(items.detailCode);
                 // add all option box HTML
                 let optionItem = $(
                     "<li class='selectedOptionItem'>" +
                         "<div class='optionBoxTop'>" +
+                        "<input type='hidden' name='detailCode' value='"+
+                        items.detailCode
+                        +"' />" +
                         "<div class='optionName'>" +
                         items.detailName +
                         "</div>" +
@@ -490,26 +498,34 @@ $(document).ready(function () {
     //                   buy now button
     // ---------------------------------------------------
     $(".purchase").on("click", function (event) {
-        let optionCountList = [];
+        $(".buyNowForm").empty();
+        let optionList = [];
+        let option = "";
         let optionCountSum = 0;
 
         // listing quantity of all options
         $(".selectedOptionItem").each(function () {
-            let optionCount = parseInt(
-                $(this).find(".count").text().replace(",", "")
-            );
-            optionCountList.push(optionCount);
+            let detailCode = $(this).find('input[name="detailCode"]').val();
+            let optionCount = parseInt($(this).find(".count").text());
+            option = {optionCode: detailCode , productCount:optionCount};
+
+            optionList.push(option);
+            console.log(optionList);
             optionCountSum += optionCount;
         });
-
+        let productCode = $('.productCode').text();
+        let jsonList = JSON.stringify(optionList);
+        console.log(jsonList);
         // put data into addCartForm
         const productCodeInput = $("<input>")
             .attr("name", "productCode")
-            .val($(".productCode").text());
-        const optionCountInput = $("<input>")
-            .attr("name", "optionCountList")
-            .val(JSON.stringify(optionCountList));
-        $(".buyNowForm").append(productCodeInput).append(optionCountInput);
+            .val(productCode)
+            .attr("hidden",true);
+        const jsonInput = $("<input>")
+            .attr("name", "jsonList")
+            .val(jsonList)
+            .attr("hidden",true);
+        $(".buyNowForm").attr("action", "/purchase/payment").append(productCodeInput).append(jsonInput);
 
         if (optionCountSum == 0) {
             alert("선택된 옵션이 없습니다.");
@@ -518,6 +534,7 @@ $(document).ready(function () {
             $(".buyNowForm").submit();
         }
     });
+
 
     // ---------------------------------------------------
     //                   store notice
@@ -674,3 +691,4 @@ $(document).ready(function () {
         $(".reviewWriteBtn").css("background-color", "#ddd");
     });
 });
+

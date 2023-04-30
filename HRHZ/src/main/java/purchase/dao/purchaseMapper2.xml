@@ -75,4 +75,8 @@
         order by "productCode"
     </select>
 
+    <select id="getMember" parameterType="String" resultType="member">
+        select * from member where id=#{id}
+    </select>
+
 </mapper>

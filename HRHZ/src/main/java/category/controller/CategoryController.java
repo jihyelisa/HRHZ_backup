@@ -31,6 +31,7 @@ public class CategoryController {
 	    													@RequestParam(value ="inputPrice2",  required = false) String inputPrice2,
 	    													@RequestParam(value ="checkList[]", required = false) List<String> checkList,
 	    											        @RequestParam(value ="parentCode", required = false) String parentCode,
+	    											        @RequestParam(value ="sortValue", required = false, defaultValue= "1") String sortValue,
 	    													@RequestParam String pg) throws Exception {
 	    	
 		 Map<String, Object> map = new HashMap<String, Object>(); 
@@ -41,6 +42,9 @@ public class CategoryController {
 		map.put("pg", pg);
 		map.put("parentCode", parentCode);
 	    map.put("checkList", checkList);
+	    map.put("sortValue", sortValue);
+	    
+	    System.out.println(sortValue);
 		 
 		 return categoryService.getCategoryBestProductList(map);
 	    	

@@ -28,7 +28,7 @@
          AND ll.id = #{memberId}
       </if>
     </select>
-    
+
      
       <select id ="getBrandDetail" parameterType="java.util.Map" resultType="java.util.Map">
       SELECT 
@@ -150,5 +150,6 @@
       WHERE 
          b. code =  #{brandCode}   
        </select>
+
   
 </mapper>

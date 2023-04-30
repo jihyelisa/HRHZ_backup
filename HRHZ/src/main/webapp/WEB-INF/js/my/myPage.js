@@ -357,14 +357,14 @@ $('.userRemove button').on("click", function (e){
 
 //------------------------------
 // delete modal
-// close the modal
+// remove modal tag when close the modal
 $(document).on('click', '.deleteModal .whiteBtn, .modalCloseBtn', function() {
     $(this).closest('.modal').remove();
 });
 // delete member
 $(document).on('click', '.deleteModal button.goShopBtn', function() {
     $.post('/myPage/deleteMember', function (){
-            location.href = "/signIn";
+        location.href = "/signIn";
     });
 });
 

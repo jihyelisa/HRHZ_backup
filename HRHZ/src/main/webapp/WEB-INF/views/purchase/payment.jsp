@@ -25,6 +25,8 @@ pageEncoding="UTF-8"%>
 
         <main>
             <section class="mainSection">
+                <input type="hidden" class="productCode" value='${param.productCode}' />
+                <input type="hidden" class="jsonList" value='${param.jsonList}'>
                 <div class="paymentMain1">
                     <div class="paymentMain2">
                         <div class="title">
@@ -51,16 +53,10 @@ pageEncoding="UTF-8"%>
                                             </div>
                                         </div>
                                         <div class="buyerInfo">
-                                            <div class="buyerName">
-                                                교촌 허니콤보
-                                            </div>
-                                            <div class="buyerCellPhone">
-                                                010-1234-1234
-                                            </div>
+                                            <div class="buyerName"></div>
+                                            <div class="buyerCellPhone"></div>
                                         </div>
-                                        <div class="buyerEmail">
-                                            honey@naver.com
-                                        </div>
+                                        <div class="buyerEmail"></div>
                                     </div>
 
                                     <div class="payOrderInfo">
@@ -457,6 +453,7 @@ pageEncoding="UTF-8"%>
                                             class="payment"
                                             color="black"
                                             type="button"
+                                            disabled
                                         >
                                             결제하기
                                         </button>
@@ -472,8 +469,8 @@ pageEncoding="UTF-8"%>
                                                 <span class="label"
                                                     >주문상품 금액</span
                                                 >
-                                                <span class="amount"
-                                                    >9,900</span
+                                                <span class="amount productPrc"
+                                                    ></span
                                                 >
                                             </div>
                                             <div>
@@ -505,13 +502,13 @@ pageEncoding="UTF-8"%>
                                             <span class="label"
                                                 >총 결제금액</span
                                             >
-                                            <span class="amount">9,900</span>
+                                            <span class="amount"></span>
                                         </div>
                                         <div class="paySavingPoint">
                                             <span class="label"
                                                 >적립 예정 포인트</span
                                             >
-                                            <span class="amount">+99</span>
+                                            <span class="amount"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -528,6 +525,9 @@ pageEncoding="UTF-8"%>
             type="text/javascript"
             src="http://code.jquery.com/jquery-3.6.4.min.js"
         ></script>
+        <!-- jQuery Modal -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+
         <script
             type="text/javascript"
             src="../../js/purchase/payment.js"

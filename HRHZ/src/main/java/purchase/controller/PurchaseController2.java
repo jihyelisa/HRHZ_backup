@@ -1,9 +1,11 @@
 package purchase.controller;
 
 import hrhz.dto.CartDTO;
+import hrhz.dto.MemberDTO;
 import hrhz.dto.PaymentDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import purchase.service.PurchaseService2;
 
@@ -32,7 +34,7 @@ public class PurchaseController2 {
                 String optionCode = (String) product.get("optionCode"); // product detail code
                 int productCount = (int) product.get("productCount");
 
-                if(productCount > 0) {
+                if (productCount > 0) {
                     PaymentDTO paymentDTO = new PaymentDTO(); // PaymentDTO 객체 생성
 
                     paymentDTO.setProductCode(productCode);
@@ -61,11 +63,31 @@ public class PurchaseController2 {
 
     @PostMapping("/getCart")
     @ResponseBody
-    public List<CartDTO> getCart(HttpServletRequest request) {
+    public List<CartDTO> getCart(@RequestParam(value="id", required = false) String id,HttpServletRequest request) {
         HttpSession session = request.getSession();
-//        String id = (String) session.getAttribute("sessionId");
-        String id = "A000006";
 
         return purchaseService2.getCart(id);
+    }
+
+    @PostMapping(value = "/getMember")
+    @ResponseBody
+    public MemberDTO getMember(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+//        String id = (String)  session.getAttribute("sessionId");
+        String id = "G000007";
+        System.out.println(id);
+
+        return purchaseService2.getMember(id);
+    }
+
+    @GetMapping(value = "memberInfoChangeModal")
+    public String memberInfoChangeModal(@RequestParam String name,
+                                        @RequestParam String phone,
+                                        @RequestParam String email,
+                                        Model model) {
+        model.addAttribute("name", name);
+        model.addAttribute("phone", phone);
+        model.addAttribute("email", email);
+        return "/views/purchase/infoChangeModal";
     }
 }

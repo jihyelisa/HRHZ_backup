@@ -19,7 +19,7 @@ pageEncoding="UTF-8"%>
         />
     </head>
     <body>
-        <input type="hidden" id="memberId" value="test" />
+        <input type="hidden" id="memberId" value="${sessionId}" />
         <input type="hidden" id="pg" value="${pg}" />
 
         <%@ include file="/WEB-INF/views/common/header.jsp" %>
@@ -32,7 +32,7 @@ pageEncoding="UTF-8"%>
                             src="../images/category/category_arrow.png"
                             alt="arrow icon"
                         />
-                        <span>BEST</span>
+                        <span class="currentCategory">BEST</span>
                     </div>
                     <%@ include file="/WEB-INF/views/common/filter.jsp" %>
                 </div>

@@ -1,3 +1,7 @@
+.hiddenData {
+    display: none;
+}
+
 /* cartTop */
 .outerWrapper {
     display: flex;
@@ -304,7 +308,7 @@
     font-size: 11px;
     font-weight: 500;
 }
-.productDeleteBnt {
+.deleteBtn {
     width: 24px;
     padding-left: 24px;
     cursor: pointer;
@@ -412,7 +416,7 @@
     line-height: 40px;
 }
 
-.submitBnt {
+.submitBtn {
     border-radius: 2px;
     outline: none;
     border: 1px solid transparent;
@@ -424,3 +428,107 @@
     height: 40px;
     line-height: 40px;
 }
+* {
+    font-family: "Noto Sans KR", sans-serif;
+}
+section.sectionBackGround {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.modalBox {
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   background-color: rgb(255, 255, 255);
+   border-radius: 2px;
+   z-index: 102;
+}
+
+.modalBox .modalCloseBtn {
+   width: 24px;
+    height: 24px;
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.modalCloseBtn {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+}
+
+.confirmText {
+    width: 250px;
+    margin: 44px 32px 24px;
+    letter-spacing: -0.5px;
+    text-align: center;
+}
+
+.copyText span {
+    padding-bottom: 8px;
+    line-height: 24px;
+    font-size: 16px;
+}
+
+.modalFooter {
+    margin: 0px 24px 24px;
+}
+
+
+.modalFooter button {
+    width: 130px;
+    height: 40px;
+    cursor: pointer;
+}
+
+.modalFooter button:first-child {
+   	line-height: 40px;
+    margin-right: 12px;
+    border-color: rgb(0, 0, 0);
+}
+
+
+.cancleModalBtn {
+	border-radius: 2px;
+    outline: none;
+    text-align: center;
+    cursor: pointer;
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    border: 1px solid rgb(225, 225, 225);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: -0.3px;
+    height: 40px;
+    width: 181px;
+}
+
+.confirmModalBtn {
+    border-radius: 2px;
+    outline: none;
+    border: 1px solid transparent;
+    text-align: center;
+    cursor: pointer;
+    background-color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: -0.3px;
+    height: 40px;
+    width: 181px;
+    line-height: 40px;
+}
+
+

@@ -1,25 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
 <div class="filterBox">
-
     <span class="selectedSort">인기순</span>
     <div class="sortToggle">
-    	
-	        <div><span>1</span>인기순</div>
-	        <div><span>2</span>신상품</div>
-	        <div><span>3</span>낮은가격순</div>
-	        <div><span>4</span>높은가격순</div>
-	     
+        <div>인기순</div>
+        <div>신상품</div>
+        <div>낮은가격순</div>
+        <div>높은가격순</div>
     </div>
     <span>필터</span>
     <div class="filterToggle">
         <div class="filterMenu">
-            <p>브랜드</p>
+            <!-- <p>브랜드</p> -->
             <p>컬러</p>
             <p>가격</p>
             <p>닫기</p>
         </div>
 
+        <!--
         <div class="brandFilter filterPage">
             <div class="brandFilterSearchDiv">
                 <img
@@ -58,21 +56,54 @@ pageEncoding="UTF-8"%>
                 </div>
             </div>
         </div>
+-->
 
         <div class="colorFilter filterPage">
-            <div class="filterDiv"><span>S</span><p>실버</p></div>
-            <div class="filterDiv"><span>G</span><p>골드</p></div>
-            <div class="filterDiv"><span>W</span><p>화이트</p></div>
-            <div class="filterDiv"><span>B</span><p>블랙</p></div>
-            <div class="filterDiv"><span>M</span><p>멀티</p></div>
+            <div class="filterDiv">
+                <span>S</span>
+                <p>실버</p>
+            </div>
+            <div class="filterDiv">
+                <span>G</span>
+                <p>골드</p>
+            </div>
+            <div class="filterDiv">
+                <span>W</span>
+                <p>화이트</p>
+            </div>
+            <div class="filterDiv">
+                <span>B</span>
+                <p>블랙</p>
+            </div>
+            <div class="filterDiv">
+                <span>M</span>
+                <p>멀티</p>
+            </div>
         </div>
 
         <div class="priceFilter filterPage">
             <div class="priceFilterChoice">
-                <div class="filterDiv"><h4>1</h4><p>1만원~3만원</p></div>
-                <div class="filterDiv"><h4>2</h4><p>3만원~5만원</p></div>
-                <div class="filterDiv"><h4>3</h4><p>5만원~10만원</p></div>
-                <div class="filterDiv"><h4>4</h4><p>10만원 이상</p></div>
+                <div class="filterDiv">
+                    <h4>1</h4>
+                    <p>1만원~3만원</p>
+                </div>
+                <div class="filterDiv">
+                    <h4>2</h4>
+                    <p>3만원~5만원</p>
+                </div>
+                <div class="filterDiv">
+                    <h4>3</h4>
+                    <p>5만원~10만원</p>
+                </div>
+                <div class="filterDiv">
+                    <h4>4</h4>
+                    <p>10만원 이상</p>
+                    <img
+                        class="checkIcon"
+                        src="../images/category/check_icon.png"
+                        style="display: none"
+                    />
+                </div>
             </div>
 
             <div class="priceFilterInput">

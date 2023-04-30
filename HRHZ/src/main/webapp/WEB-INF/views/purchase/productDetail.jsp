@@ -151,7 +151,7 @@ pageEncoding="UTF-8"%>
                     <div class="productInfoSection">
                         <div class="productInfo">
                             <div class="badge">
-                                <a href="#">
+                                <a class="storeInfoLink" href="">
                                     <div class="storeInfo">
                                         <img
                                             src=""
@@ -306,7 +306,7 @@ pageEncoding="UTF-8"%>
                                 <form
                                     class="buyNowForm"
                                     method="post"
-                                    action="/purchase/payment"
+<%--                                    action="/purchase/payment"--%>
                                 ></form>
                             </div>
                         </div>

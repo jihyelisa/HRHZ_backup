@@ -60,7 +60,8 @@ main {
     align-items: center;
     justify-content: space-between;
     height: 24px;
-    width: 130px;
+    width: 114px;
+    padding-right: 16px;
 }
 .categoryToggle p:hover {
     color: #000;
@@ -123,7 +124,9 @@ main {
 
 /* sort toggle */
 
-
+.selectedSort p {
+    display: none;
+}
 .sortToggle {
     display: flex;
     flex-direction: column;
@@ -134,8 +137,8 @@ main {
     background-color: #fff;
     z-index: 80;
 }
-.sortToggle span{
-	display:none;
+.sortToggle span {
+    display: none;
 }
 .sortToggle div {
     width: 180px;

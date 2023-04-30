@@ -34,14 +34,18 @@ public class PurchaseController {
 		 System.out.println(code);
 		 return "/views/purchase/productDetail";
 	 }
-
+	 
 	 @PostMapping(value="payment")
 	 public String payment(Model model){
 		 return "/views/purchase/payment";
 	 }
 	 
 	 @GetMapping(value = "cartForm")
-	 public String cartForm(Model model){
+	 public String cartForm(@RequestParam(required = false, defaultValue = "cartMainInfo") String display, Model model){
+		 
+		 System.out.println(display);
+		 
+		 model.addAttribute("display", display + ".jsp");
 		 return "/views/purchase/cart";
 	 }
 	 

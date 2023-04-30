@@ -56,7 +56,6 @@ public class MemberController {
 	private String googleClientPw;
 
 
-
 	@GetMapping(value = "/signUp1")
     public String signUp1(){
         return "/views/member/signUp1";
