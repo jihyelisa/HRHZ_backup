@@ -28,7 +28,7 @@ $(document).ready(function () {
         },
     });
 
-    var brandCode = "B000016";
+
     $.ajax({
         type: "post",
         url: "/admin/getBrand",
@@ -49,4 +49,17 @@ $(document).ready(function () {
             console.log(err);
         },
     });
+
 });
+
+
+
+
+
+
+
+
+
+
+
+

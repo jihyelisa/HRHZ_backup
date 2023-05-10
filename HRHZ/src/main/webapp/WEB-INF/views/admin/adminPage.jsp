@@ -84,5 +84,6 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         <script type="text/javascript" src="../../js/header_footer.js"></script>
         <script type="text/javascript" src="../../js/admin/admin.js"></script>
         <script type="text/javascript" src="../../js/admin/admin2.js"></script>
+
     </body>
 </html>

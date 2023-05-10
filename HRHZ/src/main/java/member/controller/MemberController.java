@@ -120,7 +120,7 @@ public class MemberController {
     	
     	if (id != null) { // 로그인 성공 시
     	   session.setAttribute("sessionId", id);
-    	   result = "success";
+    	   result = id;
     	} else { // 로그인 실패 시
     	   result = "error";
     	}

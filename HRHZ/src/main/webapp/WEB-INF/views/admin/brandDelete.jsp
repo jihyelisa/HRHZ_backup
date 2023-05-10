@@ -33,7 +33,7 @@
                     <img src="../../images/member/black.jpg" alt="images">
                 </div>
                 
-                <button type="submit" class="adminBrandDelete">브랜드 정보 삭제</button>
+                <button type="button" class="adminBrandDelete">브랜드 정보 삭제</button>
             </form>
         </div>
     </section>        

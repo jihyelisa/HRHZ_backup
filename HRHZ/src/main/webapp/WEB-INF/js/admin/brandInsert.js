@@ -1,21 +1,22 @@
 // ---------------------------------------------------
 //               brandInsert
 // ---------------------------------------------------
+
 $('.adminBrandInsert').click(function(){
 		$.ajax({
 				type:'post',
 				url :'/admin/brandMemberInsert',
 				data :{
-				'name' :$('input[name=brandName]').val(),
-				'phone' : $('input[name=representativeNumber]').val(),
-	       		'email' :$('input[name=brandEmail]').val(),	       		
-	       		'businessLocation1': $('input[name=businessLocation1]').val(),
-	       		'businessLocation2': $('input[name=businessLocation2]').val(),
-	       		'returnAddress1': $('input[name=returnAddress1]').val(),
-	       		'returnAddress2': $('input[name=returnAddress2]').val(),
-	       		'deliveryFee' : $('input[name=deliveryCharge]').val(),
-	       		'kakaoId' : $('input[name=kakaotalk]').val(),
-	       		'instagramId' : $('input[name=instagram]').val(),
+				'name' :$('.brandInsertWrap input[name=brandName]').val(),
+				'phone' : $('.brandInsertWrap input[name=representativeNumber]').val(),
+	       		'email' :$('.brandInsertWrap input[name=brandEmail]').val(),	       		
+	       		'businessLocation1': $('.brandInsertWrap input[name=businessLocation1]').val(),
+	       		'businessLocation2': $('.brandInsertWrap input[name=businessLocation2]').val(),
+	       		'returnAddress1': $('.brandInsertWrap input[name=returnAddress1]').val(),
+	       		'returnAddress2': $('.brandInsertWrap input[name=returnAddress2]').val(),
+	       		'deliveryFee' : $('.brandInsertWrap input[name=deliveryCharge]').val(),
+	       		'kakaoId' : $('.brandInsertWrap input[name=kakaotalk]').val(),
+	       		'instagramId' : $('.brandInsertWrap input[name=instagram]').val(),
        },
        
 				success : function(){

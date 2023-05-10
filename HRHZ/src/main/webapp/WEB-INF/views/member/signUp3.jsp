@@ -97,7 +97,7 @@
 
 							</div>
 
-							<button class="goShopBtn nextButton" disabled>시작하기</button>
+							<button type="button" class="goShopBtn nextButton" disabled>시작하기</button>
 						</div>
 					</div>
 					</form>

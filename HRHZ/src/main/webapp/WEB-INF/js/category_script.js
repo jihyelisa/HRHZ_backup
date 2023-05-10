@@ -9,8 +9,10 @@ $(document).ready(function () {
     $(".filterDiv").append(checkHTML);
     $(".categoryToggle > p").append(checkHTML);
 
+	
+	var pgData = $('#pg').val().length > 0 ? $('#pg').val()  : 1;
     var dataList = {
-        pg: 1,
+        pg: pgData,
     };
     articleContents(dataList);
 });
@@ -75,13 +77,13 @@ $(".expandBtn").on("click", function () {
 $(document).on("click", ".categoryToggle > p", function () {
     $(this).find(".checkIcon").show();
     $(this).addClass("checkedCategory");
-    navFunction($(this).parents(".categoryToggle"));
+    
 });
 // hide check
 $(document).on("click", ".checkedCategory", function () {
     $(this).find(".checkIcon").hide();
     $(this).removeClass("checkedCategory");
-    navFunction($(this).parents(".categoryToggle"));
+    
 });
 
 // ---------------------------------------------------
@@ -445,12 +447,14 @@ $(document).on("click", ".categoryToggle", function () {
     $.each(checkData, function (index, item) {
         checkList.push(checkData[index].innerText);
     });
+    
+    console.log(checkList);
 
     var dataList = {
         parentCode: parentCode,
         checkList: checkList,
         pg: 1,
-        sortValue: $("span.selectedSort").text(),
+        sortValue: $("span.selectedSort").text()
     };
 
     articleContents(dataList);
@@ -459,15 +463,21 @@ $(document).on("click", ".categoryToggle", function () {
 // ---------------------------------------------------
 //              sortToggleList
 // ---------------------------------------------------
-$(document).on("click", ".sortToggle div", function () {
-    var sortValue = $("span.selectedSort").text();
 
-    var dataList = {
-        pg: 1,
-        sortValue: sortValue,
-    };
 
-    articleContents(dataList);
+$('span.selectedSort').on('DOMSubtreeModified', function (e) {
+    
+    var sortValue = $('span.selectedSort').text();
+
+    if (sortValue.length > 0 ) {
+
+        var dataList = {
+            pg: 1,
+            sortValue: sortValue,
+        };
+
+        articleContents(dataList);
+    }      
 });
 
 // ---------------------------------------------------
@@ -476,3 +486,4 @@ $(document).on("click", ".sortToggle div", function () {
 function categoryPaging(pg) {
     location.href = "/category?pg=" + pg;
 }
+

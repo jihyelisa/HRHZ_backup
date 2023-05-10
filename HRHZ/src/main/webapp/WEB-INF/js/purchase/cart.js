@@ -411,7 +411,7 @@ function modalDelete(deleteCheck) {
 	} else {
 
 
-		deleteDetailCode = $(items).find('div.detailOption').text();
+		deleteDetailCode = deleteCheck.thisData.parents('tr.tableBody').find('div.detailOption').text();
 		cartDeleteTable(deleteDetailCode);
 		deleteCheck.thisData.parents('tr.tableBody').remove();
 	
@@ -527,7 +527,7 @@ function orderCalculate() {
     });
     
     
-   pointSum = parseInt(orderPrePriceSum)/10;
+   pointSum = parseInt(orderPrePriceSum)*0.01;
             
    $('.orderPrePrice div.text').text(orderPrePriceSum.toLocaleString());
    $('.orderQty div.text').text(orderQtySum);

@@ -34,12 +34,17 @@
 
 
 	<select id="getBrand" parameterType="String" resultType="java.util.HashMap">
-		SELECT brand.name as "name", phone as "phone",
-			   address as "address", return_address as "returnAddress",
-			   TO_CHAR(delivery_fee, 'FM999,999,999') as "deliveryFee", email as "email",
-			   kakao_id as "kakaoId", instagram_id as "instagramId"
+		SELECT
+			brand.name as "name", phone as "phone",
+		   	address as "address", return_address as "returnAddress",
+		   	TO_CHAR(delivery_fee, 'FM999,999,999') as "deliveryFee", email as "email",
+			kakao_id as "kakaoId", instagram_id as "instagramId",
+			(bi.img_path || '/' || bi.img_name) as "imgPath"
 		FROM brand
+			join brand_image bi
+			on brand.code = bi.brand_code
 		WHERE code=#{brandCode}
+		ORDER BY code
 	</select>
 
 	<select id="getBrandList" resultType="java.util.HashMap">

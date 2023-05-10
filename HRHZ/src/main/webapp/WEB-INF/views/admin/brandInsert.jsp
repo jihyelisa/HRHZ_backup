@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
+<div class="brandInsertWrap">
 	<form id="brandInsertForm" >
 	<section class="adminContentSection">
 	        <div class="formContainer">
@@ -78,3 +79,12 @@
 	        </div>
 	    </section>
 	</form>
+
+</div>
+  <script
+            type="text/javascript"
+            src="http://code.jquery.com/jquery-3.6.4.min.js"
+        ></script>
+  <script type="text/javascript" src="../../js/admin/brandInsert.js"></script>
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+ 

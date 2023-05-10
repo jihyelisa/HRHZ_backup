@@ -52,6 +52,13 @@ $(".signInButton").click(function () {
                 return;
             }
 
+
+           	if (data === "ADMIN") {
+            	location.assign("/admin/memberList");
+                return;
+           	}
+
+
             location.assign("/");
         },
         error: function (xhr, status, error) {

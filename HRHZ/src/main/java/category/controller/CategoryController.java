@@ -34,7 +34,7 @@ public class CategoryController {
 	    											        @RequestParam(value ="sortValue", required = false) String sortValue,
 	    													@RequestParam String pg) throws Exception {
 	    	
-		 Map<String, Object> map = new HashMap<String, Object>(); 
+		Map<String, Object> map = new HashMap<String, Object>(); 
 		map.put("colorArr", colorArr);
 		map.put("price", price);
 		map.put("inputPrice1", inputPrice1);
@@ -44,7 +44,9 @@ public class CategoryController {
 	    map.put("checkList", checkList);
 	    map.put("sortValue", sortValue);
 	    
+	    System.out.println(pg);
 	    System.out.println(colorArr);
+	    System.out.println(checkList);
 	    System.out.println(sortValue);
 		 
 		 return categoryService.getCategoryBestProductList(map);

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <section class="sectionBackGroundBrand">
-    <div class="modalBody1">
+    <div class="modalBody1 searchBrandModal">
         <div class="brandFilter">
             <div class="brandFilterSearchDiv">
                 <img class="searchIcon" src="../../images/common/search_btn.png" alt="search icon" />

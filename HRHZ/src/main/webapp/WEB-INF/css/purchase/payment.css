@@ -1024,6 +1024,9 @@ button,
     width: 181px;
     line-height: 40px;
 }
+.paymentBtn .payment:disabled{
+    background-color: rgb(211, 211, 211);
+}
 
 
 /*----------------------------*/

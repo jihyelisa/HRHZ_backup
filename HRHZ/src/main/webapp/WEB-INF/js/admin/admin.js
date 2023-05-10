@@ -18,7 +18,6 @@ $(".reviewBtn").on("click", function () {
         .css("display", "none");
 });
 
-//my page manage 0
 // err message
 $('.userPwdWrap input[name="userPwd"]').on({
     keyup: function () {
@@ -258,10 +257,74 @@ $(document).ready(function () {
     //---------------------------------
     // brandSearchModal
     //---------------------------------
-    $(".brandSearch").click(function () {
+    $(".brandSearch").on("click", function () {
         $(".sectionBackGroundBrand").css("display", "block");
+
+        let html = "";
+        $.ajax({
+            type: "post",
+            url: "/admin/getBrandList",
+            success: function (data) {
+                console.log(data);
+                $.each(data, function (index, items) {
+                    html +=
+                        "<li class='brandContainer'>" +
+                        "<div class='radios'>" +
+                            "<input class='radio' type='radio' name='radio'>" +
+                            "<label></label>" +
+                            "<input type='hidden' name='brandCode' value='"+items.code+"' />" +
+                        "</div>" +
+                        "<img class='brandImg' src='" +
+                        items.imgPath +
+                        "' alt='images'>" +
+                        "<span>" +
+                        items.name +
+                        "</span>" +
+
+                        "</li>";
+
+                });
+                $("ul.brandSearch1").append(html);
+            },
+            err: function (err) {
+                console.log(err);
+            },
+        });
     });
-    $(".modalCloseBtn").click(function () {
+
+    $(document).on("click",'.searchBrandModal .brandContainer',function (){
+        $(this).find('input.radio').attr("checked", true);
+
+        $(this).siblings().find('input.radio').attr("checked", false);
+    });
+    $(document).on("click", '.searchBrandModal .brandSelect', function (){
+        let brandCode = $('.searchBrandModal input.radio:checked').parent().find('input[name="brandCode"]').val();
+        $(".sectionBackGroundBrand").css("display", "none");
+
+        $.ajax({
+            type: "post",
+            url: "/admin/getBrand",
+            data: "brandCode=" + brandCode,
+            success: function (data) {
+                $(".brandName").val(data.name);
+                $(".representativeNumber").val(data.phone);
+                $(".brandEmail").val(data.email);
+                $(".businessLocation").val(data.address);
+                $(".returnAddress").val(data.returnAddress);
+                $(".deliveryCharge").val(data.deliveryFee);
+                $(".kakaotalk").val(data.kakaoId);
+                $(".instagram").val(data.instagramId);
+                $(".brandphoto img").prop("src", data.imgPath);
+            },
+            error: function (err) {
+                console.log(err);
+            },
+        });
+    });
+
+
+    $(".modalCloseBtn").click(function(){
+
         $(".sectionBackGroundBrand").css("display", "none");
     });
 
@@ -288,10 +351,24 @@ $(document).ready(function () {
         $(".sectionBackGroundDelete").css("display", "none");
     });
 
-    $(".adminBrandDelete").click(function () {
+
+    // ------------------------------------
+    //      delete Modal
+    // ------------------------------------
+    $(".adminBrandDelete").click(function() {
         $(".sectionBackGroundDelete").css("display", "block");
     });
-    $(".modalCloseBtn").click(function () {
+    $('.sectionBackGroundDelete .noModalBtn').on("click", function (){
+        $(".sectionBackGroundDelete").css("display", "none");
+    });
+    $('.sectionBackGroundDelete .yesModalBtn').on("click", function (){
+        $(".sectionBackGroundDelete").css("display", "none");
+        location.reload();
+    });
+
+
+
+    $(".modalCloseBtn").click(function(){
         $(".sectionBackGroundDelete").css("display", "none");
     });
     $(".noModalBtn").click(function () {

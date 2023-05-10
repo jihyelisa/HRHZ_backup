@@ -32,7 +32,7 @@
             </li>
           </ul>
         </li>
-        <li class="adminParentMenu">
+        <!-- <li class="adminParentMenu">
           <b>상품관리</b>
           <ul>
             <li class="adminMenu">
@@ -48,7 +48,7 @@
               <a href="/admin/productImage">상품 사진</a>
             </li>
           </ul>
-        </li>
+        </li> -->
       </ul>
     </nav>
   </aside>

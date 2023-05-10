@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
-
+<div class="updateWrap">
 <section class="adminContentSection">
     <div class="formContainer">
         <div class="title">
@@ -112,4 +112,4 @@ pageEncoding="UTF-8"%>
         </form>
     </div>
 </section>
-
+</div>

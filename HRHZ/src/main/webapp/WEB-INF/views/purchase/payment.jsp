@@ -451,7 +451,6 @@ pageEncoding="UTF-8"%>
                                     <div class="paymentBtn">
                                         <button
                                             class="payment"
-                                            color="black"
                                             type="button"
                                             disabled
                                         >

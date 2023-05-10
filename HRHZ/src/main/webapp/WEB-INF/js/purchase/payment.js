@@ -283,8 +283,9 @@ $(function () {
                 $(this).parent().find('.infoErrorMsg').remove();
                 phone = newPhone.replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3");
 
-                if ($('.buyerName input').val() && $('.buyerEmail input').val())
-                    $('.ifoChangeBtn').attr("disabled", false);
+                if ($('.buyerName input').val().length>0 && $('.buyerEmail input').val().length>0){
+                    $('.infoChangeBtn').removeAttr("disabled");
+                }
             }
         } else {
             $('.infoChangeBtn').attr("disabled", true);
